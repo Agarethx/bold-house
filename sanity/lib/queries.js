@@ -55,6 +55,47 @@ export const portfolioItemsCountQuery = groq`
   count(*[_type == "portfolioItem"])
 `
 
+export const servicesQuery = groq`
+  *[_type == "service"] | order(publishedAt desc) {
+    _id,
+    title,
+    slug,
+    image,
+    order,
+    publishedAt
+  }
+`
+
+export const serviceBySlugQuery = groq`
+  *[_type == "service" && slug.current == $slug][0] {
+    _id,
+    title,
+    slug,
+    image,
+    body,
+    servicesList,
+    gallery,
+    tags,
+    order,
+    publishedAt
+  }
+`
+
+export const servicesPaginatedQuery = groq`
+  *[_type == "service"] | order(publishedAt desc) [$start...$end] {
+    _id,
+    title,
+    slug,
+    image,
+    order,
+    publishedAt
+  }
+`
+
+export const servicesCountQuery = groq`
+  count(*[_type == "service"])
+`
+
 export const clientsQuery = groq`
   *[_type == "client"] | order(order asc) {
     _id,

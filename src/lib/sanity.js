@@ -5,6 +5,10 @@ import {
   portfolioItemBySlugQuery,
   portfolioItemsPaginatedQuery,
   portfolioItemsCountQuery,
+  servicesQuery,
+  serviceBySlugQuery,
+  servicesPaginatedQuery,
+  servicesCountQuery,
   clientsQuery,
 } from '../../sanity/lib/queries'
 
@@ -60,6 +64,58 @@ export async function getPortfolioItemsPaginated(page = 1, pageSize = 10) {
     }
   } catch (error) {
     console.error('Error fetching paginated portfolio items:', error)
+    return {
+      items: [],
+      total: 0,
+      page,
+      pageSize,
+      totalPages: 0,
+    }
+  }
+}
+
+export async function getServices() {
+  try {
+    const services = await client.fetch(servicesQuery)
+    return services
+  } catch (error) {
+    console.error('Error fetching services:', error)
+    return []
+  }
+}
+
+export async function getServiceBySlug(slug) {
+  if (!slug || typeof slug !== 'string') {
+    console.error('Invalid slug provided to getServiceBySlug:', slug)
+    return null
+  }
+
+  try {
+    const service = await client.fetch(serviceBySlugQuery, { slug })
+    return service
+  } catch (error) {
+    console.error('Error fetching service:', error)
+    return null
+  }
+}
+
+export async function getServicesPaginated(page = 1, pageSize = 10) {
+  try {
+    const start = (page - 1) * pageSize
+    const end = start + pageSize
+    const [items, total] = await Promise.all([
+      client.fetch(servicesPaginatedQuery, { start, end }),
+      client.fetch(servicesCountQuery),
+    ])
+    return {
+      items,
+      total,
+      page,
+      pageSize,
+      totalPages: Math.ceil(total / pageSize),
+    }
+  } catch (error) {
+    console.error('Error fetching paginated services:', error)
     return {
       items: [],
       total: 0,
