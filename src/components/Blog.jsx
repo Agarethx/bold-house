@@ -1,25 +1,21 @@
-"use client"
-
 import Image from "next/image"
+import { getBlogPosts } from "@/lib/sanity"
+import { urlFor } from "../../sanity/lib/image"
 
-const blogPosts = [
-  {
-    id: 1,
-    title: "MARKETING DIGITAL EN 2026",
-    image: "/blog/post-1.jpg",
-    date: "28 ENE 2026",
-    readTime: "8/10 MIN READ",
-  },
-  {
-    id: 2,
-    title: "PROMTS TENDENCIA IA",
-    image: "/blog/post-2.jpg",
-    date: "04 FEB 2026",
-    readTime: "8 MIN READ",
-  },
-]
+export async function Blog() {
+  const blogPosts = await getBlogPosts()
 
-export function Blog() {
+  // Format date helper
+  const formatDate = (dateString) => {
+    if (!dateString) return ''
+    const date = new Date(dateString)
+    const day = date.getDate().toString().padStart(2, '0')
+    const months = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC']
+    const month = months[date.getMonth()]
+    const year = date.getFullYear()
+    return `${day} ${month} ${year}`
+  }
+
   return (
     <section className="bg-white py-16 px-6 md:px-12 lg:px-20">
       {/* Title */}
@@ -27,7 +23,7 @@ export function Blog() {
         <h2 className="text-5xl md:text-6xl lg:text-7xl leading-none">
           <span className="font-boldstrom text-[#1a1a1a]">#BLOG —</span>
           <br />
-          <span className="font-boldstrom-outline">
+          <span className="text-5xl md:text-5xl lg:text-6xl font-boldstrom text-[#e74895]">
             BOLD
           </span>
         </h2>
@@ -35,24 +31,29 @@ export function Blog() {
 
       {/* Blog Posts */}
       <div className="space-y-12 mb-12">
-        {blogPosts.map((post) => (
-          <article key={post.id} className="cursor-pointer group">
-            <h3 className="font-bold text-lg md:text-xl text-[#1a1a1a] mb-4">
-              {post.title}
-            </h3>
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl mb-3">
-              <Image
-                src={post.image || "/placeholder.svg"}
-                alt={post.title}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-            </div>
-            <p className="text-sm text-gray-500 uppercase tracking-wide">
-              {post.date} –{post.readTime}
-            </p>
-          </article>
-        ))}
+        {blogPosts.map((post) => {
+          const imageUrl = post.image ? urlFor(post.image).width(1200).height(900).url() : null
+          return (
+            <article key={post._id} className="cursor-pointer group">
+              <h3 className="font-bold text-lg md:text-xl text-[#1a1a1a] mb-4">
+                {post.title}
+              </h3>
+              {imageUrl && (
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl mb-3">
+                  <Image
+                    src={imageUrl}
+                    alt={post.title}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+              )}
+              <p className="text-sm text-gray-500 uppercase tracking-wide">
+                {formatDate(post.date)} – {post.readTime}
+              </p>
+            </article>
+          )
+        })}
       </div>
 
       {/* Circular Button with rotating text */}

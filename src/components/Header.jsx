@@ -10,15 +10,9 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false)
 
   const menuItems = [
-    { label: "AGENCIA CREATIVA", href: "/agencia-creativa" },
-    { label: "AGENCIA DE MARKETING", href: "/agencia-marketing" },
-    { label: "AGENCIA DIGITAL", href: "/agencia-digital" },
-    { label: "AGENCIA DE REDES SOCIALES", href: "/agencia-redes-sociales" },
-    { label: "AGENCIA INFLUENCERS", href: "/agencia-influencers" },
-    { label: "AGENCIA ECOMMERCE", href: "/agencia-ecommerce" },
-    { label: "BOLD FILMS", href: "/bold-films" },
-    { label: "BOLD BTL", href: "/bold-btl" },
-    { label: "MOTION GRAPHICS & 3D", href: "/motion-graphics" },
+    { label: "Inicio", href: "/" },
+    { label: "Skills", href: "/servicios" },
+    { label: "Portfolio", href: "/portfolio" },
   ]
 
   return (

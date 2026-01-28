@@ -15,22 +15,14 @@ export function Reel() {
       <div className="max-w-4xl mx-auto">
         {/* Top text */}
         <div className="mb-8">
-          <h2 className="text-3xl md:text-5xl font-black italic leading-tight text-[#1a1a1a]">
+          <h2 className="text-5xl md:text-5xl font-boldstrom leading-tight text-[#1a1a1a]">
             CREAMOS IDEAS
-            <br />
             QUE NOS
-            <br />
             MUEVEN
           </h2>
           <p
-            className="text-3xl md:text-5xl font-black italic leading-tight mt-2"
-            style={{
-              WebkitTextStroke: "1.5px #1a1a1a",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
+            className="text-5xl md:text-5xl font-boldstrom leading-tight mt-2 text-[#e74895]">
             SIN DEJAR —
-            <br />
             NADA AL AZAR.
           </p>
         </div>
@@ -58,7 +50,7 @@ export function Reel() {
 
         {/* Bottom text */}
         <div className="text-center mb-10">
-          <h3 className="text-2xl md:text-4xl font-black italic leading-tight text-[#1a1a1a]">
+          <h3 className="text-2xl md:text-4xl font-boldstrom leading-tight text-[#1a1a1a]">
             CONVIÉRTETE
             <br />
             EN UNA MARCA

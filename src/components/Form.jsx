@@ -23,7 +23,7 @@ export function Formulario() {
           <h2 className="text-5xl md:text-6xl font-boldstrom leading-none">
             <span className="text-[#1a1a1a]">#CON—</span>
           </h2>
-          <h2 className="text-5xl md:text-6xl font-boldstrom-outline leading-none">
+          <h2 className="text-5xl md:text-5xl lg:text-6xl font-boldstrom text-[#e74895]">
             TACTO
           </h2>
         </div>
