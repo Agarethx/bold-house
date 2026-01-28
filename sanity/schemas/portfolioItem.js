@@ -16,8 +16,18 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: (doc) => `${doc.brand}-${doc.product}`,
+        maxLength: 96,
+      },
+      validation: (Rule) => Rule.required(),
+    },
+    {
       name: 'image',
-      title: 'Image',
+      title: 'Featured Image',
       type: 'image',
       options: {
         hotspot: true,
@@ -25,11 +35,55 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'body',
+      title: 'Body Content',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+        },
+        {
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+        },
+      ],
+    },
+    {
+      name: 'gallery',
+      title: 'Gallery',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+        },
+      ],
+    },
+    {
+      name: 'tags',
+      title: 'Tags',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: {
+        layout: 'tags',
+      },
+    },
+    {
       name: 'order',
       title: 'Order',
       type: 'number',
       description: 'Order in which this item appears in the carousel',
       initialValue: 0,
+    },
+    {
+      name: 'publishedAt',
+      title: 'Published at',
+      type: 'datetime',
+      initialValue: () => new Date().toISOString(),
     },
   ],
   preview: {
@@ -50,6 +104,11 @@ export default {
       title: 'Order',
       name: 'orderAsc',
       by: [{ field: 'order', direction: 'asc' }],
+    },
+    {
+      title: 'Published Date',
+      name: 'publishedAtDesc',
+      by: [{ field: 'publishedAt', direction: 'desc' }],
     },
   ],
 }

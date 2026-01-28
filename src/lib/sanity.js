@@ -2,6 +2,9 @@ import { client } from '../../sanity/lib/client'
 import {
   blogPostsQuery,
   portfolioItemsQuery,
+  portfolioItemBySlugQuery,
+  portfolioItemsPaginatedQuery,
+  portfolioItemsCountQuery,
   clientsQuery,
 } from '../../sanity/lib/queries'
 
@@ -22,6 +25,48 @@ export async function getPortfolioItems() {
   } catch (error) {
     console.error('Error fetching portfolio items:', error)
     return []
+  }
+}
+
+export async function getPortfolioItemBySlug(slug) {
+  if (!slug || typeof slug !== 'string') {
+    console.error('Invalid slug provided to getPortfolioItemBySlug:', slug)
+    return null
+  }
+
+  try {
+    const item = await client.fetch(portfolioItemBySlugQuery, { slug })
+    return item
+  } catch (error) {
+    console.error('Error fetching portfolio item:', error)
+    return null
+  }
+}
+
+export async function getPortfolioItemsPaginated(page = 1, pageSize = 10) {
+  try {
+    const start = (page - 1) * pageSize
+    const end = start + pageSize
+    const [items, total] = await Promise.all([
+      client.fetch(portfolioItemsPaginatedQuery, { start, end }),
+      client.fetch(portfolioItemsCountQuery),
+    ])
+    return {
+      items,
+      total,
+      page,
+      pageSize,
+      totalPages: Math.ceil(total / pageSize),
+    }
+  } catch (error) {
+    console.error('Error fetching paginated portfolio items:', error)
+    return {
+      items: [],
+      total: 0,
+      page,
+      pageSize,
+      totalPages: 0,
+    }
   }
 }
 

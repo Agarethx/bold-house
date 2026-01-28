@@ -12,7 +12,7 @@ export function Header() {
   const menuItems = [
     { label: "Inicio", href: "/" },
     { label: "Skills", href: "/servicios" },
-    { label: "Portfolio", href: "/portfolio" },
+    { label: "Portfolio", href: "/portafolio" },
   ]
 
   return (

@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import {
   Carousel,
   CarouselContent,
@@ -35,31 +36,33 @@ export function CarouselHome({ portfolioItems = [] }) {
                   key={item._id}
                   className="pl-4 md:pl-6 basis-[85%] md:basis-[45%] lg:basis-[40%]"
                 >
-                  <div className="group cursor-pointer">
-                    {/* Image Container with Frame Effect */}
-                    {imageUrl && (
-                      <div className="relative bg-white rounded-2xl shadow-lg mb-4 md:mb-6">
-                        <div className="relative aspect-[4/5] rounded-xl overflow-hidden">
-                          <Image
-                            src={imageUrl}
-                            alt={`${item.brand} - ${item.product}`}
-                            fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
+                  <Link href={`/portafolio/${item.slug?.current}`}>
+                    <div className="group cursor-pointer">
+                      {/* Image Container with Frame Effect */}
+                      {imageUrl && (
+                        <div className="relative bg-white rounded-2xl shadow-lg mb-4 md:mb-6">
+                          <div className="relative aspect-[4/5] rounded-xl overflow-hidden">
+                            <Image
+                              src={imageUrl}
+                              alt={`${item.brand} - ${item.product}`}
+                              fill
+                              className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
 
-                    {/* Text Content */}
-                    <div className="text-black">
-                      <h3 className="text-xl md:text-2xl font-bold tracking-tight">
-                        {item.brand}
-                      </h3>
-                      <p className="text-lg md:text-xl font-light tracking-wide">
-                        {item.product}
-                      </p>
+                      {/* Text Content */}
+                      <div className="text-black">
+                        <h3 className="text-xl md:text-2xl font-bold tracking-tight">
+                          {item.brand}
+                        </h3>
+                        <p className="text-lg md:text-xl font-light tracking-wide">
+                          {item.product}
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </CarouselItem>
               )
             })}
