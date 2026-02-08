@@ -10,6 +10,7 @@ import {
   servicesPaginatedQuery,
   servicesCountQuery,
   clientsQuery,
+  navigationQuery,
 } from '../../sanity/lib/queries'
 
 export async function getBlogPosts() {
@@ -133,5 +134,15 @@ export async function getClients() {
   } catch (error) {
     console.error('Error fetching clients:', error)
     return []
+  }
+}
+
+export async function getNavigation() {
+  try {
+    const navigation = await client.fetch(navigationQuery)
+    return navigation || { menuItems: [], socialLinks: [] }
+  } catch (error) {
+    console.error('Error fetching navigation:', error)
+    return { menuItems: [], socialLinks: [] }
   }
 }

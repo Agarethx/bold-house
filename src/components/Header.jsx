@@ -1,27 +1,95 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { getNavigation } from "@/lib/sanity"
+import {
+  FaBehance,
+  FaVimeo,
+  FaInstagram,
+  FaLinkedin,
+  FaWhatsapp
+} from "react-icons/fa"
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
+  const [expandedItem, setExpandedItem] = useState(null)
+  const [navigationData, setNavigationData] = useState({
+    menuItems: [],
+    socialLinks: []
+  })
 
-  const menuItems = [
-    { label: "Inicio", href: "/" },
-    { label: "Skills", href: "/servicios" },
-    { label: "Portfolio", href: "/portafolio" },
-  ]
+  useEffect(() => {
+    async function fetchNavigation() {
+      const nav = await getNavigation()
+      setNavigationData(nav)
+    }
+    fetchNavigation()
+  }, [])
+
+  // Fallback menu items if Sanity data is not available
+  const menuItems = navigationData.menuItems && navigationData.menuItems.length > 0
+    ? navigationData.menuItems
+    : [
+        { label: "HOME", href: "/", isBold: true, isPink: false, subItems: [] },
+        { label: "SKILLS", href: "/servicios", isBold: true, isPink: true, subItems: [
+          { label: "AGENCIA CREATIVA", href: "/servicios/agencia-creativa" },
+          { label: "AGENCIA DE MARKETING", href: "/servicios/agencia-de-marketing" },
+          { label: "AGENCIA DIGITAL", href: "/servicios/agencia-digital" },
+          { label: "AGENCIA DE REDES SOCIALES", href: "/servicios/agencia-de-redes-sociales" },
+          { label: "AGENCIA INFLUENCERS", href: "/servicios/agencia-influencers" },
+          { label: "AGENCIA ECOMMERCE", href: "/servicios/agencia-ecommerce" },
+          { label: "BOLD FILMS", href: "/servicios/bold-films" },
+          { label: "BOLD BTL", href: "/servicios/bold-btl" },
+          { label: "MOTION GRAPHICS & 3D", href: "/servicios/motion-graphics-3d" },
+        ] },
+        { label: "PORTAFOLIO", href: "/portafolio", isBold: false, isPink: false, subItems: [] },
+        { label: "CLIENTES", href: "/clientes", isBold: true, isPink: false, subItems: [] },
+        { label: "BLOG", href: "/blog", isBold: false, isPink: false, subItems: [] },
+        { label: "CONTACTO", href: "/contacto", isBold: true, isPink: false, subItems: [] },
+      ]
+
+  const socialLinks = navigationData.socialLinks && navigationData.socialLinks.length > 0
+    ? navigationData.socialLinks
+    : [
+        { platform: "behance", url: "#", order: 0 },
+        { platform: "vimeo", url: "#", order: 1 },
+        { platform: "instagram", url: "#", order: 2 },
+        { platform: "linkedin", url: "#", order: 3 },
+        { platform: "whatsapp", url: "#", order: 4 },
+      ]
+
+  const getSocialIcon = (platform) => {
+    switch (platform.toLowerCase()) {
+      case "behance":
+        return <FaBehance className="w-6 h-6" />
+      case "vimeo":
+        return <FaVimeo className="w-6 h-6" />
+      case "instagram":
+        return <FaInstagram className="w-6 h-6" />
+      case "linkedin":
+        return <FaLinkedin className="w-6 h-6" />
+      case "whatsapp":
+        return <FaWhatsapp className="w-6 h-6" />
+      default:
+        return null
+    }
+  }
+
+  const toggleSubMenu = (index) => {
+    setExpandedItem(expandedItem === index ? null : index)
+  }
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-200">
+      <header className="sticky top-0 z-50 w-full bg-white">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <Link href="/" className="flex-shrink-0">
+            <Link href="/" className="shrink-0">
               <Image
                 src="/header_logo.png"
                 alt="BOLDHOUSE"
@@ -70,57 +138,112 @@ export function Header() {
 
       {/* Mobile Drawer */}
       <div
-        className={`fixed top-0 left-0 h-full w-80 max-w-[85vw] bg-[#1a1a2e] z-50 transform transition-transform duration-300 ease-in-out lg:hidden ${
+        className={`fixed top-0 left-0 h-full w-full bg-[#242129] z-50 transform transition-transform duration-300 ease-in-out lg:hidden ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex flex-col h-full">
           {/* Drawer Header */}
-          <div className="flex items-center justify-between p-4 border-b border-white/10">
+          <div className="flex items-center justify-between p-6">
             <Image
               src="/header_logo.png"
               alt="BOLDHOUSE"
-              width={150}
-              height={30}
-              className="h-8 w-auto invert brightness-0 invert"
+              width={200}
+              height={40}
+              className="h-8 md:h-10 w-auto invert brightness-0 invert"
+              priority
             />
+
             <button
               onClick={() => setIsOpen(false)}
-              className="p-2 text-white hover:bg-white/10 rounded-md transition-colors"
+              className="p-2 text-[#e74895] hover:text-[#ff5aa8] transition-colors"
               aria-label="Cerrar menú"
             >
-              <X className="w-6 h-6" />
+              <X className="w-8 h-8" strokeWidth={3} />
             </button>
           </div>
 
           {/* Drawer Navigation */}
-          <nav className="flex-1 overflow-y-auto py-6">
-            <ul className="space-y-1 px-4">
-              {menuItems.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className="block py-3 px-4 text-white font-semibold hover:bg-white/10 rounded-lg transition-colors tracking-wide"
-                  >
-                    {item.label}
-                  </Link>
+          <nav className="flex-1 overflow-y-auto py-8 px-6">
+            <ul className="">
+              {menuItems.map((item, index) => (
+                <li key={item.href || index}>
+                  <div>
+                    <Link
+                      href={item.href}
+                      onClick={(e) => {
+                        if (item.subItems && item.subItems.length > 0) {
+                          e.preventDefault()
+                          toggleSubMenu(index)
+                        } else {
+                          setIsOpen(false)
+                        }
+                      }}
+                      className={`block py-3 px-2 uppercase tracking-wider transition-colors font-boldstrom text-[36px] ${
+                        item.isPink
+                          ? "text-[#e74895] font-bold"
+                          : item.isBold
+                            ? "text-white font-bold"
+                            : "text-white font-normal"
+                      } hover:text-[#e74895]`}
+                    >
+                      <span className="text-[#e74895] mr-2">{">"}</span>
+                      {item.label}
+                    </Link>
+
+                    {/* Sub Menu Items */}
+                    {item.subItems && item.subItems.length > 0 && expandedItem === index && (
+                      <ul className="ml-6 mt-1 space-y-1">
+                        {item.subItems.map((subItem, subIndex) => (
+                          <li key={subItem.href || subIndex}>
+                            <Link
+                              href={subItem.href}
+                              onClick={() => setIsOpen(false)}
+                              className="block py-2 px-2 text-white uppercase tracking-wider font-bold hover:text-[#e74895] transition-colors"
+                            >
+                              <span className="text-[#e74895] mr-2">{">"}</span>
+                              {subItem.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </li>
               ))}
             </ul>
           </nav>
 
           {/* Drawer Footer */}
-          <div className="p-6 border-t border-white/10">
-            <Button
-              className="w-full bg-white text-[#1a1a2e] hover:bg-gray-100 rounded-full py-6 text-lg font-semibold"
-              onClick={() => setIsOpen(false)}
-            >
-              HABLEMOS
-            </Button>
-            <div className="mt-6 text-center">
-              <p className="text-white/80 text-sm">+569 796 90 794</p>
-              <p className="text-white/60 text-xs mt-1">CONTACTO@BOLDHOUSE.CL</p>
+          <div className="p-6 space-y-6">
+            {/* Social Media Icons */}
+            <div className="flex items-center justify-center gap-4">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.platform}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-[#e74895] hover:text-white transition-colors"
+                  aria-label={social.platform}
+                >
+                  {getSocialIcon(social.platform)}
+                </a>
+              ))}
+            </div>
+
+            {/* Be Bold Logo/Signature */}
+            <div className="text-center">
+              <p className="text-white text-sm font-boldstrom font-normal italic">
+                Be bold
+              </p>
+            </div>
+
+            {/* Copyright */}
+            <div className="text-center">
+              <p className="text-white/60 text-xs uppercase tracking-wide">
+                © COPYRIGHT 2026, ALL RIGHTS RESERVED BY BOLD HOUSE
+              </p>
             </div>
           </div>
         </div>

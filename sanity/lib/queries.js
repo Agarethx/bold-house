@@ -104,3 +104,25 @@ export const clientsQuery = groq`
     order
   }
 `
+
+export const navigationQuery = groq`
+  *[_type == "navigation"][0] {
+    _id,
+    menuItems[] | order(order asc) {
+      label,
+      href,
+      isBold,
+      isPink,
+      order,
+      subItems[] {
+        label,
+        href
+      }
+    },
+    socialLinks[] | order(order asc) {
+      platform,
+      url,
+      order
+    }
+  }
+`
