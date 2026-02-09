@@ -4,6 +4,7 @@ import Image from "next/image"
 import { urlFor } from "../../../../sanity/lib/image"
 import { PortableText } from "@portabletext/react"
 import Link from "next/link"
+import { RelatedPortfolioCarousel } from "@/components/RelatedPortfolioCarousel"
 
 export async function generateStaticParams() {
   try {
@@ -57,7 +58,10 @@ export default async function PortfolioDetailPage({ params }) {
     notFound()
   }
 
-  const item = await getPortfolioItemBySlug(slug)
+  const [item, allItems] = await Promise.all([
+    getPortfolioItemBySlug(slug),
+    getPortfolioItems(),
+  ])
 
   if (!item) {
     notFound()
@@ -145,6 +149,12 @@ export default async function PortfolioDetailPage({ params }) {
           </div>
         </div>
       )}
+
+      {/* Related Portfolio Carousel */}
+      <RelatedPortfolioCarousel
+        portfolioItems={allItems}
+        currentSlug={slug}
+      />
     </article>
   )
 }
