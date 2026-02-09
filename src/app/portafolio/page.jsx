@@ -12,11 +12,7 @@ export default async function PortfolioPage({ searchParams }) {
       {/* Title */}
       <div className="mb-12">
         <h2 className="text-5xl md:text-6xl lg:text-7xl leading-none">
-          <span className="font-boldstrom text-[#1a1a1a]">#PORTAFOLIO —</span>
-          <br />
-          <span className="text-5xl md:text-5xl lg:text-6xl font-boldstrom text-[#e74895]">
-            BOLD
-          </span>
+          <span className="font-boldstrom text-[#1a1a1a]">{">"}PORTA <br /> <span className="font-boldstrom text-[#e74895]">FOLIO</span></span>
         </h2>
       </div>
 
@@ -27,12 +23,7 @@ export default async function PortfolioPage({ searchParams }) {
           const slug = item.slug?.current || ''
           return (
             <Link key={item._id} href={`/portafolio/${slug}`}>
-              <article className="cursor-pointer group">
-                <h3 className="font-bold text-lg md:text-xl text-[#1a1a1a] mb-4">
-                  <span className="font-boldstrom">{item.brand}</span>
-                  {' '}
-                  <span className="font-boldstrom text-[#e74895]">{item.product}</span>
-                </h3>
+              <article className="cursor-pointer group mb-12">
                 {imageUrl && (
                   <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl mb-3">
                     <Image
@@ -43,6 +34,16 @@ export default async function PortfolioPage({ searchParams }) {
                     />
                   </div>
                 )}
+
+                  {/* Text Content */}
+                  <div className="text-black">
+                    <h3 className="text-xl md:text-2xl font-bold tracking-tight">
+                      {item.brand}
+                    </h3>
+                    <p className="text-lg md:text-xl font-light tracking-wide">
+                      {item.product}
+                    </p>
+                  </div>
               </article>
             </Link>
           )

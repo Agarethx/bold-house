@@ -108,7 +108,7 @@ export default async function PortfolioDetailPage({ params }) {
           <h2 className="text-3xl font-boldstrom text-[#1a1a1a] mb-6">
             Galería
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-6">
             {item.gallery.map((image, index) => {
               const imageUrl = image ? urlFor(image).width(800).height(600).url() : null
               if (!imageUrl) return null
@@ -145,16 +145,6 @@ export default async function PortfolioDetailPage({ params }) {
           </div>
         </div>
       )}
-
-      {/* Back Link */}
-      <div className="mt-12 pt-8 border-t border-gray-200">
-        <Link
-          href="/portafolio"
-          className="text-lg text-[#1a1a1a] hover:text-[#e74895] transition-colors"
-        >
-          ← Volver al portafolio
-        </Link>
-      </div>
     </article>
   )
 }
