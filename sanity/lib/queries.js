@@ -31,6 +31,21 @@ export const portfolioItemBySlugQuery = groq`
     product,
     slug,
     image,
+    video {
+      videoType,
+      videoFile {
+        asset-> {
+          _id,
+          url,
+          mimeType,
+          size
+        }
+      },
+      videoUrl,
+      thumbnail,
+      title,
+      subtitle
+    },
     body,
     gallery,
     tags,

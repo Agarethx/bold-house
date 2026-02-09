@@ -28,11 +28,6 @@ export default async function ServicesPage({ searchParams }) {
           return (
             <Link key={item._id} href={`/servicios/${slug}`}>
               <article className="cursor-pointer group">
-                <h3 className="font-bold text-lg md:text-xl text-[#1a1a1a] mb-4">
-                  <span className="font-boldstrom text-[#1a1a1a]">&gt; AGENCIA</span>
-                  {' '}
-                  <span className="font-boldstrom text-[#e74895]">{item.title}</span>
-                </h3>
                 {imageUrl && (
                   <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl mb-3">
                     <Image
@@ -43,6 +38,16 @@ export default async function ServicesPage({ searchParams }) {
                     />
                   </div>
                 )}
+
+                  {/* Text Content */}
+                  <div className="text-black">
+                    <h3 className="text-4xl md:text-2xl tracking-tight font-boldstrom">
+                      {">"} AGENCIA
+                    </h3>
+                    <p className="text-4xl md:text-2xl tracking-tight font-boldstrom text-[#e74895]">
+                      {item.title}
+                    </p>
+                  </div>
               </article>
             </Link>
           )

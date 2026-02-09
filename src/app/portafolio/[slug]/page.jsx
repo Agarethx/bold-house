@@ -5,6 +5,7 @@ import { urlFor } from "../../../../sanity/lib/image"
 import { PortableText } from "@portabletext/react"
 import Link from "next/link"
 import { RelatedPortfolioCarousel } from "@/components/RelatedPortfolioCarousel"
+import { PortfolioFeaturedMedia } from "@/components/PortfolioFeaturedMedia"
 
 export async function generateStaticParams() {
   try {
@@ -67,8 +68,6 @@ export default async function PortfolioDetailPage({ params }) {
     notFound()
   }
 
-  const featuredImageUrl = item.image ? urlFor(item.image).width(1200).height(800).url() : null
-
   return (
     <article className="bg-white py-16 px-6 md:px-12 lg:px-20 min-h-screen">
       {/* Header */}
@@ -86,18 +85,13 @@ export default async function PortfolioDetailPage({ params }) {
         </h1>
       </div>
 
-      {/* Featured Image */}
-      {featuredImageUrl && (
-        <div className="relative w-full aspect-video mb-12 rounded-2xl overflow-hidden">
-          <Image
-            src={featuredImageUrl}
-            alt={`${item.brand} - ${item.product}`}
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-      )}
+      {/* Featured Video or Image */}
+      <PortfolioFeaturedMedia
+        video={item.video}
+        image={item.image}
+        brand={item.brand}
+        product={item.product}
+      />
 
       {/* Body Content */}
       {item.body && (

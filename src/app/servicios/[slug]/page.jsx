@@ -161,16 +161,6 @@ export default async function ServiceDetailPage({ params }) {
           </div>
         </div>
       )}
-
-      {/* Back Link */}
-      <div className="mt-12 pt-8 border-t border-gray-200">
-        <Link
-          href="/servicios"
-          className="text-lg text-[#1a1a1a] hover:text-[#e74895] transition-colors"
-        >
-          ← Volver a servicios
-        </Link>
-      </div>
     </article>
   )
 }
