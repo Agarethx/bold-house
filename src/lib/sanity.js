@@ -11,6 +11,7 @@ import {
   servicesCountQuery,
   clientsQuery,
   navigationQuery,
+  siteConfigQuery,
 } from '../../sanity/lib/queries'
 
 export async function getBlogPosts() {
@@ -144,5 +145,37 @@ export async function getNavigation() {
   } catch (error) {
     console.error('Error fetching navigation:', error)
     return { menuItems: [], socialLinks: [] }
+  }
+}
+
+export async function getSiteConfig() {
+  try {
+    const siteConfig = await client.fetch(siteConfigQuery)
+    return siteConfig || { videoBanner: [], videoReel: [] }
+  } catch (error) {
+    console.error('Error fetching site config:', error)
+    return { videoBanner: [], videoReel: [] }
+  }
+}
+
+// Get the first video from videoReel array
+export async function getReelVideo() {
+  try {
+    const siteConfig = await client.fetch(siteConfigQuery)
+    return siteConfig?.videoReel?.[0] || null
+  } catch (error) {
+    console.error('Error fetching reel video:', error)
+    return null
+  }
+}
+
+// Get the first video from videoBanner array
+export async function getBannerVideo() {
+  try {
+    const siteConfig = await client.fetch(siteConfigQuery)
+    return siteConfig?.videoBanner?.[0] || null
+  } catch (error) {
+    console.error('Error fetching banner video:', error)
+    return null
   }
 }

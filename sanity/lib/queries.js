@@ -56,11 +56,12 @@ export const portfolioItemsCountQuery = groq`
 `
 
 export const servicesQuery = groq`
-  *[_type == "service"] | order(publishedAt desc) {
+  *[_type == "service"] | order(order asc, publishedAt desc) {
     _id,
     title,
     slug,
     image,
+    excerpt,
     order,
     publishedAt
   }
@@ -123,6 +124,45 @@ export const navigationQuery = groq`
       platform,
       url,
       order
+    }
+  }
+`
+
+export const siteConfigQuery = groq`
+  *[_type == "siteConfig"][0] {
+    _id,
+    title,
+    videoBanner[] {
+      name,
+      videoType,
+      videoFile {
+        asset-> {
+          _id,
+          url,
+          mimeType,
+          size
+        }
+      },
+      videoUrl,
+      thumbnail,
+      title,
+      subtitle
+    },
+    videoReel[] {
+      name,
+      videoType,
+      videoFile {
+        asset-> {
+          _id,
+          url,
+          mimeType,
+          size
+        }
+      },
+      videoUrl,
+      thumbnail,
+      title,
+      subtitle
     }
   }
 `

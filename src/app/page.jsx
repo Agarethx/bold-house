@@ -15,11 +15,10 @@ export default async function Home() {
   return (
     <>
         <BigBanner />
-        <CarouselHome portfolioItems={portfolioItems} />
         <Reel />
-        <Player />
-        <Clients />
         <Services />
+        <CarouselHome portfolioItems={portfolioItems} />
+        <Clients />
         <Blog />
         <Formulario />
     </>

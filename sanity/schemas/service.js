@@ -30,6 +30,13 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'excerpt',
+      title: 'Excerpt',
+      type: 'text',
+      description: 'Texto breve que se mostrará debajo del título en el carrusel',
+      validation: (Rule) => Rule.max(200),
+    },
+    {
       name: 'body',
       title: 'Body Content',
       type: 'array',

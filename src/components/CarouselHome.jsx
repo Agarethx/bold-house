@@ -15,10 +15,20 @@ export function CarouselHome({ portfolioItems = [] }) {
   return (
     <section className="py-12 md:py-20">
       <div className="container mx-auto px-4">
-        {/* Header */}
-        <p className="text-white/60 text-sm tracking-widest mb-8 md:mb-12">
-          PORTAFILIO CARRUSEL
-        </p>
+        <div className="mb-8">
+          <h2 className="text-4xl md:text-5xl font-boldstrom leading-[33px] text-[#1a1a1a]">
+            La valentíanos define, —
+            <br />
+            la estrategia nos guia —
+          </h2>
+          <p className="text-4xl md:text-5xl font-boldstrom leading-[33px] mt-2 text-[#e74895]">
+            y la audacia
+            <br />
+            nos
+            <br />
+            representa
+          </p>
+        </div>
 
         {/* Carousel */}
         <Carousel
