@@ -19,13 +19,13 @@ export async function Clients() {
         </div>
 
         {/* Logo Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-6">
+        <div className="grid grid-cols-3 md:grid-cols-3 gap-8 md:gap-6">
           {clients.map((client) => {
             const logoUrl = client.logo ? urlFor(client.logo).width(280).height(160).url() : null
             return (
               <div
                 key={client._id}
-                className="bg-white rounded-[50px] shadow-md hover:shadow-lg transition-shadow p-6 md:p-8 flex items-center justify-center aspect-square border border-black"
+                className="bg-white rounded-[30px] shadow-md hover:shadow-lg transition-shadow p-6 md:p-8 flex items-center justify-center aspect-square border border-black"
               >
                 {logoUrl && (
                   <Image

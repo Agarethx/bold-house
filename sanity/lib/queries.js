@@ -8,6 +8,7 @@ export const blogPostsQuery = groq`
     image,
     date,
     readTime,
+    body,
     publishedAt
   }
 `

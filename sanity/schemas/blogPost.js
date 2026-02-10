@@ -42,6 +42,22 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'body',
+      title: 'Body Content',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+        },
+        {
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+        },
+      ],
+    },
+    {
       name: 'publishedAt',
       title: 'Published at',
       type: 'datetime',
