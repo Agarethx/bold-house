@@ -169,3 +169,20 @@
 .animate-marquee-left {
   animation: marquee-left 20s linear infinite;
 }
+
+/* Player modal entrance - video grows from center */
+@keyframes player-video-expand {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-player-video-expand {
+  transform-origin: center center;
+  animation: player-video-expand 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
