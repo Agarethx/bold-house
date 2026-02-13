@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Link from "next/link"
 import Image from "next/image"
 import {
   Carousel,
@@ -30,17 +31,17 @@ export function Services() {
     fetchServices()
   }, [])
   return (
-    <section className="bg-[#242129] py-5 md:py-24 overflow-hidden">
+    <section className="bg-[#242129] py-8 md:py-24 overflow-hidden">
       {/* Animated Background Text */}
       <div className="relative mb-5">
         {/* Top marquee - moves right */}
         <div className="overflow-hidden whitespace-nowrap">
           <div className="animate-marquee-right inline-block">
             <span className="text-8xl md:text-8xl lg:text-9xl font-black text-[#e74895] inline-block font-boldstrom">
-              {"› BOLD SKILLS › BOLD SKILLS › BOLD SKILLS › BOLD SKILLS "}
+              {"> BOLD SKILLS > BOLD SKILLS > BOLD SKILLS > BOLD SKILLS "}
             </span>
             <span className="text-6xl md:text-8xl lg:text-9xl font-black text-[#e74895] inline-block font-boldstrom">
-              {"› BOLD SKILLS › BOLD SKILLS › BOLD SKILLS › BOLD SKILLS "}
+              {"> BOLD SKILLS > BOLD SKILLS > BOLD SKILLS > BOLD SKILLS "}
             </span>
           </div>
         </div>
@@ -50,11 +51,11 @@ export function Services() {
           <div className="animate-marquee-left inline-block">
             <span
               className="text-8xl md:text-8xl lg:text-9xl text-white inline-block font-boldstrom">
-              {"SKILLS ‹ BOLD SKILLS ‹ BOLD SKILLS ‹ BOLD SKILLS ‹ BOLD "}
+              {"CASA CREATIVA < CASA CREATIVA < CASA CREATIVA < CASA CREATIVA < CASA CREATIVA "}
             </span>
             <span
               className="text-6xl md:text-8xl lg:text-9xl text-white inline-block font-boldstrom">
-              {"SKILLS ‹ BOLD SKILLS ‹ BOLD SKILLS ‹ BOLD SKILLS ‹ BOLD "}
+              {"CASA CREATIVA < CASA CREATIVA < CASA CREATIVA < CASA CREATIVA < CASA CREATIVA "}
             </span>
           </div>
         </div>
@@ -92,14 +93,17 @@ export function Services() {
                   <CarouselItem key={service._id || index} className="pl-4 md:basis-1/2 lg:basis-1/3">
                     <div className="flex flex-col items-center text-left">
                       {/* Service Image */}
-                      <div className="relative w-full h-50 md:w-72 md:h-72 mb-6 rounded-[150px] overflow-hidden">
+                      <Link
+                        href={`/servicios/${service.slug?.current || ""}`}
+                        className="relative block w-full h-50 md:w-72 md:h-72 mb-6 rounded-[150px] overflow-hidden group cursor-pointer"
+                      >
                         <Image
                           src={imageUrl}
                           alt={service.title || "Service"}
                           fill
-                          className="object-cover"
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
                         />
-                      </div>
+                      </Link>
 
                       {/* Service Title */}
                       <h3 className="text-5xl md:text-3xl font-black text-white mb-4 font-boldstrom text-left w-full">
@@ -108,7 +112,7 @@ export function Services() {
 
                       {/* Service Excerpt */}
                       {service.excerpt && (
-                        <p className="text-white/80 text-sm md:text-base leading-relaxed max-w-sm mb-4">
+                        <p className="text-white/80 text-sm md:text-base leading-relaxed max-w-sm mb-4 uppercase">
                           {service.excerpt}
                         </p>
                       )}

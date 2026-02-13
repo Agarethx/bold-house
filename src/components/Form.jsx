@@ -40,7 +40,7 @@ export function Formulario() {
   }
 
   return (
-    <section id="contacto" className="bg-white py-16 md:py-24">
+    <section id="contacto" className="bg-white py-8 md:py-24">
       <div className="container mx-auto px-6 max-w-xl">
         <div className="mb-8">
           <h2 className="text-5xl md:text-6xl font-boldstrom leading-none">
@@ -77,7 +77,7 @@ export function Formulario() {
             placeholder="NOMBRE"
             value={formData.nombre}
             onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-            className="w-full px-6 py-4 border-2 border-[#1a1a1a] rounded-full text-sm font-medium placeholder:text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#e74895] focus:border-transparent"
+            className="w-full px-6 py-4 border border-[#1a1a1a] rounded-full text-sm font-medium placeholder:text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#e74895] focus:border-transparent"
           />
 
           <input
@@ -85,7 +85,7 @@ export function Formulario() {
             placeholder="EMAIL"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="w-full px-6 py-4 border-2 border-[#1a1a1a] rounded-full text-sm font-medium placeholder:text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#e74895] focus:border-transparent"
+            className="w-full px-6 py-4 border border-[#1a1a1a] rounded-full text-sm font-medium placeholder:text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#e74895] focus:border-transparent"
           />
 
           <textarea
@@ -93,13 +93,13 @@ export function Formulario() {
             value={formData.mensaje}
             onChange={(e) => setFormData({ ...formData, mensaje: e.target.value })}
             rows={6}
-            className="w-full px-6 py-4 border-2 border-[#1a1a1a] rounded-3xl text-sm font-medium placeholder:text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#e74895] focus:border-transparent resize-none"
+            className="w-full px-6 py-4 border border-[#1a1a1a] rounded-3xl text-sm font-medium placeholder:text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#e74895] focus:border-transparent resize-none"
           />
 
           <button
             type="submit"
             disabled={status === "loading"}
-            className="w-full py-4 bg-[#e74895] hover:bg-[#d11a7d] disabled:opacity-70 disabled:cursor-not-allowed text-white font-bold text-sm tracking-wider rounded-full transition-colors mt-4"
+            className="bg-[#e74895] hover:bg-[#e74895] text-white text-[22px] tracking-wider px-6 py-4 rounded-full transition-colors w-full font-ambit text-center"
           >
             {status === "loading" ? "ENVIANDO..." : "ENVIAR"}
           </button>

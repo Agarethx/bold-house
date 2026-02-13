@@ -102,7 +102,7 @@ export function Reel() {
   }
 
   return (
-    <section className="bg-white px-6 py-16 md:py-24">
+    <section className="bg-white px-4 pt-4 pb-8 md:py-24">
       <div className="max-w-4xl mx-auto">
         {/* Top text */}
         <div className="mb-8">
@@ -119,7 +119,7 @@ export function Reel() {
         </div>
 
         {/* Video - Always visible, loop */}
-        <div className="relative w-full aspect-[3/4] md:aspect-video max-w-md mx-auto mb-12 rounded-2xl overflow-hidden">
+        <div className="relative w-full aspect-[3/4] md:aspect-video max-w-md mx-auto mb-8 rounded-2xl overflow-hidden">
           <div className="relative w-full h-full">
             {videoUrl && isEmbedVideo ? (
               <iframe
@@ -165,7 +165,7 @@ export function Reel() {
         </div>
 
         {/* Bottom text */}
-        <div className="text-left mb-10">
+        <div className="text-left mb-8">
           <h3 className="text-5xl md:text-5xl font-boldstrom leading-[40px] text-[#1a1a1a]">
             CONVIÉRTETE EN UNA MARCA MEMORABLE.
           </h3>
@@ -173,12 +173,14 @@ export function Reel() {
 
         {/* CTA Button */}
         <div className="flex justify-center">
-          <button
-            onClick={scrollToForm}
-            className="bg-[#e74895] hover:bg-[#d11a7d] text-white text-lg tracking-wider px-6 py-6 rounded-full transition-colors w-full font-boldstrom"
+          <a
+            href="https://calendar.app.google/3ADtTxgb9j34WFAP9"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#e74895] hover:bg-[#e74895] text-white text-[22px] tracking-wider px-6 py-4 rounded-full transition-colors w-full font-ambit text-center"
           >
             {ctaButtonText}
-          </button>
+          </a>
         </div>
       </div>
     </section>

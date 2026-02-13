@@ -66,7 +66,7 @@ export function BigBanner() {
     : "/img/VIDEO_.png"
 
   return (
-    <section className="w-full bg-white py-8 md:py-12 lg:py-16">
+    <section className="w-full bg-white py-4 md:py-12 lg:py-16">
       <div className="container mx-auto px-4 flex flex-col items-center">
         {/* BE BOLD Text */}
         <div className="flex flex-col items-start leading-[20px]">
@@ -75,11 +75,11 @@ export function BigBanner() {
             <span className="text-[#e74895] font-black text-[150px] sm:text-7xl md:text-8xl lg:text-9xl leading-none mr-1 font-boldstrom">
               {'>'}
             </span>
-            <span className="font-black text-[#201b25] text-[150px] sm:text-7xl md:text-8xl lg:text-9xl tracking-tight leading-none font-boldstrom">
+            <span className="text-[#201b25] text-[150px] sm:text-7xl md:text-8xl lg:text-9xl tracking-tight leading-none font-boldstrom">
               BE
             </span>
           </div>
-          <span className="font-black text-[#201b25] text-[150px] sm:text-7xl md:text-8xl lg:text-9xl tracking-tight -mt-2 md:-mt-4 font-boldstrom leading-[104px]">
+          <span className="text-[#201b25] text-[150px] sm:text-7xl md:text-8xl lg:text-9xl tracking-tight -mt-2 md:-mt-4 font-boldstrom leading-[104px]">
             BOLD
           </span>
         </div>
@@ -90,7 +90,7 @@ export function BigBanner() {
         </p>
 
         {/* Video/Image Container with Oval Shape */}
-        <div className="w-full max-w-3xl mt-8 md:mt-12 relative">
+        <div className="w-full max-w-3xl mt-4 md:mt-12 relative">
           {/* Oval container */}
           <div className="relative w-full" style={{ paddingBottom: '50%' }}>
             <div className="absolute inset-0 rounded-[100px] overflow-hidden">

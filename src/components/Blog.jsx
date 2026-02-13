@@ -4,7 +4,8 @@ import { getBlogPosts } from "@/lib/sanity"
 import { urlFor } from "../../sanity/lib/image"
 
 export async function Blog() {
-  const blogPosts = await getBlogPosts()
+  const allPosts = await getBlogPosts()
+  const blogPosts = allPosts.slice(0, 3)
 
   // Format date helper
   const formatDate = (dateString) => {
@@ -18,7 +19,7 @@ export async function Blog() {
   }
 
   return (
-    <section id="blog" className="bg-white py-16 px-6 md:px-12 lg:px-20">
+    <section id="blog" className="bg-white py-8 px-4 md:px-12 lg:px-20">
       {/* Title */}
       <div className="mb-12">
         <h2 className="text-5xl md:text-6xl lg:text-7xl leading-none">
@@ -62,9 +63,9 @@ export async function Blog() {
 
       {/* Circular Button with rotating text */}
       <div className="flex justify-center">
-        <button
-          type="button"
-          className="relative w-24 h-24 md:w-28 md:h-28 group"
+        <Link
+          href="/blog"
+          className="relative block w-24 h-24 md:w-28 md:h-28 group cursor-pointer"
           aria-label="Ver más artículos del blog"
         >
           {/* Rotating text circle */}
@@ -94,7 +95,7 @@ export async function Blog() {
               <div className="w-3 h-3 md:w-3.5 md:h-3.5 bg-[#1a1a1a] rounded-sm" />
             </div>
           </div>
-        </button>
+        </Link>
       </div>
     </section>
   )
