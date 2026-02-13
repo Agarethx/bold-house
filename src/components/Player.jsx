@@ -60,20 +60,20 @@ export function Player({ video, isOpen, onClose }) {
     ? urlFor(video.thumbnail).width(1200).height(800).url()
     : "/player-thumbnail.jpg"
 
-  // If used as popup (isOpen prop provided), render as modal
+  // If used as popup (isOpen prop provided), render as fullscreen modal
   if (isOpen) {
     return (
       <div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4"
+        className="fixed inset-0 z-50 flex flex-col bg-[#242129]"
         onClick={onClose}
       >
         <div
-          className="relative w-full max-w-6xl"
+          className="relative flex-1 flex flex-col min-h-0 w-full"
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Player Content */}
-          <section className="bg-[#242129] pt-28 pb-16 md:py-24 overflow-hidden relative rounded-2xl">
-      <div className="container mx-auto px-4">
+          {/* Player Content - Fullscreen */}
+          <section className="flex-1 flex flex-col pt-20 pb-8 md:pt-24 md:pb-12 overflow-hidden relative min-h-0 items-center justify-center">
+      <div className="container mx-auto px-0">
         {/* Circular Badge - Top Right - Close Button */}
         <button
           onClick={onClose}
@@ -106,34 +106,31 @@ export function Player({ video, isOpen, onClose }) {
         </button>
 
         {/* Animated Background Text */}
-        <div className="relative">
+        <div className="relative w-full -top-7">
           {/* Top text - moves right */}
-          <div className="overflow-hidden whitespace-nowrap mb-2">
+          <div className="overflow-hidden whitespace-nowrap mb-0">
             <div className="animate-marquee-right inline-block">
-              <span className="text-white text-6xl md:text-8xl lg:text-9xl font-boldstrom">
+              <span className="text-white text-7xl md:text-8xl lg:text-9xl font-boldstrom">
                 {"> BOLD HOUSE > BOLD HOUSE > BOLD HOUSE > BOLD HOUSE > BOLD HOUSE "}
               </span>
             </div>
           </div>
 
           {/* Bottom text - moves left */}
-          <div className="overflow-hidden whitespace-nowrap">
+          <div className="overflow-hidden whitespace-nowrap relative -top-3">
             <div className="animate-marquee-left inline-block">
               <span
-                className="text-6xl md:text-8xl lg:text-9xl font-black italic"
-                style={{
-                  WebkitTextStroke: "2px rgba(255,255,255,0.3)",
-                  WebkitTextFillColor: "transparent",
-                }}
-              >
+                className="text-7xl md:text-8xl lg:text-9xl text-white font-boldstrom">
                 {"BRAVE> BE BRAVE> BE BRAVE> BE BRAVE> BE BRAVE> BE BRAVE> BE "}
               </span>
             </div>
           </div>
+        </div>
 
-          {/* Video Container - overlapping the text */}
-          <div className="relative z-10 -mt-20 md:-mt-32 lg:-mt-40 max-w-3xl mx-auto">
-            <div className="relative aspect-video rounded-2xl overflow-hidden">
+          {/* Video Container - fills viewport, true fullscreen */}
+          <div className="relative z-10 flex-1 flex items-center justify-center min-h-0 -mt-16 md:-mt-24">
+            <div className="relative w-full h-full min-h-0 flex items-center justify-center px-4">
+              <div className="relative w-full max-w-[90vw] aspect-video rounded-2xl overflow-hidden">
               {videoUrl && isEmbedVideo ? (
                 <iframe
                   src={`${videoUrl}?autoplay=1`}
@@ -173,17 +170,17 @@ export function Player({ video, isOpen, onClose }) {
                 />
               )}
               {/* Video overlay text */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 hidden">
+              <div className="absolute inset-0 bg-black/20 hidden px-4">
                 <span className="text-white/80 text-sm tracking-widest uppercase mb-1">Legado</span>
                 <span className="text-white text-2xl md:text-3xl font-bold tracking-wide">AIR MAX</span>
                 <span className="text-white/60 text-xs tracking-wider mt-1">CONTRATO DE HERENCIA</span>
               </div>
+              </div>
             </div>
           </div>
-        </div>
 
         {/* Player Controls */}
-        <div className="mt-8 flex items-center justify-between max-w-3xl mx-auto">
+        <div className="mt-8 flex items-center justify-between max-w-3xl mx-auto px-4">
           {/* Project Info */}
           <div>
             <h3 className="text-white font-bold text-lg">{video?.title || 'NIKE'}</h3>
