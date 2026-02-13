@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 import { getReelVideo } from "@/lib/sanity"
 import { urlFor } from "../../sanity/lib/image"
-import { Player } from "./Player"
 
 // Helper function to extract YouTube video ID
 function getYouTubeId(url) {
@@ -23,7 +22,6 @@ function getVimeoId(url) {
 export function Reel() {
   const [video, setVideo] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     async function fetchVideo() {
@@ -38,26 +36,6 @@ export function Reel() {
     }
     fetchVideo()
   }, [])
-
-  const handleVideoClick = () => {
-    setIsModalOpen(true)
-  }
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
-  }
-
-  // Prevent body scroll when modal is open
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [isModalOpen])
 
   const scrollToForm = () => {
     const formElement = document.getElementById("contacto")
@@ -83,7 +61,7 @@ export function Reel() {
     ? urlFor(video.thumbnail).width(1200).height(800).url()
     : "/reel-thumbnail.jpg"
 
-  // Get video URL based on type
+  // Get video URL based on type (with loop params for embeds)
   const getVideoUrl = () => {
     if (!video) return null
 
@@ -92,11 +70,12 @@ export function Reel() {
         return video.videoFile?.asset?.url || null
       case 'youtube': {
         const videoId = getYouTubeId(video.videoUrl)
-        return videoId ? `https://www.youtube.com/embed/${videoId}` : null
+        // YouTube requires playlist=videoId for loop to work
+        return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}` : null
       }
       case 'vimeo': {
         const videoId = getVimeoId(video.videoUrl)
-        return videoId ? `https://player.vimeo.com/video/${videoId}` : null
+        return videoId ? `https://player.vimeo.com/video/${videoId}?autoplay=1&loop=1&muted=1` : null
       }
       case 'url':
         return video.videoUrl || null
@@ -139,33 +118,39 @@ export function Reel() {
           </p>
         </div>
 
-        {/* Video/Image thumbnail - Always visible */}
+        {/* Video - Always visible, loop */}
         <div className="relative w-full aspect-[3/4] md:aspect-video max-w-md mx-auto mb-12 rounded-2xl overflow-hidden">
-          <div
-            className="relative w-full h-full cursor-pointer group"
-            onClick={handleVideoClick}
-          >
-            <Image
-              src={thumbnailUrl}
-              alt="Reel video thumbnail"
-              fill
-              className="object-cover transition-opacity group-hover:opacity-90"
-            />
-            {/* Play button overlay */}
-            <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
-              <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/30 transition-colors">
-                <svg
-                  className="w-10 h-10 md:w-12 md:h-12 text-white ml-1"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-            </div>
+          <div className="relative w-full h-full">
+            {videoUrl && isEmbedVideo ? (
+              <iframe
+                src={videoUrl}
+                className="w-full h-full object-cover"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title="Reel"
+              />
+            ) : videoUrl && (video?.videoType === 'file' || video?.videoType === 'url') ? (
+              <video
+                src={videoUrl}
+                className="w-full h-full object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline
+              >
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <Image
+                src={thumbnailUrl}
+                alt="Reel video thumbnail"
+                fill
+                className="object-cover"
+              />
+            )}
             {/* Overlay text */}
             {overlayText && (
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none hidden">
                 <span
                   className="text-5xl md:text-7xl font-black italic text-white/90"
                   style={{
@@ -190,21 +175,12 @@ export function Reel() {
         <div className="flex justify-center">
           <button
             onClick={scrollToForm}
-            className="bg-[#E91E8C] hover:bg-[#d11a7d] text-white font-bold text-lg tracking-wider px-6 py-6 rounded-full transition-colors w-full font-boldstrom"
+            className="bg-[#e74895] hover:bg-[#d11a7d] text-white font-bold text-lg tracking-wider px-6 py-6 rounded-full transition-colors w-full font-boldstrom"
           >
             {ctaButtonText}
           </button>
         </div>
       </div>
-
-      {/* Video Modal/Popup - Using Player Component */}
-      {isModalOpen && video && (
-        <Player
-          video={video}
-          isOpen={true}
-          onClose={handleCloseModal}
-        />
-      )}
     </section>
   )
 }

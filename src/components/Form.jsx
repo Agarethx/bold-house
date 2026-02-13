@@ -44,7 +44,7 @@ export function Formulario() {
             placeholder="NOMBRE"
             value={formData.nombre}
             onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-            className="w-full px-6 py-4 border-2 border-[#1a1a1a] rounded-full text-sm font-medium placeholder:text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#E91E8C] focus:border-transparent"
+            className="w-full px-6 py-4 border-2 border-[#1a1a1a] rounded-full text-sm font-medium placeholder:text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#e74895] focus:border-transparent"
           />
 
           <input
@@ -52,7 +52,7 @@ export function Formulario() {
             placeholder="EMAIL"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="w-full px-6 py-4 border-2 border-[#1a1a1a] rounded-full text-sm font-medium placeholder:text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#E91E8C] focus:border-transparent"
+            className="w-full px-6 py-4 border-2 border-[#1a1a1a] rounded-full text-sm font-medium placeholder:text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#e74895] focus:border-transparent"
           />
 
           <textarea
@@ -60,12 +60,12 @@ export function Formulario() {
             value={formData.mensaje}
             onChange={(e) => setFormData({ ...formData, mensaje: e.target.value })}
             rows={6}
-            className="w-full px-6 py-4 border-2 border-[#1a1a1a] rounded-3xl text-sm font-medium placeholder:text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#E91E8C] focus:border-transparent resize-none"
+            className="w-full px-6 py-4 border-2 border-[#1a1a1a] rounded-3xl text-sm font-medium placeholder:text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#e74895] focus:border-transparent resize-none"
           />
 
           <button
             type="submit"
-            className="w-full py-4 bg-[#E91E8C] hover:bg-[#d11a7d] text-white font-bold text-sm tracking-wider rounded-full transition-colors mt-4"
+            className="w-full py-4 bg-[#e74895] hover:bg-[#d11a7d] text-white font-bold text-sm tracking-wider rounded-full transition-colors mt-4"
           >
             ENVIAR
           </button>

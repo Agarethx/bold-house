@@ -66,7 +66,7 @@ export default async function ServiceDetailPage({ params }) {
   const featuredImageUrl = item.image ? urlFor(item.image).width(1200).height(800).url() : null
 
   return (
-    <article className="bg-white py-16 px-6 md:px-12 lg:px-20 min-h-screen">
+    <article className="bg-white py-5 px-6 md:px-12 lg:px-20 min-h-screen">
       {/* Header */}
       <div className="mb-12">
         <Link

@@ -11,7 +11,7 @@ export default async function PortfolioPage({ searchParams }) {
     <section className="bg-white py-16 px-6 md:px-12 lg:px-20 min-h-screen">
       {/* Title */}
       <div className="mb-12">
-        <h2 className="text-5xl md:text-6xl lg:text-7xl leading-none">
+        <h2 className="text-6xl md:text-6xl lg:text-7xl leading-[45px]">
           <span className="font-boldstrom text-[#1a1a1a]">{">"}PORTA <br /> <span className="font-boldstrom text-[#e74895]">FOLIO</span></span>
         </h2>
       </div>

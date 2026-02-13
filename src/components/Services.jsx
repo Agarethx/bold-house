@@ -30,13 +30,13 @@ export function Services() {
     fetchServices()
   }, [])
   return (
-    <section className="bg-[#242129] py-16 md:py-24 overflow-hidden">
+    <section className="bg-[#242129] py-5 md:py-24 overflow-hidden">
       {/* Animated Background Text */}
-      <div className="relative mb-8">
+      <div className="relative mb-5">
         {/* Top marquee - moves right */}
         <div className="overflow-hidden whitespace-nowrap">
           <div className="animate-marquee-right inline-block">
-            <span className="text-6xl md:text-8xl lg:text-9xl font-black text-white inline-block font-boldstrom">
+            <span className="text-8xl md:text-8xl lg:text-9xl font-black text-white inline-block font-boldstrom">
               {"› BOLD SKILLS › BOLD SKILLS › BOLD SKILLS › BOLD SKILLS "}
             </span>
             <span className="text-6xl md:text-8xl lg:text-9xl font-black text-white inline-block font-boldstrom">
@@ -49,7 +49,7 @@ export function Services() {
         <div className="overflow-hidden whitespace-nowrap -mt-1 md:-mt-6">
           <div className="animate-marquee-left inline-block">
             <span
-              className="text-6xl md:text-8xl lg:text-9xl text-white inline-block font-boldstrom">
+              className="text-8xl md:text-8xl lg:text-9xl text-white inline-block font-boldstrom">
               {"SKILLS ‹ BOLD SKILLS ‹ BOLD SKILLS ‹ BOLD SKILLS ‹ BOLD "}
             </span>
             <span

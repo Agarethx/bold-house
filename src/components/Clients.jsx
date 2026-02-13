@@ -25,15 +25,15 @@ export async function Clients() {
             return (
               <div
                 key={client._id}
-                className="bg-white rounded-[30px] shadow-md hover:shadow-lg transition-shadow p-6 md:p-8 flex items-center justify-center aspect-square border border-black"
+                className="bg-white rounded-[30px] shadow-md hover:shadow-lg transition-shadow p-3 md:p-8 flex items-center justify-center aspect-square border border-black"
               >
                 {logoUrl && (
                   <Image
                     src={logoUrl}
                     alt={`Logo de ${client.name}`}
-                    width={140}
-                    height={80}
-                    className="object-contain max-h-16 md:max-h-20 w-auto"
+                    width={180}
+                    height={120}
+                    className="object-contain max-h-20 md:max-h-20 w-auto"
                   />
                 )}
               </div>
