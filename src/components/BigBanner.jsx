@@ -128,7 +128,7 @@ export function BigBanner() {
             </div>
 
             {/* Rotating text circle - top left corner, no animation */}
-            <div className="absolute -top-4 -left-4 md:top-6 md:left-6 w-32 h-32 md:w-40 md:h-40 pointer-events-none z-10">
+            <div className="absolute -top-5 left-0 md:top-6 md:left-6 w-22 h-22 md:w-40 md:h-40 pointer-events-none z-10">
               <svg className="w-full h-full animate-spin-slow" viewBox="0 0 100 100">
                 <defs>
                   <path
@@ -137,9 +137,9 @@ export function BigBanner() {
                     fill="none"
                   />
                 </defs>
-                <text className="text-[8px] md:text-[10px] uppercase tracking-widest fill-black font-bold">
+                <text className="text-[10px] md:text-[10px] uppercase tracking-widest fill-black font-bold">
                   <textPath href="#bannerCirclePath">
-                    • BE BRAVE • BE BOLD • BE LEADERS • BE BRAVE • BE BOLD •
+                    • BE BRAVE • BE BOLD • BE LEADERS
                   </textPath>
                 </text>
               </svg>

@@ -90,14 +90,7 @@ export function Header() {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Link href="/" className="shrink-0">
-              <Image
-                src="/header_logo.png"
-                alt="BOLDHOUSE"
-                width={200}
-                height={40}
-                className="h-8 md:h-10 w-auto"
-                priority
-              />
+              <h1 className="text-4xl font-boldstrom text-[#201b25]">BOLDHOUSE</h1>
             </Link>
 
             {/* Desktop Navigation */}
@@ -119,10 +112,33 @@ export function Header() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(true)}
-              className="lg:hidden p-2 text-[#1a1a2e] hover:bg-gray-100 rounded-md transition-colors"
-              aria-label="Abrir menú"
-            >
-              <Menu className="w-8 h-8 text-[#e74895]" strokeWidth={2.5} />
+              className="lg:hidden text-[#1a1a2e] hover:bg-gray-100 rounded-md transition-colors"
+              aria-label="Abrir menú">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 200 200"
+                className="w-8 h-8 text-[#1a1a2e]"
+                aria-hidden
+              >
+                <circle cx="100" cy="100" r="100" fill="#e74895" />
+                <g style={{ display: "none" }}>
+                  <path
+                    fill="white"
+                    d="M131.4,86.6l-35.7,12.4,35.7,15v26.2l-65.2-29.8v-22.7l65.2-29.8v28.7Z"
+                  />
+                </g>
+                <g
+                  fill="none"
+                  stroke="white"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="16.3"
+                >
+                  <path d="M158.3,104h0c-2.5,0-4.6-2.1-4.6-4.6h0c0-2.5,2.1-4.6,4.6-4.6h0c2.5,0,4.6,2.1,4.6,4.6h0c0,2.5-2.1,4.6-4.6,4.6Z" />
+                  <path d="M41.7,104h0c-2.5,0-4.6-2.1-4.6-4.6h0c0-2.5,2.1-4.6,4.6-4.6h0c2.5,0,4.6,2.1,4.6,4.6h0c0,2.5-2.1,4.6-4.6,4.6Z" />
+                  <path d="M100,105.2h0c-2.5,0-4.6-2.1-4.6-4.6h0c0-2.5,2.1-4.6,4.6-4.6h0c2.5,0,4.6,2.1,4.6,4.6h0c0,2.5-2.1,4.6-4.6,4.6Z" />
+                </g>
+              </svg>
             </button>
           </div>
         </div>
