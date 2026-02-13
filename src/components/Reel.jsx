@@ -106,12 +106,12 @@ export function Reel() {
       <div className="max-w-4xl mx-auto">
         {/* Top text */}
         <div className="mb-8">
-          <h2 className="text-4xl md:text-5xl font-boldstrom leading-[33px] text-[#1a1a1a]">
+          <h2 className="text-5xl md:text-5xl font-boldstrom leading-[40px] text-[#1a1a1a]">
             {topTextLine1} {topTextLine2}
             <br />
             {topTextLine3}
           </h2>
-          <p className="text-4xl md:text-5xl font-boldstrom leading-[33px] mt-2 text-[#e74895]">
+          <p className="text-5xl md:text-5xl font-boldstrom leading-[40px] mt-2 text-[#e74895]">
             {pinkTextLine1}
             <br />
             {pinkTextLine2}
@@ -166,7 +166,7 @@ export function Reel() {
 
         {/* Bottom text */}
         <div className="text-left mb-10">
-          <h3 className="text-4xl md:text-4xl font-boldstrom leading-[33px] text-[#1a1a1a]">
+          <h3 className="text-5xl md:text-5xl font-boldstrom leading-[40px] text-[#1a1a1a]">
             CONVIÉRTETE EN UNA MARCA MEMORABLE.
           </h3>
         </div>
@@ -175,7 +175,7 @@ export function Reel() {
         <div className="flex justify-center">
           <button
             onClick={scrollToForm}
-            className="bg-[#e74895] hover:bg-[#d11a7d] text-white font-bold text-lg tracking-wider px-6 py-6 rounded-full transition-colors w-full font-boldstrom"
+            className="bg-[#e74895] hover:bg-[#d11a7d] text-white text-lg tracking-wider px-6 py-6 rounded-full transition-colors w-full font-boldstrom"
           >
             {ctaButtonText}
           </button>

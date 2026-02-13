@@ -122,7 +122,7 @@ export function Header() {
               className="lg:hidden p-2 text-[#1a1a2e] hover:bg-gray-100 rounded-md transition-colors"
               aria-label="Abrir menú"
             >
-              <Menu className="w-8 h-8" strokeWidth={2.5} />
+              <Menu className="w-8 h-8 text-[#e74895]" strokeWidth={2.5} />
             </button>
           </div>
         </div>

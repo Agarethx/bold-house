@@ -36,10 +36,10 @@ export function Services() {
         {/* Top marquee - moves right */}
         <div className="overflow-hidden whitespace-nowrap">
           <div className="animate-marquee-right inline-block">
-            <span className="text-8xl md:text-8xl lg:text-9xl font-black text-white inline-block font-boldstrom">
+            <span className="text-8xl md:text-8xl lg:text-9xl font-black text-[#e74895] inline-block font-boldstrom">
               {"› BOLD SKILLS › BOLD SKILLS › BOLD SKILLS › BOLD SKILLS "}
             </span>
-            <span className="text-6xl md:text-8xl lg:text-9xl font-black text-white inline-block font-boldstrom">
+            <span className="text-6xl md:text-8xl lg:text-9xl font-black text-[#e74895] inline-block font-boldstrom">
               {"› BOLD SKILLS › BOLD SKILLS › BOLD SKILLS › BOLD SKILLS "}
             </span>
           </div>
@@ -61,7 +61,7 @@ export function Services() {
       </div>
 
       {/* Services Carousel */}
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-6">
         <Carousel
           opts={{
             align: "start",
@@ -92,7 +92,7 @@ export function Services() {
                   <CarouselItem key={service._id || index} className="pl-4 md:basis-1/2 lg:basis-1/3">
                     <div className="flex flex-col items-center text-left">
                       {/* Service Image */}
-                      <div className="relative w-full h-60 md:w-72 md:h-72 mb-6 rounded-[150px] overflow-hidden">
+                      <div className="relative w-full h-50 md:w-72 md:h-72 mb-6 rounded-[150px] overflow-hidden">
                         <Image
                           src={imageUrl}
                           alt={service.title || "Service"}

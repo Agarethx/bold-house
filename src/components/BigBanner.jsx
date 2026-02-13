@@ -75,17 +75,17 @@ export function BigBanner() {
             <span className="text-[#e74895] font-black text-[150px] sm:text-7xl md:text-8xl lg:text-9xl leading-none mr-1 font-boldstrom">
               {'>'}
             </span>
-            <span className="font-black text-[#242129] text-[150px] sm:text-7xl md:text-8xl lg:text-9xl tracking-tight leading-none font-boldstrom">
+            <span className="font-black text-[#201b25] text-[150px] sm:text-7xl md:text-8xl lg:text-9xl tracking-tight leading-none font-boldstrom">
               BE
             </span>
           </div>
-          <span className="font-black text-[#242129] text-[150px] sm:text-7xl md:text-8xl lg:text-9xl tracking-tight -mt-2 md:-mt-4 font-boldstrom leading-[104px]">
+          <span className="font-black text-[#201b25] text-[150px] sm:text-7xl md:text-8xl lg:text-9xl tracking-tight -mt-2 md:-mt-4 font-boldstrom leading-[104px]">
             BOLD
           </span>
         </div>
 
         {/* be brave, be leader text */}
-        <p className="italic text-[#242129] text-[80px] sm:text-2xl md:text-3xl mt-1 md:mt-6 font-hoteight">
+        <p className="italic text-[#201b25] text-[80px] sm:text-2xl md:text-3xl mt-1 md:mt-6 font-hoteight">
           be brave, be leader.
         </p>
 
@@ -93,11 +93,7 @@ export function BigBanner() {
         <div className="w-full max-w-3xl mt-8 md:mt-12 relative">
           {/* Oval container */}
           <div className="relative w-full" style={{ paddingBottom: '50%' }}>
-            <div className="absolute inset-0 rounded-[100px] overflow-hidden"
-                 style={{
-                   borderRadius: '100px',
-                   clipPath: 'ellipse(100% 50% at 50% 50%)'
-                 }}>
+            <div className="absolute inset-0 rounded-[100px] overflow-hidden">
               {isLoading ? (
                 <div className="w-full h-full bg-gray-200 animate-pulse" />
               ) : videoUrl && isEmbedVideo ? (
