@@ -19,6 +19,8 @@ function getVimeoId(url) {
   return match ? match[1] : null
 }
 
+const EXIT_DURATION = 700
+
 export function Player({ video, isOpen, onClose }) {
   const [animationPhase, setAnimationPhase] = useState("entering")
 
@@ -26,10 +28,16 @@ export function Player({ video, isOpen, onClose }) {
   useEffect(() => {
     if (isOpen) {
       setAnimationPhase("entering")
-      const timer = setTimeout(() => setAnimationPhase("complete"), 700)
+      const timer = setTimeout(() => setAnimationPhase("complete"), EXIT_DURATION)
       return () => clearTimeout(timer)
     }
   }, [isOpen])
+
+  const handleClose = () => {
+    if (animationPhase === "exiting") return
+    setAnimationPhase("exiting")
+    setTimeout(() => onClose(), EXIT_DURATION)
+  }
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -74,14 +82,18 @@ export function Player({ video, isOpen, onClose }) {
   // If used as popup (isOpen prop provided), render as fullscreen modal
   if (isOpen) {
     const isEntering = animationPhase === "entering"
+    const isExiting = animationPhase === "exiting"
+    const showChrome = animationPhase === "complete" // marquee y controles visibles
     return (
       <div
-        className="fixed inset-0 z-50 flex flex-col overflow-hidden bg-[#242129]"
-        onClick={onClose}
+        className={`fixed inset-0 z-50 flex flex-col bg-[#242129] transition-opacity duration-700 ${
+          isExiting ? "opacity-0 pointer-events-none" : "opacity-100"
+        } ${isExiting ? "overflow-visible" : "overflow-hidden"}`}
+        onClick={handleClose}
       >
         {/* Close Button - siempre visible */}
         <button
-          onClick={onClose}
+          onClick={handleClose}
           className="fixed top-1 right-1 md:top-12 md:right-12 z-40 cursor-pointer hover:opacity-80 transition-opacity"
           aria-label="Cerrar video"
         >
@@ -102,7 +114,7 @@ export function Player({ video, isOpen, onClose }) {
 
         {/* Layout único: video anima en su posición final, sin saltos */}
         <div
-          className="flex flex-1 flex-col min-h-0 overflow-y-auto"
+          className={`flex flex-1 flex-col min-h-0 ${isExiting ? "overflow-visible" : "overflow-y-auto"}`}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex flex-1 flex-col items-center justify-center px-0 py-20 md:py-24">
@@ -110,7 +122,7 @@ export function Player({ video, isOpen, onClose }) {
               <div className="relative -top-12">
                 {/* Marquee arriba - BOLD HOUSE - fade in después del video */}
                 <div
-                  className={`overflow-hidden whitespace-nowrap mb-0 transition-opacity duration-500 ${isEntering ? "opacity-0" : "opacity-100"}`}
+                  className={`overflow-hidden whitespace-nowrap mb-0 transition-opacity duration-500 ${showChrome ? "opacity-100" : "opacity-0"}`}
                 >
                   <div className="animate-marquee-right inline-block">
                     <span className="text-white text-6xl md:text-8xl lg:text-9xl font-boldstrom">
@@ -121,7 +133,7 @@ export function Player({ video, isOpen, onClose }) {
 
                 {/* Marquee abajo - BRAVE - fade in después del video */}
                 <div
-                  className={`overflow-hidden whitespace-nowrap relative -top-3 transition-opacity duration-500 ${isEntering ? "opacity-0" : "opacity-100"}`}
+                  className={`overflow-hidden whitespace-nowrap relative -top-3 transition-opacity duration-500 ${showChrome ? "opacity-100" : "opacity-0"}`}
                 >
                   <div className="animate-marquee-left inline-block">
                     <span
@@ -134,7 +146,7 @@ export function Player({ video, isOpen, onClose }) {
 
               {/* Video - posición fija, solo escala (sin saltos) */}
               <div
-                className={`relative z-10 -mt-20 md:-mt-32 max-w-3xl mx-aut px-4 ${isEntering ? "animate-player-video-expand" : ""}`}
+                className={`relative z-10 -mt-20 md:-mt-32 max-w-3xl mx-auto px-4 ${isEntering ? "animate-player-video-expand" : isExiting ? "animate-player-video-shrink" : ""}`}
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="relative aspect-video rounded-2xl overflow-hidden">
@@ -177,7 +189,7 @@ export function Player({ video, isOpen, onClose }) {
 
             {/* Controles y título - debajo del video, fade in */}
             <div
-              className={`mt-8 flex items-center justify-between w-full max-w-3xl mx-auto transition-opacity duration-500 px-4 ${isEntering ? "opacity-0" : "opacity-100"}`}
+              className={`mt-8 flex items-center justify-between w-full max-w-3xl mx-auto transition-opacity duration-500 px-4 ${showChrome ? "opacity-100" : "opacity-0"}`}
             >
               <div>
                 <h3 className="text-white font-bold text-lg">{video?.title || 'NIKE'}</h3>
