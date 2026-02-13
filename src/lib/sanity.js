@@ -1,6 +1,7 @@
 import { client } from '../../sanity/lib/client'
 import {
   blogPostsQuery,
+  blogPostBySlugQuery,
   portfolioItemsQuery,
   portfolioItemBySlugQuery,
   portfolioItemsPaginatedQuery,
@@ -21,6 +22,21 @@ export async function getBlogPosts() {
   } catch (error) {
     console.error('Error fetching blog posts:', error)
     return []
+  }
+}
+
+export async function getBlogPostBySlug(slug) {
+  if (!slug || typeof slug !== 'string') {
+    console.error('Invalid slug provided to getBlogPostBySlug:', slug)
+    return null
+  }
+
+  try {
+    const post = await client.fetch(blogPostBySlugQuery, { slug })
+    return post
+  } catch (error) {
+    console.error('Error fetching blog post:', error)
+    return null
   }
 }
 

@@ -13,6 +13,19 @@ export const blogPostsQuery = groq`
   }
 `
 
+export const blogPostBySlugQuery = groq`
+  *[_type == "blogPost" && slug.current == $slug][0] {
+    _id,
+    title,
+    slug,
+    image,
+    date,
+    readTime,
+    body,
+    publishedAt
+  }
+`
+
 export const portfolioItemsQuery = groq`
   *[_type == "portfolioItem"] | order(publishedAt desc) {
     _id,

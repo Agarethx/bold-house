@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { getBlogPosts } from "@/lib/sanity"
 import { urlFor } from "../../sanity/lib/image"
 
@@ -17,7 +18,7 @@ export async function Blog() {
   }
 
   return (
-    <section className="bg-white py-16 px-6 md:px-12 lg:px-20">
+    <section id="blog" className="bg-white py-16 px-6 md:px-12 lg:px-20">
       {/* Title */}
       <div className="mb-12">
         <h2 className="text-5xl md:text-6xl lg:text-7xl leading-none">
@@ -33,25 +34,28 @@ export async function Blog() {
       <div className="space-y-12 mb-12">
         {blogPosts.map((post) => {
           const imageUrl = post.image ? urlFor(post.image).width(1200).height(900).url() : null
+          const slug = post.slug?.current || ""
           return (
-            <article key={post._id} className="cursor-pointer group">
-              <h3 className="font-bold text-lg md:text-xl text-[#1a1a1a] mb-4">
-                {post.title}
-              </h3>
-              {imageUrl && (
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl mb-3">
-                  <Image
-                    src={imageUrl}
-                    alt={post.title}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-              )}
-              <p className="text-sm text-gray-500 uppercase tracking-wide">
-                {formatDate(post.date)} – {post.readTime}
-              </p>
-            </article>
+            <Link key={post._id} href={`/blog/${slug}`}>
+              <article className="cursor-pointer group mb-12">
+                <h3 className="font-bold text-lg md:text-xl text-[#1a1a1a] mb-4">
+                  {post.title}
+                </h3>
+                {imageUrl && (
+                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl mb-3">
+                    <Image
+                      src={imageUrl}
+                      alt={post.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                )}
+                <p className="text-sm text-gray-500 uppercase tracking-wide">
+                  {formatDate(post.date)} – {post.readTime}
+                </p>
+              </article>
+            </Link>
           )
         })}
       </div>
