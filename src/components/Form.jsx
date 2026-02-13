@@ -10,10 +10,33 @@ export function Formulario() {
     email: "",
     mensaje: "",
   })
+  const [status, setStatus] = useState("idle") // idle | loading | success | error
+  const [errorMessage, setErrorMessage] = useState("")
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(formData)
+    setStatus("loading")
+    setErrorMessage("")
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.error || "Error al enviar")
+      }
+
+      setStatus("success")
+      setFormData({ nombre: "", email: "", mensaje: "" })
+    } catch (err) {
+      setStatus("error")
+      setErrorMessage(err.message || "Error al enviar. Intenta nuevamente.")
+    }
   }
 
   return (
@@ -36,6 +59,16 @@ export function Formulario() {
           <br />
           CONVERSEMOS.
         </p>
+
+        {/* Feedback */}
+        {status === "success" && (
+          <p className="text-sm font-medium text-green-600 mb-4">
+            ¡Mensaje enviado! Nos pondremos en contacto pronto.
+          </p>
+        )}
+        {status === "error" && (
+          <p className="text-sm font-medium text-red-600 mb-4">{errorMessage}</p>
+        )}
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
@@ -65,9 +98,10 @@ export function Formulario() {
 
           <button
             type="submit"
-            className="w-full py-4 bg-[#e74895] hover:bg-[#d11a7d] text-white font-bold text-sm tracking-wider rounded-full transition-colors mt-4"
+            disabled={status === "loading"}
+            className="w-full py-4 bg-[#e74895] hover:bg-[#d11a7d] disabled:opacity-70 disabled:cursor-not-allowed text-white font-bold text-sm tracking-wider rounded-full transition-colors mt-4"
           >
-            ENVIAR
+            {status === "loading" ? "ENVIANDO..." : "ENVIAR"}
           </button>
         </form>
       </div>
