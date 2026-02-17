@@ -88,7 +88,7 @@ export function Header() {
       <header className="sticky top-0 z-50 w-full ">
         {/* Full width header with logo and menu button */}
         <div className="w-full px-4 md:px-6 lg:px-8 ">
-          <div className="flex items-center justify-between h-16 md:h-20">
+          <div className="flex items-center justify-between h-16 md:h-20 mt-4">
             <div className=" border border-gray-300 rounded-full flex justify-between w-full pl-0 pr-1 items-center bg-white">
             {/* Logo - White pill container */}
             <Link href="/" className="shrink-0">
@@ -139,7 +139,7 @@ export function Header() {
       >
         <div className="flex flex-col h-full">
           {/* Drawer Header */}
-          <div className="flex items-center justify-between px-4 md:p-6 h-16 md:h-20">
+          <div className="flex items-center justify-between px-4 md:p-6 h-16 md:h-20 mt-4">
             {/* Logo with integrated X button - White pill container */}
             <div className="bg-white border border-gray-300 rounded-full md:px-6 py-2 md:py-3 flex items-center gap-3 md:gap-4 w-full justify-between pl-4 pr-2">
               <h1 className="text-3xl md:text-2xl font-boldstrom text-[#201b25] uppercase">BOLDHOUSE</h1>
