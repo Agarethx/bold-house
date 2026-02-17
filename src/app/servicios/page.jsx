@@ -12,7 +12,7 @@ export default async function ServicesPage({ searchParams }) {
       {/* Title */}
       <div className="mb-12">
         <h2 className="text-5xl md:text-6xl lg:text-7xl leading-none">
-          <span className="font-boldstrom text-[#1a1a1a]">#SERVICIOS —</span>
+          <span className="font-boldstrom text-[#1a1a1a]">#Skills —</span>
           <br />
           <span className="text-5xl md:text-5xl lg:text-6xl font-boldstrom text-[#FF2E8D]">
             BOLD
@@ -27,7 +27,7 @@ export default async function ServicesPage({ searchParams }) {
           const slug = item.slug?.current || ''
           return (
             <Link key={item._id} href={`/servicios/${slug}`}>
-              <article className="cursor-pointer group">
+              <article className="cursor-pointer group mb-12">
                 {imageUrl && (
                   <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl mb-3">
                     <Image
@@ -41,10 +41,10 @@ export default async function ServicesPage({ searchParams }) {
 
                   {/* Text Content */}
                   <div className="text-black">
-                    <h3 className="text-4xl md:text-2xl tracking-tight font-boldstrom">
+                    <h3 className="text-xl md:text-2xl font-bold tracking-tight">
                       {">"} AGENCIA
                     </h3>
-                    <p className="text-4xl md:text-2xl tracking-tight font-boldstrom text-[#FF2E8D]">
+                    <p className="text-lg md:text-xl font-light tracking-wide">
                       {item.title}
                     </p>
                   </div>

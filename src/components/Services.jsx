@@ -95,7 +95,7 @@ export function Services() {
                       {/* Service Image */}
                       <Link
                         href={`/servicios/${service.slug?.current || ""}`}
-                        className="relative block w-full h-50 md:w-72 md:h-72 mb-6 rounded-[150px] overflow-hidden group cursor-pointer"
+                        className="relative block w-full h-50 md:w-72 md:h-72 mb-6 rounded-2xl overflow-hidden group cursor-pointer"
                       >
                         <Image
                           src={imageUrl}
@@ -106,7 +106,7 @@ export function Services() {
                       </Link>
 
                       {/* Service Title */}
-                      <h3 className="text-5xl md:text-3xl font-black text-white mb-4 font-boldstrom text-left w-full">
+                      <h3 className="text-5xl md:text-3xl  text-white mb-4 font-boldstrom text-left w-full">
                         <span className="text-white">{">"}</span> {service.title || "SERVICE"}
                       </h3>
 
