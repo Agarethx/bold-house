@@ -86,97 +86,71 @@ export function Header() {
   return (
     <>
       <header className="sticky top-0 z-50 w-full bg-white">
-        <div className="container mx-auto px-4">
+        {/* Full width header with logo and menu button */}
+        <div className="w-full px-4 md:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo */}
+            <div className=" border border-gray-300 rounded-full flex justify-between w-full px-4 items-center">
+            {/* Logo - White pill container */}
             <Link href="/" className="shrink-0">
-              <h1 className="text-4xl font-boldstrom text-[#201b25]">BOLDHOUSE</h1>
+              <div className=" px-4 md:px-6 py-2 md:py-3 flex items-center">
+                <h1 className="text-2xl md:text-2xl font-boldstrom text-[#201b25] uppercase">BOLDHOUSE</h1>
+              </div>
             </Link>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-6">
-              {menuItems.slice(0, 5).map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="text-sm font-semibold text-[#1a1a2e] hover:text-gray-600 transition-colors tracking-wide"
-                >
-                  {item.label}
-                </Link>
-              ))}
-              <Button className="bg-[#1a1a2e] text-white hover:bg-[#2a2a3e] rounded-full px-6">
-                HABLEMOS
-              </Button>
-            </nav>
-
-            {/* Mobile Menu Button */}
+            {/* Menu Button - Magenta circular button with ellipsis (visible on mobile and desktop) */}
             <button
               onClick={() => setIsOpen(true)}
-              className="lg:hidden text-[#1a1a2e] hover:bg-gray-100 rounded-md transition-colors"
+              className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#FF2E8D] flex items-center justify-center hover:bg-[#ff5aa8] transition-colors shrink-0"
               aria-label="Abrir menú">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 200 200"
-                className="w-8 h-8 text-[#1a1a2e]"
+                viewBox="0 0 24 24"
+                className="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 aria-hidden
               >
-                <circle cx="100" cy="100" r="100" fill="#FF2E8D" />
-                <g style={{ display: "none" }}>
-                  <path
-                    fill="white"
-                    d="M131.4,86.6l-35.7,12.4,35.7,15v26.2l-65.2-29.8v-22.7l65.2-29.8v28.7Z"
-                  />
-                </g>
-                <g
-                  fill="none"
-                  stroke="white"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="16.3"
-                >
-                  <path d="M158.3,104h0c-2.5,0-4.6-2.1-4.6-4.6h0c0-2.5,2.1-4.6,4.6-4.6h0c2.5,0,4.6,2.1,4.6,4.6h0c0,2.5-2.1,4.6-4.6,4.6Z" />
-                  <path d="M41.7,104h0c-2.5,0-4.6-2.1-4.6-4.6h0c0-2.5,2.1-4.6,4.6-4.6h0c2.5,0,4.6,2.1,4.6,4.6h0c0,2.5-2.1,4.6-4.6,4.6Z" />
-                  <path d="M100,105.2h0c-2.5,0-4.6-2.1-4.6-4.6h0c0-2.5,2.1-4.6,4.6-4.6h0c2.5,0,4.6,2.1,4.6,4.6h0c0,2.5-2.1,4.6-4.6,4.6Z" />
-                </g>
+                <circle cx="5" cy="12" r="1" />
+                <circle cx="12" cy="12" r="1" />
+                <circle cx="19" cy="12" r="1" />
               </svg>
             </button>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Mobile Drawer Overlay */}
+      {/* Drawer Overlay */}
       <div
-        className={`fixed inset-0 bg-black/50 z-50 transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-0 bg-black/50 z-50 transition-opacity duration-300 ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setIsOpen(false)}
       />
 
-      {/* Mobile Drawer */}
+      {/* Drawer Menu */}
       <div
-        className={`fixed top-0 left-0 h-full w-full bg-[#242129] z-50 transform transition-transform duration-300 ease-in-out lg:hidden ${
+        className={`fixed top-0 left-0 h-full w-full bg-[#242129] z-50 transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex flex-col h-full">
           {/* Drawer Header */}
-          <div className="flex items-center justify-between p-6">
-            <Image
-              src="/header_logo.png"
-              alt="BOLDHOUSE"
-              width={200}
-              height={40}
-              className="h-8 md:h-10 w-auto invert brightness-0 invert"
-              priority
-            />
-
-            <button
-              onClick={() => setIsOpen(false)}
-              className="p-2 text-[#FF2E8D] hover:text-[#ff5aa8] transition-colors"
-              aria-label="Cerrar menú"
-            >
-              <X className="w-8 h-8" strokeWidth={3} />
-            </button>
+          <div className="flex items-center justify-between p-4 md:p-6">
+            {/* Logo with integrated X button - White pill container */}
+            <div className="bg-white border border-gray-300 rounded-full px-4 md:px-6 py-2 md:py-3 flex items-center gap-3 md:gap-4 w-full justify-between">
+              <h1 className="text-2xl md:text-2xl font-boldstrom text-[#201b25] uppercase">BOLDHOUSE</h1>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-[#FF2E8D] hover:text-[#ff5aa8] transition-colors shrink-0"
+                aria-label="Cerrar menú"
+              >
+                <X className="w-8 h-8 md:w-6 md:h-6" strokeWidth={3} />
+              </button>
+            </div>
           </div>
 
           {/* Drawer Navigation */}
@@ -195,7 +169,7 @@ export function Header() {
                           setIsOpen(false)
                         }
                       }}
-                      className={`block py-3 px-2 uppercase tracking-wider transition-colors font-boldstrom text-[36px] ${
+                      className={`block px-2 uppercase tracking-wider transition-colors font-boldstrom text-[36px] ${
                         item.isPink
                           ? "text-[#FF2E8D] font-bold"
                           : item.isBold
@@ -203,7 +177,7 @@ export function Header() {
                             : "text-white font-normal"
                       } hover:text-[#FF2E8D]`}
                     >
-                      <span className="text-[#FF2E8D] mr-2">{">"}</span>
+                      <span className="text-white mr-2">{">"}</span>
                       {item.label}
                     </Link>
 
