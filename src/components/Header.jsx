@@ -206,15 +206,26 @@ export function Header() {
 
           {/* Drawer Footer */}
           <div className="p-6 space-y-6">
+            {/* CTA Button */}
+            <div className="mt-8 px-2">
+              <Link
+                href="/contacto"
+                onClick={() => setIsOpen(false)}
+                className="block w-full bg-[#FF2E8D] hover:bg-[#ff5aa8] text-white font-bold uppercase tracking-wider py-4 px-6 rounded-full text-center transition-colors text-lg"
+              >
+                CONVERSEMOS
+              </Link>
+            </div>
+
             {/* Social Media Icons */}
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex items-center justify-center gap-4 mt-8 px-2">
               {socialLinks.map((social) => (
                 <a
                   key={social.platform}
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-[#FF2E8D] hover:text-white transition-colors"
+                  className="w-10 h-10 rounded-full bg-white border border-black text-black flex items-center justify-center hover:bg-gray-100 transition-colors"
                   aria-label={social.platform}
                 >
                   {getSocialIcon(social.platform)}
@@ -223,10 +234,8 @@ export function Header() {
             </div>
 
             {/* Be Bold Logo/Signature */}
-            <div className="text-center">
-              <p className="text-white text-sm font-boldstrom font-normal italic">
-                Be bold
-              </p>
+            <div className="text-center flex justify-center">
+              <Image src="/Bold_house_footer_blc.gif" alt="Be Bold" width={200} height={80} className="w-auto h-16" />
             </div>
 
             {/* Copyright */}

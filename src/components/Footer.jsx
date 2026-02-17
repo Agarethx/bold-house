@@ -69,20 +69,6 @@ export function Footer() {
         </p>
         </div>
 
-        {/* Social Media Icons */}
-        <div className="flex gap-4 mb-12">
-          {socialLinks.map((social) => (
-            <Link
-              key={social.name}
-              href="#"
-              className="bg-white text-black rounded-full p-3 hover:bg-gray-200 transition-colors"
-              aria-label={social.name}
-            >
-              {social.icon}
-            </Link>
-          ))}
-        </div>
-
         {/* Services List */}
         <nav className="mb-8 ">
           <ul className="space-y-3">
