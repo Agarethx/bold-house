@@ -72,7 +72,7 @@ export function BigBanner() {
         <div className="flex flex-col items-start leading-[20px]">
           <div className="flex items-center">
             {/* Pink chevron */}
-            <span className="text-[#e74895] font-black text-[150px] sm:text-7xl md:text-8xl lg:text-9xl leading-none mr-1 font-boldstrom">
+            <span className="text-[#FF2E8D] font-black text-[150px] sm:text-7xl md:text-8xl lg:text-9xl leading-none mr-1 font-boldstrom">
               {'>'}
             </span>
             <span className="text-[#201b25] text-[150px] sm:text-7xl md:text-8xl lg:text-9xl tracking-tight leading-none font-boldstrom">

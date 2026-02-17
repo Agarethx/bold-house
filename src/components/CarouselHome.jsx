@@ -21,7 +21,7 @@ export function CarouselHome({ portfolioItems = [] }) {
             <br />
             la estrategia nos guia —
           </h2>
-          <p className="text-5xl md:text-5xl font-boldstrom leading-[40px] mt-2 text-[#e74895]">
+          <p className="text-5xl md:text-5xl font-boldstrom leading-[40px] mt-2 text-[#FF2E8D]">
             y la audacia
             <br />
             nos

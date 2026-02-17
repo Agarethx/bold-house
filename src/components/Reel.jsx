@@ -111,7 +111,7 @@ export function Reel() {
             <br />
             {topTextLine3}
           </h2>
-          <p className="text-5xl md:text-5xl font-boldstrom leading-[40px] mt-2 text-[#e74895]">
+          <p className="text-5xl md:text-5xl font-boldstrom leading-[40px] mt-2 text-[#FF2E8D]">
             {pinkTextLine1}
             <br />
             {pinkTextLine2}
@@ -177,7 +177,7 @@ export function Reel() {
             href="https://calendar.app.google/3ADtTxgb9j34WFAP9"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-[#e74895] hover:bg-[#e74895] text-white text-[22px] tracking-wider px-6 py-4 rounded-full transition-colors w-full font-ambit text-center"
+            className="bg-[#FF2E8D] hover:bg-[#FF2E8D] text-white text-[22px] tracking-wider px-6 py-4 rounded-full transition-colors w-full font-ambit text-center"
           >
             {ctaButtonText}
           </a>

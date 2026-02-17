@@ -12,7 +12,7 @@ export default async function PortfolioPage({ searchParams }) {
       {/* Title */}
       <div className="mb-12">
         <h2 className="text-6xl md:text-6xl lg:text-7xl leading-[45px]">
-          <span className="font-boldstrom text-[#1a1a1a]">{">"}PORTA <br /> <span className="font-boldstrom text-[#e74895]">FOLIO</span></span>
+          <span className="font-boldstrom text-[#1a1a1a]">{">"}PORTA <br /> <span className="font-boldstrom text-[#FF2E8D]">FOLIO</span></span>
         </h2>
       </div>
 

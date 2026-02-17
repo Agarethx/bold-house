@@ -14,7 +14,7 @@ export default async function ServicesPage({ searchParams }) {
         <h2 className="text-5xl md:text-6xl lg:text-7xl leading-none">
           <span className="font-boldstrom text-[#1a1a1a]">#SERVICIOS —</span>
           <br />
-          <span className="text-5xl md:text-5xl lg:text-6xl font-boldstrom text-[#e74895]">
+          <span className="text-5xl md:text-5xl lg:text-6xl font-boldstrom text-[#FF2E8D]">
             BOLD
           </span>
         </h2>
@@ -44,7 +44,7 @@ export default async function ServicesPage({ searchParams }) {
                     <h3 className="text-4xl md:text-2xl tracking-tight font-boldstrom">
                       {">"} AGENCIA
                     </h3>
-                    <p className="text-4xl md:text-2xl tracking-tight font-boldstrom text-[#e74895]">
+                    <p className="text-4xl md:text-2xl tracking-tight font-boldstrom text-[#FF2E8D]">
                       {item.title}
                     </p>
                   </div>

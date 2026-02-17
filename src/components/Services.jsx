@@ -37,10 +37,10 @@ export function Services() {
         {/* Top marquee - moves right */}
         <div className="overflow-hidden whitespace-nowrap">
           <div className="animate-marquee-right inline-block">
-            <span className="text-8xl md:text-8xl lg:text-9xl font-black text-[#e74895] inline-block font-boldstrom">
+            <span className="text-8xl md:text-8xl lg:text-9xl font-black text-[#FF2E8D] inline-block font-boldstrom">
               {"> BOLD SKILLS > BOLD SKILLS > BOLD SKILLS > BOLD SKILLS "}
             </span>
-            <span className="text-6xl md:text-8xl lg:text-9xl font-black text-[#e74895] inline-block font-boldstrom">
+            <span className="text-6xl md:text-8xl lg:text-9xl font-black text-[#FF2E8D] inline-block font-boldstrom">
               {"> BOLD SKILLS > BOLD SKILLS > BOLD SKILLS > BOLD SKILLS "}
             </span>
           </div>

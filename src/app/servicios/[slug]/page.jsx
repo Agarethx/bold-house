@@ -76,7 +76,7 @@ export default async function ServiceDetailPage({ params }) {
           ← Volver a servicios
         </Link>
         <h1 className="text-5xl md:text-6xl lg:text-7xl leading-none mb-4">
-          <span className="font-boldstrom text-[#e74895]">&gt;</span>
+          <span className="font-boldstrom text-[#FF2E8D]">&gt;</span>
           {' '}
           <span className="font-boldstrom text-[#1a1a1a]">AGENCIA</span>
           {' '}
@@ -110,7 +110,7 @@ export default async function ServiceDetailPage({ params }) {
           <ul className="space-y-3">
             {item.servicesList.map((service, index) => (
               <li key={index} className="flex items-start">
-                <span className="text-[#e74895] font-bold mr-3">&gt;</span>
+                <span className="text-[#FF2E8D] font-bold mr-3">&gt;</span>
                 <span className="text-lg">{service}</span>
               </li>
             ))}

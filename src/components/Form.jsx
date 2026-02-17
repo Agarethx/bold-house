@@ -46,7 +46,7 @@ export function Formulario() {
           <h2 className="text-5xl md:text-6xl font-boldstrom leading-none">
             <span className="text-[#1a1a1a]">#CON—</span>
           </h2>
-          <h2 className="text-5xl md:text-5xl lg:text-6xl font-boldstrom text-[#e74895]">
+          <h2 className="text-5xl md:text-5xl lg:text-6xl font-boldstrom text-[#FF2E8D]">
             TACTO
           </h2>
         </div>
@@ -77,7 +77,7 @@ export function Formulario() {
             placeholder="NOMBRE"
             value={formData.nombre}
             onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-            className="w-full px-6 py-4 border border-[#1a1a1a] rounded-full text-sm font-medium placeholder:text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#e74895] focus:border-transparent"
+            className="w-full px-6 py-4 border border-[#1a1a1a] rounded-full text-sm font-medium placeholder:text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#FF2E8D] focus:border-transparent"
           />
 
           <input
@@ -85,7 +85,7 @@ export function Formulario() {
             placeholder="EMAIL"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="w-full px-6 py-4 border border-[#1a1a1a] rounded-full text-sm font-medium placeholder:text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#e74895] focus:border-transparent"
+            className="w-full px-6 py-4 border border-[#1a1a1a] rounded-full text-sm font-medium placeholder:text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#FF2E8D] focus:border-transparent"
           />
 
           <textarea
@@ -93,13 +93,13 @@ export function Formulario() {
             value={formData.mensaje}
             onChange={(e) => setFormData({ ...formData, mensaje: e.target.value })}
             rows={6}
-            className="w-full px-6 py-4 border border-[#1a1a1a] rounded-3xl text-sm font-medium placeholder:text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#e74895] focus:border-transparent resize-none"
+            className="w-full px-6 py-4 border border-[#1a1a1a] rounded-3xl text-sm font-medium placeholder:text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#FF2E8D] focus:border-transparent resize-none"
           />
 
           <button
             type="submit"
             disabled={status === "loading"}
-            className="bg-[#e74895] hover:bg-[#e74895] text-white text-[22px] tracking-wider px-6 py-4 rounded-full transition-colors w-full font-ambit text-center"
+            className="bg-[#FF2E8D] hover:bg-[#FF2E8D] text-white text-[22px] tracking-wider px-6 py-4 rounded-full transition-colors w-full font-ambit text-center"
           >
             {status === "loading" ? "ENVIANDO..." : "ENVIAR"}
           </button>

@@ -120,7 +120,7 @@ export function Header() {
                 className="w-8 h-8 text-[#1a1a2e]"
                 aria-hidden
               >
-                <circle cx="100" cy="100" r="100" fill="#e74895" />
+                <circle cx="100" cy="100" r="100" fill="#FF2E8D" />
                 <g style={{ display: "none" }}>
                   <path
                     fill="white"
@@ -172,7 +172,7 @@ export function Header() {
 
             <button
               onClick={() => setIsOpen(false)}
-              className="p-2 text-[#e74895] hover:text-[#ff5aa8] transition-colors"
+              className="p-2 text-[#FF2E8D] hover:text-[#ff5aa8] transition-colors"
               aria-label="Cerrar menú"
             >
               <X className="w-8 h-8" strokeWidth={3} />
@@ -197,13 +197,13 @@ export function Header() {
                       }}
                       className={`block py-3 px-2 uppercase tracking-wider transition-colors font-boldstrom text-[36px] ${
                         item.isPink
-                          ? "text-[#e74895] font-bold"
+                          ? "text-[#FF2E8D] font-bold"
                           : item.isBold
                             ? "text-white font-bold"
                             : "text-white font-normal"
-                      } hover:text-[#e74895]`}
+                      } hover:text-[#FF2E8D]`}
                     >
-                      <span className="text-[#e74895] mr-2">{">"}</span>
+                      <span className="text-[#FF2E8D] mr-2">{">"}</span>
                       {item.label}
                     </Link>
 
@@ -215,9 +215,9 @@ export function Header() {
                             <Link
                               href={subItem.href}
                               onClick={() => setIsOpen(false)}
-                              className="block py-2 px-2 text-white uppercase tracking-wider font-bold hover:text-[#e74895] transition-colors"
+                              className="block py-2 px-2 text-white uppercase tracking-wider font-bold hover:text-[#FF2E8D] transition-colors"
                             >
-                              <span className="text-[#e74895] mr-2">{">"}</span>
+                              <span className="text-[#FF2E8D] mr-2">{">"}</span>
                               {subItem.label}
                             </Link>
                           </li>
@@ -240,7 +240,7 @@ export function Header() {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-[#e74895] hover:text-white transition-colors"
+                  className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-[#FF2E8D] hover:text-white transition-colors"
                   aria-label={social.platform}
                 >
                   {getSocialIcon(social.platform)}
