@@ -46,6 +46,14 @@ const portableTextComponents = {
     h3: ({ children }) => <h3 className="text-2xl font-bold mb-2 mt-4">{children}</h3>,
     normal: ({ children }) => <p className="mb-4 text-lg leading-relaxed">{children}</p>,
   },
+  list: {
+    bullet: ({ children }) => <ul className="list-disc list-inside mb-6 space-y-2 text-lg pl-4">{children}</ul>,
+    number: ({ children }) => <ol className="list-decimal list-inside mb-6 space-y-2 text-lg pl-4">{children}</ol>,
+  },
+  listItem: {
+    bullet: ({ children }) => <li className="ml-2">{children}</li>,
+    number: ({ children }) => <li className="ml-2">{children}</li>,
+  },
 }
 
 export default async function ServiceDetailPage({ params }) {
@@ -66,17 +74,17 @@ export default async function ServiceDetailPage({ params }) {
   const featuredImageUrl = item.image ? urlFor(item.image).width(1200).height(800).url() : null
 
   return (
-    <article className="bg-white py-5 px-6 md:px-12 lg:px-20 min-h-screen">
+    <article className="bg-white py-9 px-6 md:px-12 lg:px-20 min-h-screen">
       {/* Header */}
       <div className="mb-12">
         <Link
           href="/servicios"
-          className="text-sm text-gray-500 hover:text-[#1a1a1a] mb-4 inline-flex items-center gap-2"
+          className="text-sm text-gray-500 hover:text-[#1a1a1a] mb-4 inline-flex items-center gap-2 uppercase tracking-wide"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 200 200"
-            className="w-5 h-5"
+            className="w-7 h-7"
           >
             <circle cx="100" cy="100" r="100" fill="#FF2E8D" />
             <path

@@ -1,7 +1,10 @@
+import { orderRankField, orderRankOrdering } from '@sanity/orderable-document-list'
+
 export default {
   name: 'blogPost',
   title: 'Blog Post',
   type: 'document',
+  orderings: [orderRankOrdering],
   fields: [
     {
       name: 'title',
@@ -63,6 +66,7 @@ export default {
       type: 'datetime',
       initialValue: () => new Date().toISOString(),
     },
+    orderRankField({ type: 'blogPost' }),
   ],
   preview: {
     select: {

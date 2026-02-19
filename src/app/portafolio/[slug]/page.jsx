@@ -69,17 +69,17 @@ export default async function PortfolioDetailPage({ params }) {
   }
 
   return (
-    <article className="bg-white py-5 px-6 md:px-12 lg:px-20 min-h-screen">
+    <article className="bg-white py-9 px-6 md:px-12 lg:px-20 min-h-screen">
       {/* Header */}
       <div className="mb-12">
         <Link
           href="/portafolio"
-          className="text-sm text-gray-500 hover:text-[#1a1a1a] mb-4 inline-flex items-center gap-2"
+          className="text-sm text-gray-500 hover:text-[#1a1a1a] mb-4 inline-flex items-center gap-2 uppercase tracking-wide"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 200 200"
-            className="w-5 h-5"
+            className="w-7 h-7"
           >
             <circle cx="100" cy="100" r="100" fill="#FF2E8D" />
             <path

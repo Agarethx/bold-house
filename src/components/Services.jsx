@@ -62,7 +62,7 @@ export function Services() {
       </div>
 
       {/* Services Carousel */}
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4">
         <Carousel
           opts={{
             align: "start",
@@ -85,9 +85,13 @@ export function Services() {
               ))
             ) : services.length > 0 ? (
               services.map((service, index) => {
-                const imageUrl = service.image
-                  ? urlFor(service.image).width(400).height(400).url()
+                const baseImageUrl = service.image
+                  ? urlFor(service.image).width(800).height(450).fit("max").url()
                   : "/placeholder.svg"
+                const imageUrl = service._updatedAt && baseImageUrl !== "/placeholder.svg"
+                  ? `${baseImageUrl}&updated=${service._updatedAt}`
+                  : baseImageUrl
+                const imageAssetId = service.image?.asset?._id || service.image?.asset?._ref || service._id
 
                 return (
                   <CarouselItem key={service._id || index} className="pl-4 md:basis-1/2 lg:basis-1/3">
@@ -95,12 +99,14 @@ export function Services() {
                       {/* Service Image */}
                       <Link
                         href={`/servicios/${service.slug?.current || ""}`}
-                        className="relative block w-full h-50 md:w-72 md:h-72 mb-6 rounded-2xl overflow-hidden group cursor-pointer"
+                        className="relative w-full aspect-video mb-12 rounded-2xl overflow-hidden group"
                       >
                         <Image
+                          key={imageAssetId}
                           src={imageUrl}
                           alt={service.title || "Service"}
                           fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
                           className="object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                       </Link>

@@ -84,10 +84,10 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full ">
+      <header className="sticky top-0 z-50 w-full">
         {/* Full width header with logo and menu button */}
         <div className="w-full px-4 md:px-6 lg:px-8 ">
-          <div className="flex items-center justify-between h-16 md:h-20 mt-4">
+          <div className="flex items-center justify-between h-16 md:h-20 pt-8">
             <div className=" border border-gray-300 rounded-full flex justify-between w-full pl-0 pr-1 items-center bg-white">
             {/* Logo - White pill container */}
             <Link href="/" className="shrink-0">
@@ -211,9 +211,9 @@ export function Header() {
               <Link
                 href="/contacto"
                 onClick={() => setIsOpen(false)}
-                className="block w-full bg-[#FF2E8D] hover:bg-[#ff5aa8] text-white font-bold uppercase tracking-wider py-4 px-6 rounded-full text-center transition-colors text-lg"
+                className="bg-[#FF2E8D] hover:bg-[#FF2E8D] text-white text-[22px] tracking-wider px-6 py-4 rounded-full transition-colors w-full font-ambit text-center mb-8 block"
               >
-                CONVERSEMOS
+                HABLEMOS
               </Link>
             </div>
 
@@ -225,7 +225,7 @@ export function Header() {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white border border-black text-black flex items-center justify-center hover:bg-gray-100 transition-colors"
+                  className="w-10 h-10 rounded-full bg-white border border-[#242129] text-[#242129] flex items-center justify-center hover:bg-gray-100 transition-colors"
                   aria-label={social.platform}
                 >
                   {getSocialIcon(social.platform)}
@@ -235,7 +235,7 @@ export function Header() {
 
             {/* Be Bold Logo/Signature */}
             <div className="text-center flex justify-center">
-              <Image src="/Bold_house_footer_blc.gif" alt="Be Bold" width={200} height={80} className="w-auto h-16" />
+              <Image src="/bebold_footer.svg" alt="Be Bold" width={200} height={80} className="w-auto h-16" />
             </div>
 
             {/* Copyright */}

@@ -76,18 +76,18 @@ export default async function BlogPostDetailPage({ params }) {
   const featuredImageUrl = post.image ? urlFor(post.image).width(1200).height(800).url() : null
 
   return (
-    <article className="bg-white py-5 px-6 md:px-12 lg:px-20 min-h-screen">
+    <article className="bg-white py-9 px-6 md:px-12 lg:px-20 min-h-screen">
       {/* Header */}
       <div className="mb-12">
         <Link
           href="/blog"
-          className="text-sm text-gray-500 hover:text-[#1a1a1a] mb-4 inline-flex items-center gap-2"
+          className="text-sm text-gray-500 hover:text-[#1a1a1a] mb-4 inline-flex items-center gap-2 uppercase tracking-wide"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 200 200"
-            className="w-5 h-5"
-          >
+            className="w-7 h-7"
+           >
             <circle cx="100" cy="100" r="100" fill="#FF2E8D" />
             <path
               d="M131.4,86.6l-35.7,12.4,35.7,15v26.2l-65.2-29.8v-22.7l65.2-29.8v28.7Z"
@@ -96,8 +96,6 @@ export default async function BlogPostDetailPage({ params }) {
           </svg> Volver al blog
         </Link>
         <h1 className="text-5xl md:text-6xl lg:text-7xl leading-none mb-4">
-          <span className="font-boldstrom text-[#FF2E8D]">&gt;</span>{" "}
-          <span className="font-boldstrom text-[#1a1a1a]">BLOG</span>{" "}
           <span className="font-boldstrom-outline text-[#1a1a1a]">{post.title}</span>
         </h1>
         <p className="text-sm text-gray-500 uppercase tracking-wide">

@@ -47,12 +47,12 @@ export default async function BlogPage() {
                     {post.title}
                   </h3>
                   {imageUrl && (
-                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl mb-3">
+                    <div className="relative w-full aspect-video rounded-2xl overflow-hidden group mb-4">
                       <Image
                         src={imageUrl}
                         alt={post.title}
                         fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="object-cover"
                       />
                     </div>
                   )}

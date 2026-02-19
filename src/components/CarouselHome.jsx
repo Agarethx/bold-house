@@ -36,8 +36,7 @@ export function CarouselHome({ portfolioItems = [] }) {
             align: "start",
             loop: true,
           }}
-          className="w-full"
-        >
+          className="w-full">
           <CarouselContent className="-ml-4 md:-ml-6">
             {portfolioItems.map((item) => {
               const imageUrl = item.image ? urlFor(item.image).width(800).height(1000).url() : null
@@ -84,6 +83,42 @@ export function CarouselHome({ portfolioItems = [] }) {
             <CarouselNext className="relative inset-0 translate-x-0 translate-y-0 h-12 w-12 border-white/20 bg-transparent text-white hover:bg-white/10 hover:text-white" />
           </div>
         </Carousel>
+
+        {/* Circular Button with rotating text */}
+        <div className="flex justify-center mt-12">
+          <Link
+            href="/portafolio"
+            className="relative block w-24 h-24 md:w-28 md:h-28 group cursor-pointer"
+            aria-label="Ver más artículos del blog">
+            {/* Rotating text circle */}
+            <svg
+              className="w-full h-full animate-spin-slow"
+              viewBox="0 0 100 100"
+            >
+              <defs>
+                <path
+                  id="circlePath"
+                  d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+                />
+              </defs>
+              <text className="text-[8px] uppercase tracking-[0.3em] fill-[#1a1a1a] font-medium">
+                <textPath href="#circlePath">
+                  • BEBOLD • BELEADERS • BEBRAVE • BEBOLD
+                </textPath>
+              </text>
+            </svg>
+
+            {/* Center icon - 2x2 grid */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="grid grid-cols-2 gap-1.5">
+                <div className="w-3 h-3 md:w-3.5 md:h-3.5 bg-[#1a1a1a] rounded-sm" />
+                <div className="w-3 h-3 md:w-3.5 md:h-3.5 bg-[#1a1a1a] rounded-sm" />
+                <div className="w-3 h-3 md:w-3.5 md:h-3.5 bg-[#1a1a1a] rounded-sm" />
+                <div className="w-3 h-3 md:w-3.5 md:h-3.5 bg-[#1a1a1a] rounded-sm" />
+              </div>
+            </div>
+          </Link>
+        </div>
       </div>
     </section>
   )

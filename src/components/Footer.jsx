@@ -67,7 +67,7 @@ export function Footer() {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white border border-black text-black flex items-center justify-center hover:bg-gray-100 transition-colors"
+                  className="w-10 h-10 rounded-full bg-white border border-[#242129] text-[#242129] flex items-center justify-center hover:bg-gray-100 transition-colors"
                   aria-label={social.name}
                 >
                   {social.icon}
@@ -105,7 +105,7 @@ export function Footer() {
 
         {/* Bottom Logo */}
         <div className="mb-8">
-          <Image src="/Bold_house_footer_blc.gif" alt="Be Bold" width={200} height={80} className="w-auto h-16" />
+          <Image src="/bebold_footer.svg" alt="Be Bold" width={200} height={80} className="w-auto h-16" />
         </div>
 
         {/* Copyright */}

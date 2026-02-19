@@ -1,7 +1,7 @@
 import { groq } from 'next-sanity'
 
 export const blogPostsQuery = groq`
-  *[_type == "blogPost"] | order(publishedAt desc) {
+  *[_type == "blogPost"] | order(coalesce(orderRank, "zzzz") asc, publishedAt desc) {
     _id,
     title,
     slug,
@@ -89,10 +89,14 @@ export const servicesQuery = groq`
     _id,
     title,
     slug,
-    image,
+    image {
+      ...,
+      asset->
+    },
     excerpt,
     order,
-    publishedAt
+    publishedAt,
+    _updatedAt
   }
 `
 

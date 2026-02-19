@@ -43,12 +43,12 @@ export async function Blog() {
                   {post.title}
                 </h3>
                 {imageUrl && (
-                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl mb-3">
+                  <div className="relative w-full aspect-video rounded-2xl overflow-hidden group mb-4">
                     <Image
                       src={imageUrl}
                       alt={post.title}
                       fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="object-cover"
                     />
                   </div>
                 )}
@@ -66,8 +66,7 @@ export async function Blog() {
         <Link
           href="/blog"
           className="relative block w-24 h-24 md:w-28 md:h-28 group cursor-pointer"
-          aria-label="Ver más artículos del blog"
-        >
+          aria-label="Ver más artículos del blog">
           {/* Rotating text circle */}
           <svg
             className="w-full h-full animate-spin-slow"
