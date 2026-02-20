@@ -233,6 +233,7 @@ export function Header() {
               ))}
             </div>
 
+
             {/* Be Bold Logo/Signature */}
             <div className="text-center flex justify-center">
               <Image src="/bebold_footer.svg" alt="Be Bold" width={200} height={80} className="w-auto h-16" />
