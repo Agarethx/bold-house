@@ -25,12 +25,12 @@ export default async function PortfolioPage({ searchParams }) {
             <Link key={item._id} href={`/portafolio/${slug}`}>
               <article className="cursor-pointer group mb-12">
                 {imageUrl && (
-                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl mb-3">
+                  <div className="relative w-full aspect-video rounded-2xl overflow-hidden group mb-4">
                     <Image
                       src={imageUrl}
                       alt={`${item.brand} - ${item.product}`}
                       fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="object-cover"
                     />
                   </div>
                 )}

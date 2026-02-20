@@ -4,9 +4,9 @@
  */
 export const SERVICES_MENU_ITEMS = [
   { label: "AGENCIA CREATIVA", href: "/servicios/agencia-creativa" },
-  { label: "AGENCIA DE MARKETING", href: "/servicios/agencia-de-marketing" },
+  { label: "AGENCIA DE MARKETING", href: "/servicios/agencia-marketing" },
   { label: "AGENCIA DIGITAL", href: "/servicios/agencia-digital" },
-  { label: "AGENCIA DE REDES SOCIALES", href: "/servicios/agencia-de-redes-sociales" },
+  { label: "AGENCIA DE REDES SOCIALES", href: "/servicios/redes-sociales" },
   { label: "AGENCIA INFLUENCERS", href: "/servicios/influencer" },
   { label: "AGENCIA ECOMMERCE", href: "/servicios/ecommerce" },
   { label: "BOLD FILMS", href: "/servicios/film" },
