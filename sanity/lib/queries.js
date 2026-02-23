@@ -62,6 +62,7 @@ export const portfolioItemBySlugQuery = groq`
     product,
     slug,
     image,
+    imageSecondary,
     video {
       videoType,
       videoFile {

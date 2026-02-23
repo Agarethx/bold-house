@@ -5,11 +5,26 @@ import Image from "next/image"
 import { urlFor } from "../../sanity/lib/image"
 import { Player } from "./Player"
 
-export function PortfolioFeaturedMedia({ video, image, brand, product }) {
+function hasPlayableVideo(video) {
+  if (!video) return false
+  switch (video.videoType) {
+    case "file":
+      return !!video.videoFile?.asset?.url
+    case "youtube":
+    case "vimeo":
+    case "url":
+      return !!video.videoUrl
+    default:
+      return false
+  }
+}
+
+export function PortfolioFeaturedMedia({ video, image, imageSecondary, brand, product }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const hasVideo = hasPlayableVideo(video)
 
   const handleVideoClick = () => {
-    if (video) {
+    if (hasVideo) {
       setIsModalOpen(true)
     }
   }
@@ -18,15 +33,15 @@ export function PortfolioFeaturedMedia({ video, image, brand, product }) {
     setIsModalOpen(false)
   }
 
-  // Get thumbnail URL - use video thumbnail if available, otherwise use featured image
+  // Get thumbnail URL - video.thumbnail → imageSecondary
   const thumbnailUrl = video?.thumbnail
     ? urlFor(video.thumbnail).width(1200).height(800).url()
-    : image
-    ? urlFor(image).width(1200).height(800).url()
+    : imageSecondary
+    ? urlFor(imageSecondary).width(1200).height(800).url()
     : null
 
-  // If there's a video, show video thumbnail with click handler
-  if (video) {
+  // If there's playable video, show video thumbnail + play button
+  if (hasVideo) {
     return (
       <>
         <div className="relative w-full aspect-video mb-12 rounded-2xl overflow-hidden">
@@ -70,12 +85,14 @@ export function PortfolioFeaturedMedia({ video, image, brand, product }) {
     )
   }
 
-  // If no video but there's an image, show the image
-  if (image && thumbnailUrl) {
+  // If no video: show only imageSecondary
+  const imageSecondaryUrl = imageSecondary ? urlFor(imageSecondary).width(1200).height(800).url() : null
+
+  if (imageSecondaryUrl) {
     return (
       <div className="relative w-full aspect-video mb-12 rounded-2xl overflow-hidden">
         <Image
-          src={thumbnailUrl}
+          src={imageSecondaryUrl}
           alt={`${brand} - ${product}`}
           fill
           className="object-cover"
@@ -85,6 +102,5 @@ export function PortfolioFeaturedMedia({ video, image, brand, product }) {
     )
   }
 
-  // If neither video nor image, return null
   return null
 }

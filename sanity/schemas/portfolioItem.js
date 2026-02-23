@@ -35,6 +35,15 @@ export default {
       description: 'Featured image (shown if no video is provided). Either image or video must be provided.',
     },
     {
+      name: 'imageSecondary',
+      title: 'Featured Image secondary',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      description: 'Featured image (shown if no video is provided). Either image or video must be provided.',
+    },
+    {
       name: 'video',
       title: 'Featured Video',
       type: 'object',

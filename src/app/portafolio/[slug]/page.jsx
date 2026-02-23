@@ -99,6 +99,7 @@ export default async function PortfolioDetailPage({ params }) {
       <PortfolioFeaturedMedia
         video={item.video}
         image={item.image}
+        imageSecondary={item.imageSecondary}
         brand={item.brand}
         product={item.product}
       />
