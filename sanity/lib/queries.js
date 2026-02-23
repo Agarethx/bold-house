@@ -13,6 +13,23 @@ export const blogPostsQuery = groq`
   }
 `
 
+export const blogPostsPaginatedQuery = groq`
+  *[_type == "blogPost"] | order(coalesce(orderRank, "zzzz") asc, publishedAt desc) [$start...$end] {
+    _id,
+    title,
+    slug,
+    image,
+    date,
+    readTime,
+    body,
+    publishedAt
+  }
+`
+
+export const blogPostsCountQuery = groq`
+  count(*[_type == "blogPost"])
+`
+
 export const blogPostBySlugQuery = groq`
   *[_type == "blogPost" && slug.current == $slug][0] {
     _id,

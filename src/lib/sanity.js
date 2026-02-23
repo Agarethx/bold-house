@@ -1,6 +1,8 @@
 import { client } from '../../sanity/lib/client'
 import {
   blogPostsQuery,
+  blogPostsPaginatedQuery,
+  blogPostsCountQuery,
   blogPostBySlugQuery,
   portfolioItemsQuery,
   portfolioItemBySlugQuery,
@@ -22,6 +24,33 @@ export async function getBlogPosts() {
   } catch (error) {
     console.error('Error fetching blog posts:', error)
     return []
+  }
+}
+
+export async function getBlogPostsPaginated(page = 1, pageSize = 9) {
+  try {
+    const start = (page - 1) * pageSize
+    const end = start + pageSize
+    const [items, total] = await Promise.all([
+      client.fetch(blogPostsPaginatedQuery, { start, end }),
+      client.fetch(blogPostsCountQuery),
+    ])
+    return {
+      items,
+      total,
+      page,
+      pageSize,
+      totalPages: Math.ceil(total / pageSize),
+    }
+  } catch (error) {
+    console.error('Error fetching paginated blog posts:', error)
+    return {
+      items: [],
+      total: 0,
+      page,
+      pageSize,
+      totalPages: 0,
+    }
   }
 }
 
