@@ -4,7 +4,8 @@ import Image from "next/image"
 import { urlFor } from "../../../sanity/lib/image"
 
 export default async function PortfolioPage({ searchParams }) {
-  const page = parseInt(searchParams?.page || '1', 10)
+  const params = await searchParams
+  const page = parseInt(params?.page || '1', 10)
   const { items, totalPages, page: currentPage } = await getPortfolioItemsPaginated(page, 10)
 
   return (
@@ -50,29 +51,101 @@ export default async function PortfolioPage({ searchParams }) {
         })}
       </div>
 
-      {/* Pagination */}
+      {/* Pagination - Circular design */}
       {totalPages > 1 && (
-        <div className="flex justify-center items-center gap-4 mt-12">
-          {currentPage > 1 && (
+        <div className="flex justify-center items-center gap-8 md:gap-12 mt-16">
+          {/* Previous - Chevron left */}
+          {currentPage > 1 ? (
             <Link
               href={`/portafolio?page=${currentPage - 1}`}
-              className="px-6 py-2 border border-[#1a1a1a] rounded-lg hover:bg-[#1a1a1a] hover:text-white transition-colors"
+              className="relative block w-20 h-20 md:w-24 md:h-24 group cursor-pointer"
+              aria-label="Página anterior"
             >
-              Anterior
+              <svg
+                className="w-full h-full animate-spin-slow group-hover:[animation-play-state:paused]"
+                viewBox="0 0 100 100"
+              >
+                <defs>
+                  <path
+                    id="circlePathPrev"
+                    d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+                  />
+                </defs>
+                <text className="text-[8px] uppercase tracking-[0.3em] fill-[#1a1a1a] font-medium">
+                  <textPath href="#circlePathPrev">
+                    • BEBOLD • BELEADERS • BEBRAVE • BEBOLD
+                  </textPath>
+                </text>
+              </svg>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="font-boldstrom text-[#1a1a1a] text-2xl md:text-6xl">{'<'}</span>
+              </div>
             </Link>
+          ) : (
+            <div className="w-20 h-20 md:w-24 md:h-24 opacity-30 pointer-events-none" aria-hidden />
           )}
 
-          <span className="text-sm text-gray-500">
-            Página {currentPage} de {totalPages}
-          </span>
+          {/* Center - Grid (page 1 / view all) */}
+          <Link
+            href="/portafolio?page=1"
+            className="relative block w-20 h-20 md:w-24 md:h-24 group cursor-pointer"
+            aria-label="Ver página 1"
+          >
+            <svg
+              className="w-full h-full animate-spin-slow group-hover:[animation-play-state:paused]"
+              viewBox="0 0 100 100"
+            >
+              <defs>
+                <path
+                  id="circlePathGrid"
+                  d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+                />
+              </defs>
+              <text className="text-[8px] uppercase tracking-[0.3em] fill-[#1a1a1a] font-medium">
+                <textPath href="#circlePathGrid">
+                  • BEBOLD • BELEADERS • BEBRAVE • BEBOLD
+                </textPath>
+              </text>
+            </svg>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="grid grid-cols-2 gap-1">
+                <div className="w-2 h-2 md:w-3 md:h-3 bg-[#1a1a1a] rounded-sm" />
+                <div className="w-2 h-2 md:w-3 md:h-3 bg-[#1a1a1a] rounded-sm" />
+                <div className="w-2 h-2 md:w-3 md:h-3 bg-[#1a1a1a] rounded-sm" />
+                <div className="w-2 h-2 md:w-3 md:h-3 bg-[#1a1a1a] rounded-sm" />
+              </div>
+            </div>
+          </Link>
 
-          {currentPage < totalPages && (
+          {/* Next - Chevron right */}
+          {currentPage < totalPages ? (
             <Link
               href={`/portafolio?page=${currentPage + 1}`}
-              className="px-6 py-2 border border-[#1a1a1a] rounded-lg hover:bg-[#1a1a1a] hover:text-white transition-colors"
+              className="relative block w-20 h-20 md:w-24 md:h-24 group cursor-pointer"
+              aria-label="Página siguiente"
             >
-              Siguiente
+              <svg
+                className="w-full h-full animate-spin-slow group-hover:[animation-play-state:paused]"
+                viewBox="0 0 100 100"
+              >
+                <defs>
+                  <path
+                    id="circlePathNext"
+                    d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+                  />
+                </defs>
+                <text className="text-[8px] uppercase tracking-[0.3em] fill-[#1a1a1a] font-medium">
+                  <textPath href="#circlePathNext">
+                    • BEBOLD • BELEADERS • BEBRAVE • BEBOLD
+                  </textPath>
+                </text>
+              </svg>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="font-boldstrom text-[#1a1a1a] text-2xl md:text-6xl">{'>'}</span>
+              </div>
             </Link>
+          ) : (
+            <div className="w-20 h-20 md:w-24 md:h-24 opacity-30 pointer-events-none" aria-hidden />
           )}
         </div>
       )}
