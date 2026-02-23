@@ -67,30 +67,38 @@ export function BigBanner() {
 
   return (
     <section className="w-full bg-white py-4 md:py-12 lg:py-16">
-      <div className="container mx-auto px-4 flex flex-col items-center">
-        {/* BE BOLD Text */}
-        <div className="flex flex-col items-start leading-[20px]">
-          <div className="flex items-center">
-            {/* Pink chevron */}
-            <span className="text-[#FF2E8D] font-black text-[150px] sm:text-7xl md:text-8xl lg:text-9xl leading-none mr-1 font-boldstrom">
-              {'>'}
-            </span>
-            <span className="text-[#201b25] text-[150px] sm:text-7xl md:text-8xl lg:text-9xl tracking-tight leading-none font-boldstrom">
-              BE
+      <div className="container mx-auto px-4 flex flex-col lg:flex-row lg:items-center lg:gap-8 items-center">
+        {/* Text block - 40% en escritorio */}
+        <div className="flex flex-col lg:w-[40%] lg:shrink-0">
+          {/* BE BOLD Text */}
+          <div className="flex flex-col items-start leading-[20px]">
+            <div className="flex items-center">
+              {/* Pink chevron */}
+              <span className="text-[#FF2E8D] font-black text-[150px] sm:text-7xl md:text-8xl lg:text-[150px] leading-none mr-1 font-boldstrom">
+                {'>'}
+              </span>
+              <span className="text-[#201b25] text-[150px] sm:text-7xl md:text-8xl lg:text-[150px] tracking-tight leading-none font-boldstrom">
+                BE
+              </span>
+            </div>
+            <span className="text-[#201b25] text-[150px] sm:text-7xl md:text-8xl lg:text-[150px] tracking-tight -mt-2 md:-mt-4 font-boldstrom leading-[104px]">
+              BOLD
             </span>
           </div>
-          <span className="text-[#201b25] text-[150px] sm:text-7xl md:text-8xl lg:text-9xl tracking-tight -mt-2 md:-mt-4 font-boldstrom leading-[104px]">
-            BOLD
-          </span>
+
+          {/* be brave, be leader text */}
+          <p className="italic text-[#201b25] text-[80px] sm:text-2xl md:text-3xl lg:text-[80px] lg:mt-0 mt-1 md:mt-6 font-hoteight">
+            be brave, be leader.
+          </p>
+
+          {/* Copyright */}
+          <p className="text-[#242129] font-medium text-sm md:text-base mt-6">
+            © 06 | 26
+          </p>
         </div>
 
-        {/* be brave, be leader text */}
-        <p className="italic text-[#201b25] text-[80px] sm:text-2xl md:text-3xl mt-1 md:mt-6 font-hoteight">
-          be brave, be leader.
-        </p>
-
-        {/* Video/Image Container with Oval Shape */}
-        <div className="w-full max-w-3xl mt-4 md:mt-12 relative">
+        {/* Video/Image Container - 60% en escritorio */}
+        <div className="w-full lg:w-[60%] max-w-3xl lg:max-w-none mt-4 md:mt-12 lg:mt-0 relative">
           {/* Oval container */}
           <div className="relative w-full" style={{ paddingBottom: '50%' }}>
             <div className="absolute inset-0 rounded-[100px] overflow-hidden">
@@ -147,11 +155,6 @@ export function BigBanner() {
 
           </div>
         </div>
-
-        {/* Copyright */}
-        <p className="text-[#242129] font-medium text-sm md:text-base mt-6">
-          © 06 | 26
-        </p>
       </div>
     </section>
   )

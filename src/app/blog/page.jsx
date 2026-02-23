@@ -23,7 +23,7 @@ export default async function BlogPage() {
     <section id="blog" className="bg-white py-16 px-6 md:px-12 lg:px-20 min-h-screen">
       {/* Title */}
       <div className="mb-12">
-        <h2 className="text-5xl md:text-6xl lg:text-7xl leading-none">
+        <h2 className="text-5xl md:text-6xl lg:text-7xl leading-none lg:leading-[90%]">
           <span className="font-boldstrom text-[#1a1a1a]">#BLOG —</span>
           <br />
           <span className="text-5xl md:text-5xl lg:text-6xl font-boldstrom text-[#FF2E8D]">
@@ -33,7 +33,7 @@ export default async function BlogPage() {
       </div>
 
       {/* Blog Posts */}
-      <div className="space-y-12 mb-12">
+      <div className="space-y-12 mb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:space-y-0">
         {blogPosts.length > 0 ? (
           blogPosts.map((post) => {
             const imageUrl = post.image
@@ -43,7 +43,7 @@ export default async function BlogPage() {
             return (
               <Link key={post._id} href={`/blog/${slug}`}>
                 <article className="cursor-pointer group mb-12">
-                  <h3 className="font-bold text-lg md:text-xl text-[#1a1a1a] mb-4">
+                  <h3 className="font-bold text-lg md:text-xl text-[#1a1a1a] mb-4 lg:min-h-[50px]">
                     {post.title}
                   </h3>
                   {imageUrl && (

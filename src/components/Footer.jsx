@@ -48,19 +48,20 @@ export function Footer() {
 
   return (
     <footer className="bg-[#242129] text-white py-12 px-4">
-      <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
-        {/* Logo Principal */}
-        <div className="mb-4">
-          <h2 className="text-[115px] md:text-5xl font-boldstrom leading-[40px] text-white mb-6">
-            {'>'} Bold
-          </h2>
-
-          <p className="italic text-white text-[80px] sm:text-2xl md:text-3xl mt-1 md:mt-6 font-hoteight">
-            Casa creativa
-          </p>
-
-            {/* Social Media Icons */}
-            <div className="flex items-center justify-center gap-4 mt-6 px-2 mb-6">
+      <div className="max-w-4xl mx-auto">
+        {/* Grid 3 columnas en desktop: 1) logo+rrss 2) links 3) botón+teléfono+correo | Mobile: stack */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 items-start md:items-center justify-items-center text-center">
+          {/* Fila 1: Logo + RRSS */}
+          <div className="flex flex-col items-center gap-6">
+            <div>
+              <h2 className="text-[115px] md:text-5xl font-boldstrom leading-[40px] lg:text-[80px] text-white mb-6">
+                {'>'} Bold
+              </h2>
+              <p className="italic text-white text-[80px] sm:text-2xl md:text-3xl lg:text-[50px] mt-1 md:mt-6 font-hoteight">
+                Casa creativa
+              </p>
+            </div>
+            <div className="flex items-center justify-center gap-4 px-2">
               {socialLinks.map((social) => (
                 <a
                   key={social.name}
@@ -74,42 +75,41 @@ export function Footer() {
                 </a>
               ))}
             </div>
+          </div>
+
+          {/* Fila 2: Links */}
+          <nav>
+            <ul className="space-y-3">
+              {SERVICES_MENU_ITEMS.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="text-lg font-semibold hover:text-gray-300 transition-colors tracking-wide">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Fila 3: Botón + Teléfono + Correo */}
+          <div className="flex flex-col items-center gap-4">
+            <a
+              href="mailto:contacto@boldhouse.cl"
+              className="bg-[#FF2E8D] hover:bg-[#FF2E8D] text-white text-[22px] tracking-wider px-6 py-4 rounded-full transition-colors font-ambit text-center w-full max-w-[210px]"
+            >
+              HABLEMOS
+            </a>
+            <p className="text-xl font-semibold">+569 796 90 794</p>
+            <p className="text-lg">CONTACTO@BOLDHOUSE.CL</p>
+          </div>
         </div>
 
-        {/* Services List - mismos items que el submenú SKILLS del Header */}
-        <nav className="mb-8 ">
-          <ul className="space-y-3">
-            {SERVICES_MENU_ITEMS.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="text-lg font-semibold hover:text-gray-300 transition-colors tracking-wide">
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {/* CTA Button */}
-        <a
-          href="mailto:contacto@boldhouse.cl"
-          className="bg-[#FF2E8D] hover:bg-[#FF2E8D] text-white text-[22px] tracking-wider px-6 py-4 rounded-full transition-colors w-full font-ambit text-center mb-8 max-w-[210px]"
-        >
-          HABLEMOS
-        </a>
-
-        {/* Contact Info */}
-        <div className="mb-12 space-y-2">
-          <p className="text-xl font-semibold">+569 796 90 794</p>
-          <p className="text-lg">CONTACTO@BOLDHOUSE.CL</p>
+        {/* Bottom Logo + Copyright */}
+        <div className="flex flex-col items-center text-center mt-12 pt-8 lg:border-t border-white/10">
+          <div className="mb-6">
+            <Image src="/bebold_footer.svg" alt="Be Bold" width={200} height={80} className="w-auto h-16" />
+          </div>
+          <p className="text-xs text-gray-400">© COPYRIGHT 2026, ALL RIGHTS RESERVED BY BOLD HOUSE</p>
         </div>
-
-        {/* Bottom Logo */}
-        <div className="mb-8">
-          <Image src="/bebold_footer.svg" alt="Be Bold" width={200} height={80} className="w-auto h-16" />
-        </div>
-
-        {/* Copyright */}
-        <p className="text-xs text-gray-400">© COPYRIGHT 2026, ALL RIGHTS RESERVED BY BOLD HOUSE</p>
       </div>
     </footer>
   )

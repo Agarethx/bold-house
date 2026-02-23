@@ -118,7 +118,7 @@ export function Services() {
 
                       {/* Service Excerpt */}
                       {service.excerpt && (
-                        <p className="text-white/80 text-sm md:text-base leading-relaxed max-w-sm mb-4 uppercase">
+                        <p className="text-white/80 text-sm md:text-base leading-relaxed max-w-sm mb-4 uppercase lg:max-w-full lg:min-h-[100px]">
                           {service.excerpt}
                         </p>
                       )}

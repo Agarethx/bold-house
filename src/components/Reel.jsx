@@ -119,7 +119,7 @@ export function Reel() {
         </div>
 
         {/* Video - Always visible, loop */}
-        <div className="relative w-full aspect-[3/4] md:aspect-video max-w-md mx-auto mb-8 rounded-2xl overflow-hidden">
+        <div className="relative w-full aspect-[3/4] md:aspect-video max-w-md mx-auto mb-8 rounded-2xl overflow-hidden lg:max-w-full">
           <div className="relative w-full h-full">
             {videoUrl && isEmbedVideo ? (
               <iframe

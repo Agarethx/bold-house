@@ -7,7 +7,7 @@ export async function Clients() {
 
   return (
     <section className="bg-white py-8 px-4 md:px-8">
-      <div className="max-w-5xl mx-auto">
+      <div className="container mx-auto">
         {/* Header */}
         <div className="mb-12">
           <h2 className="text-5xl md:text-5xl lg:text-6xl font-boldstrom  text-[#1a1a1a]">
@@ -19,7 +19,7 @@ export async function Clients() {
         </div>
 
         {/* Logo Grid */}
-        <div className="grid grid-cols-3 md:grid-cols-3 gap-8 md:gap-6">
+        <div className="grid grid-cols-3 md:grid-cols-3 gap-8 md:gap-6 lg:grid-cols-5">
           {clients.map((client) => {
             const logoUrl = client.logo ? urlFor(client.logo).width(280).height(160).url() : null
             return (

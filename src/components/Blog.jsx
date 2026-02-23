@@ -32,14 +32,14 @@ export async function Blog() {
       </div>
 
       {/* Blog Posts */}
-      <div className="space-y-12 mb-12">
+      <div className="space-y-12 mb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {blogPosts.map((post) => {
           const imageUrl = post.image ? urlFor(post.image).width(1200).height(900).url() : null
           const slug = post.slug?.current || ""
           return (
             <Link key={post._id} href={`/blog/${slug}`}>
               <article className="cursor-pointer group mb-12">
-                <h3 className="font-bold text-lg md:text-xl text-[#1a1a1a] mb-4">
+                <h3 className="font-bold text-lg md:text-xl text-[#1a1a1a] mb-4 lg:min-h-[50px]">
                   {post.title}
                 </h3>
                 {imageUrl && (
