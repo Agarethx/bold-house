@@ -24,7 +24,7 @@ export function RelatedPortfolioCarousel({ portfolioItems = [], currentSlug }) {
 
   return (
     <section className="py-12 md:py-20 bg-white">
-      <div className="container mx-auto px-4 md:px-12 lg:px-20">
+      <div className="container mx-auto">
         <div className="mb-8">
           <h2 className="text-3xl md:text-4xl font-boldstrom text-[#1a1a1a] mb-2">
             Más proyectos
