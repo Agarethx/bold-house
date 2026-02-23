@@ -29,7 +29,7 @@ export default async function ServicesPage({ searchParams }) {
             <Link key={item._id} href={`/servicios/${slug}`}>
               <article className="cursor-pointer group mb-12">
                 {imageUrl && (
-                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl mb-3">
+                  <div className="relative aspect-video w-full overflow-hidden rounded-2xl mb-3">
                     <Image
                       src={imageUrl}
                       alt={`AGENCIA ${item.title}`}
