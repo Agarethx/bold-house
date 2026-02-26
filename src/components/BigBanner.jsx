@@ -66,39 +66,39 @@ export function BigBanner() {
     : "/img/VIDEO_.png"
 
   return (
-    <section className="w-full bg-white py-4 md:py-12 lg:py-16">
+    <section className="w-full bg-white py-4 md:py-12 lg:pt-16 lg:pb-0">
       <div className="container mx-auto px-4 flex flex-col lg:flex-row lg:items-center lg:gap-8 items-center">
-        {/* Text block - 40% en escritorio */}
-        <div className="flex flex-col lg:w-[40%] lg:shrink-0">
+        {/* Text block - full width en escritorio (video oculto), 40% en mobile con video */}
+        <div className="flex flex-col lg:w-full">
           {/* BE BOLD Text */}
-          <div className="flex flex-col items-start leading-[20px]">
+          <div className="flex flex-col lg:flex-row lg:items-center items-start leading-[20px] lg:leading-auto lg:justify-center">
             <div className="flex items-center">
               {/* Pink chevron */}
-              <span className="text-[#FF2E8D] font-black text-[150px] sm:text-7xl md:text-8xl lg:text-[150px] leading-none mr-1 font-boldstrom">
+              <span className="text-[#FF2E8D] text-[150px] sm:text-7xl md:text-8xl lg:text-[200px] leading-none mr-1 font-boldstrom">
                 {'>'}
               </span>
-              <span className="text-[#201b25] text-[150px] sm:text-7xl md:text-8xl lg:text-[150px] tracking-tight leading-none font-boldstrom">
+              <span className="text-[#201b25] text-[150px] sm:text-7xl md:text-8xl lg:text-[200px] tracking-tight leading-none font-boldstrom">
                 BE
               </span>
             </div>
-            <span className="text-[#201b25] text-[150px] sm:text-7xl md:text-8xl lg:text-[150px] tracking-tight -mt-2 md:-mt-4 font-boldstrom leading-[104px]">
+            <span className="text-[#201b25] text-[150px] sm:text-7xl md:text-8xl lg:text-[200px] tracking-tight -mt-2 lg:mt-0 md:-mt-4 font-boldstrom leading-[104px] lg:leading-[200px]">
               BOLD
             </span>
           </div>
 
           {/* be brave, be leader text */}
-          <p className="italic text-[#201b25] text-[80px] sm:text-2xl md:text-3xl lg:text-[80px] lg:mt-0 mt-1 md:mt-6 font-hoteight">
+          <p className="italic text-[#201b25] text-[80px] sm:text-2xl md:text-3xl lg:text-[150px] mt-1 md:mt-6 font-hoteight lg:text-center lg:-mt-6">
             be brave, be leader.
           </p>
 
           {/* Copyright */}
-          <p className="text-[#242129] font-medium text-sm md:text-base mt-6">
+          <p className="text-[#242129] font-medium text-sm md:text-base mt-6 hidden">
             © 06 | 26
           </p>
         </div>
 
-        {/* Video/Image Container - 60% en escritorio */}
-        <div className="w-full lg:w-[60%] max-w-3xl lg:max-w-none mt-4 md:mt-12 lg:mt-0 relative">
+        {/* Video/Image Container - oculto en escritorio, visible en mobile */}
+        <div className="w-full lg:w-[60%] max-w-3xl lg:max-w-none mt-4 md:mt-12 lg:mt-0 relative lg:hidden">
           {/* Oval container */}
           <div className="relative w-full" style={{ paddingBottom: '50%' }}>
             <div className="absolute inset-0 rounded-[100px] overflow-hidden">

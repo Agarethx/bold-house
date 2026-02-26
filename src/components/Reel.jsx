@@ -90,7 +90,7 @@ export function Reel() {
   if (isLoading) {
     return (
       <section className="bg-white px-6 py-16 md:py-24">
-        <div className="max-w-4xl mx-auto">
+        <div className="container mx-auto px-4">
           <div className="animate-pulse">
             <div className="h-32 bg-gray-200 rounded mb-8"></div>
             <div className="h-96 bg-gray-200 rounded mb-12"></div>
@@ -103,23 +103,23 @@ export function Reel() {
 
   return (
     <section className="bg-white px-4 pt-4 pb-8 md:py-24">
-      <div className="max-w-4xl mx-auto">
-        {/* Top text */}
-        <div className="mb-8">
+      <div className="container mx-auto px-4 flex flex-col">
+        {/* Top text - mobile: arriba, desktop: abajo del video (order) */}
+        <div className="mb-8 order-1 lg:order-2 lg:mb-2">
           <h2 className="text-5xl md:text-5xl font-boldstrom leading-[40px] text-[#1a1a1a]">
             {topTextLine1} {topTextLine2}
-            <br />
+            <br className="block lg:hidden" />
             {topTextLine3}
           </h2>
           <p className="text-5xl md:text-5xl font-boldstrom leading-[40px] mt-2 text-[#FF2E8D]">
             {pinkTextLine1}
-            <br />
+            <br className="block lg:hidden" />
             {pinkTextLine2}
           </p>
         </div>
 
-        {/* Video - Always visible, loop */}
-        <div className="relative w-full aspect-[3/4] md:aspect-video max-w-md mx-auto mb-8 rounded-2xl overflow-hidden lg:max-w-full">
+        {/* Video - mobile: en medio, desktop: primero, full width */}
+        <div className="relative w-full aspect-[3/4] md:aspect-video max-w-md mx-auto mb-8 rounded-2xl overflow-hidden lg:max-w-full lg:mx-0 lg:order-1 order-2">
           <div className="relative w-full h-full">
             {videoUrl && isEmbedVideo ? (
               <iframe
@@ -165,19 +165,19 @@ export function Reel() {
         </div>
 
         {/* Bottom text */}
-        <div className="text-left mb-8">
+        <div className="text-left mb-8 order-3">
           <h3 className="text-5xl md:text-5xl font-boldstrom leading-[40px] text-[#1a1a1a]">
             CONVIÉRTETE EN UNA MARCA MEMORABLE.
           </h3>
         </div>
 
         {/* CTA Button */}
-        <div className="flex justify-center">
+        <div className="flex justify-center order-4 lg:justify-start">
           <a
             href="https://calendar.app.google/3ADtTxgb9j34WFAP9"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-[#FF2E8D] hover:bg-[#FF2E8D] text-white text-[22px] tracking-wider px-6 py-4 rounded-full transition-colors w-full font-ambit text-center"
+            className="bg-[#FF2E8D] hover:bg-[#FF2E8D] text-white text-[22px] tracking-wider px-6 py-4 rounded-full transition-colors w-full font-ambit text-center lg:max-w-md"
           >
             {ctaButtonText}
           </a>

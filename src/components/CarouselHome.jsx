@@ -18,14 +18,14 @@ export function CarouselHome({ portfolioItems = [] }) {
         <div className="mb-8">
           <h2 className="text-5xl md:text-5xl font-boldstrom leading-[40px] text-[#1a1a1a]">
             La valentía nos define, —
-            <br />
-            la estrategia nos guia —
+            <br className="block lg:hidden" />
+            la estrategia <br className="hidden lg:block" /> nos guia —
           </h2>
           <p className="text-5xl md:text-5xl font-boldstrom leading-[40px] mt-2 text-[#FF2E8D]">
             y la audacia
-            <br />
+            <br className="block lg:hidden" />
             nos
-            <br />
+            <br className="block lg:hidden" />
             representa
           </p>
         </div>
