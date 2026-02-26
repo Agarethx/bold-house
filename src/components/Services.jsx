@@ -150,7 +150,7 @@ export function Services() {
               </CarouselItem>
             )}
           </CarouselContent>
-          <div className="flex justify-center gap-4 mt-8">
+          <div className="flex justify-center gap-4 mb-8 lg:mb-0">
             {/* Rotating Button */}
             <Link href="/servicios" className="relative block w-24 h-24 md:w-28 md:h-28 group cursor-pointer">
             <div className="mt-8 relative w-24 h-24">

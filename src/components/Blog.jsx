@@ -32,7 +32,7 @@ export async function Blog() {
       </div>
 
       {/* Blog Posts */}
-      <div className="space-y-12 mb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="space-y-12 mb-12 lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {blogPosts.map((post) => {
           const imageUrl = post.image ? urlFor(post.image).width(1200).height(900).url() : null
           const slug = post.slug?.current || ""
