@@ -52,10 +52,10 @@ export function Footer() {
         {/* Logo Principal */}
         <div className="mb-4">
           <h2 className="text-[115px] md:text-5xl font-boldstrom leading-[40px] text-white mb-6 lg:text-[150px]">
-            {'>'} Bold
+            {'>'}Bold
           </h2>
 
-          <p className="italic text-white text-[80px] sm:text-2xl md:text-3xl mt-1 md:mt-6 font-hoteight">
+          <p className="italic text-white text-[80px] sm:text-2xl md:text-3xl mt-1 md:mt-6 font-hoteight lg:text-[100px]">
             Casa creativa
           </p>
 
@@ -77,7 +77,7 @@ export function Footer() {
         </div>
 
         {/* Services List - mismos items que el submenú SKILLS del Header */}
-        <nav className="mb-8 ">
+        <nav className="mb-8 lg:hidden">
           <ul className="space-y-3">
             {SERVICES_MENU_ITEMS.map((item) => (
               <li key={item.href}>
@@ -105,7 +105,7 @@ export function Footer() {
 
         {/* Bottom Logo */}
         <div className="mb-8">
-          <Image src="/Bold_house_footer_blc.gif" alt="Be Bold" width={200} height={80} className="w-auto h-16" />
+          <Image src="/bebold_footer.svg" alt="Be Bold" width={200} height={80} className="w-auto h-16" />
         </div>
 
         {/* Copyright */}

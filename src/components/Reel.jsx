@@ -102,7 +102,7 @@ export function Reel() {
   }
 
   return (
-    <section className="bg-white px-4 pt-4 pb-8 md:py-24">
+    <section className="bg-white px-4 pt-4 pb-8 md:py-24 lg:pt-0 lg:pb-10">
       <div className="container mx-auto lg:px-4 flex flex-col">
         {/* Top text - mobile: arriba, desktop: abajo del video (order) */}
         <div className="mb-8 order-1 lg:order-2 lg:mb-2">

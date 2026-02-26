@@ -16,12 +16,12 @@ export function CarouselHome({ portfolioItems = [] }) {
     <section className="py-8 md:py-20">
       <div className="container mx-auto px-4">
         <div className="mb-8">
-          <h2 className="text-5xl md:text-5xl font-boldstrom leading-[40px] text-[#1a1a1a]">
-            La valentía nos define, —
-            <br className="block lg:hidden" />
-            la estrategia <br className="hidden lg:block" /> nos guia —
+          <h2 className="text-5xl md:text-5xl lg:text-7xl font-boldstrom leading-[85%] text-[#1a1a1a]">
+            La valentía nos define,
+            <br />
+            la estrategia nos guia —
           </h2>
-          <p className="text-5xl md:text-5xl font-boldstrom leading-[40px] mt-2 text-[#FF2E8D]">
+          <p className="text-5xl md:text-5xl lg:text-7xl font-boldstrom leading-[85%] mt-2 text-[#FF2E8D]">
             y la audacia
             <br className="block lg:hidden" />
             nos

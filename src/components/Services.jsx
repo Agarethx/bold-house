@@ -37,9 +37,9 @@ export function Services() {
     fetchServices()
   }, [])
   return (
-    <section className="bg-[#242129] py-8 md:py-24 overflow-hidden">
+    <section className="bg-[#242129] py-8 md:py-24 lg:py-5 overflow-hidden lg:pb-[90px]">
       {/* Animated Background Text */}
-      <div className="relative mb-5">
+      <div className="relative mb-10">
         {/* Top marquee - moves right */}
         <div className="overflow-hidden whitespace-nowrap">
           <div className="animate-marquee-right inline-block">
@@ -53,7 +53,7 @@ export function Services() {
         </div>
 
         {/* Bottom marquee - moves left */}
-        <div className="overflow-hidden whitespace-nowrap -mt-1 md:-mt-6">
+        <div className="overflow-hidden whitespace-nowrap -mt-1 md:-mt-6 lg:mt-1">
           <div className="animate-marquee-left inline-block">
             <span
               className="text-8xl md:text-8xl lg:text-9xl text-white inline-block font-boldstrom">
@@ -78,11 +78,11 @@ export function Services() {
           plugins={[autoplayPlugin]}
           className="w-full"
         >
-          <CarouselContent className="-ml-4">
+          <CarouselContent className="-ml-0 pl-4">
             {isLoading ? (
               // Loading skeleton
               Array.from({ length: 3 }).map((_, index) => (
-                <CarouselItem key={`skeleton-${index}`} className="pl-4 basis-[85%] md:basis-1/2 lg:basis-1/3">
+                <CarouselItem key={`skeleton-${index}`} className="basis-full md:basis-1/2 lg:basis-1/3 mr-4 lg:mr-[100px]">
                   <div className="flex flex-col items-center text-left">
                     <div className="relative w-64 h-64 md:w-72 md:h-72 mb-6 rounded-3xl overflow-hidden bg-gray-700 animate-pulse" />
                     <div className="h-8 w-48 bg-gray-700 rounded mb-4 animate-pulse" />
@@ -102,7 +102,7 @@ export function Services() {
                 const imageAssetId = service.image?.asset?._id || service.image?.asset?._ref || service._id
 
                 return (
-                  <CarouselItem key={service._id || index} className="pl-4 basis-[85%] md:basis-1/2 lg:basis-1/3">
+                  <CarouselItem key={service._id || index} className="!pl-0 basis-full md:basis-1/2 lg:basis-1/3 mr-4 lg:mr-[100px]">
                     <div className="flex flex-col items-center text-left">
                       {/* Service Image */}
                       <Link
@@ -135,7 +135,7 @@ export function Services() {
                 )
               })
             ) : (
-              <CarouselItem className="pl-4">
+              <CarouselItem className="!pl-0 mr-4 lg:mr-[100px]">
                 <div className="text-white text-center py-8">
                   No hay servicios disponibles
                 </div>

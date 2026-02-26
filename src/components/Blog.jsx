@@ -25,14 +25,14 @@ export async function Blog() {
         <h2 className="text-5xl md:text-6xl lg:text-7xl leading-none">
           <span className="font-boldstrom text-[#1a1a1a]">#BLOG —</span>
           <br />
-          <span className="text-5xl md:text-5xl lg:text-6xl font-boldstrom text-[#FF2E8D]">
+          <span className="text-5xl md:text-5xl lg:text-7xl font-boldstrom text-[#FF2E8D]">
             BOLD
           </span>
         </h2>
       </div>
 
       {/* Blog Posts */}
-      <div className="space-y-12 mb-12 lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="space-y-12 mb-0 lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {blogPosts.map((post) => {
           const imageUrl = post.image ? urlFor(post.image).width(1200).height(900).url() : null
           const slug = post.slug?.current || ""

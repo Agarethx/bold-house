@@ -87,7 +87,7 @@ export function BigBanner() {
           </div>
 
           {/* be brave, be leader text */}
-          <p className="italic text-[#201b25] text-[80px] sm:text-2xl md:text-3xl lg:text-[150px] mt-1 md:mt-6 font-hoteight lg:text-center lg:-mt-6">
+          <p className="italic text-[#201b25] text-center text-[80px] sm:text-2xl md:text-3xl lg:text-[150px] mt-1 md:mt-6 font-hoteight lg:text-center lg:-mt-6">
             be brave, be leader.
           </p>
 

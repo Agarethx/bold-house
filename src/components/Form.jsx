@@ -43,10 +43,10 @@ export function Formulario() {
     <section id="contacto" className="bg-white py-8 md:py-24">
       <div className="container mx-auto px-6 max-w-xl">
         <div className="mb-8">
-          <h2 className="text-5xl md:text-6xl font-boldstrom leading-none">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-boldstrom leading-none">
             <span className="text-[#1a1a1a]">#CON—</span>
           </h2>
-          <h2 className="text-5xl md:text-5xl lg:text-6xl font-boldstrom text-[#FF2E8D]">
+          <h2 className="text-5xl md:text-5xl lg:text-7xl font-boldstrom text-[#FF2E8D]">
             TACTO
           </h2>
         </div>
