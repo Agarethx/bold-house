@@ -40,6 +40,9 @@ export function PortfolioFeaturedMedia({ video, image, imageSecondary, brand, pr
     ? urlFor(imageSecondary).width(1200).height(800).url()
     : null
 
+  // If no video: show only imageSecondary
+  const imageSecondaryUrl = imageSecondary ? urlFor(imageSecondary).width(1200).height(800).url() : null
+
   // If there's playable video, show video thumbnail + play button
   if (hasVideo) {
     return (
@@ -49,9 +52,9 @@ export function PortfolioFeaturedMedia({ video, image, imageSecondary, brand, pr
             className="relative w-full h-full cursor-pointer group"
             onClick={handleVideoClick}
           >
-            {thumbnailUrl && (
+            {imageSecondaryUrl && (
               <Image
-                src={thumbnailUrl}
+                src={imageSecondaryUrl}
                 alt={`${brand} - ${product}`}
                 fill
                 className="object-cover transition-opacity group-hover:opacity-90"
@@ -78,15 +81,13 @@ export function PortfolioFeaturedMedia({ video, image, imageSecondary, brand, pr
           <Player
             video={video}
             isOpen={true}
+            imageSecondary={imageSecondaryUrl}
             onClose={handleCloseModal}
           />
         )}
       </>
     )
   }
-
-  // If no video: show only imageSecondary
-  const imageSecondaryUrl = imageSecondary ? urlFor(imageSecondary).width(1200).height(800).url() : null
 
   if (imageSecondaryUrl) {
     return (

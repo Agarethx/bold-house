@@ -21,7 +21,7 @@ function getVimeoId(url) {
 
 const EXIT_DURATION = 700
 
-export function Player({ video, isOpen, onClose }) {
+export function Player({ video, isOpen, onClose, imageSecondary }) {
   const [animationPhase, setAnimationPhase] = useState("entering")
 
   // Reset and run entrance animation when modal opens
@@ -171,7 +171,7 @@ export function Player({ video, isOpen, onClose }) {
                     </video>
                   ) : (
                     <Image
-                      src={thumbnailUrl}
+                      src={imageSecondary}
                       alt={video?.title || "Video"}
                       fill
                       className="object-cover"
@@ -274,7 +274,7 @@ export function Player({ video, isOpen, onClose }) {
           <div className="relative z-10 -mt-20 md:-mt-32 lg:-mt-40 max-w-3xl mx-auto">
             <div className="relative aspect-video rounded-2xl overflow-hidden">
               <Image
-                src="/player-thumbnail.jpg"
+                src={imageSecondary}
                 alt="Nike Legado Air Max Campaign"
                 fill
                 className="object-cover"
