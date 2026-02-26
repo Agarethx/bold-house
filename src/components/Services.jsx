@@ -17,18 +17,11 @@ import { urlFor } from "../../sanity/lib/image"
 export function Services() {
   const [services, setServices] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const [emblaApi, setEmblaApi] = useState(null)
 
   const autoplayPlugin = useMemo(
     () => Autoplay({ delay: 3000, stopOnInteraction: false }),
     []
   )
-
-  useEffect(() => {
-    if (emblaApi) {
-      emblaApi.plugins()?.autoplay?.play()
-    }
-  }, [emblaApi])
 
   useEffect(() => {
     async function fetchServices() {
@@ -83,7 +76,6 @@ export function Services() {
             containScroll: "trimSnaps",
           }}
           plugins={[autoplayPlugin]}
-          setApi={setEmblaApi}
           className="w-full"
         >
           <CarouselContent className="-ml-4">

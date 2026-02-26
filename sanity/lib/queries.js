@@ -1,7 +1,7 @@
 import { groq } from 'next-sanity'
 
 export const blogPostsQuery = groq`
-  *[_type == "blogPost"] | order(coalesce(orderRank, "zzzz") asc, publishedAt desc) {
+  *[_type == "blogPost"] | order(_updatedAt desc) {
     _id,
     title,
     slug,
@@ -14,7 +14,7 @@ export const blogPostsQuery = groq`
 `
 
 export const blogPostsPaginatedQuery = groq`
-  *[_type == "blogPost"] | order(coalesce(orderRank, "zzzz") asc, publishedAt desc) [$start...$end] {
+  *[_type == "blogPost"] | order(_updatedAt desc) [$start...$end] {
     _id,
     title,
     slug,
@@ -44,7 +44,7 @@ export const blogPostBySlugQuery = groq`
 `
 
 export const portfolioItemsQuery = groq`
-  *[_type == "portfolioItem"] | order(publishedAt desc) {
+  *[_type == "portfolioItem"] | order(_updatedAt desc) {
     _id,
     brand,
     product,
@@ -87,7 +87,7 @@ export const portfolioItemBySlugQuery = groq`
 `
 
 export const portfolioItemsPaginatedQuery = groq`
-  *[_type == "portfolioItem"] | order(publishedAt desc) [$start...$end] {
+  *[_type == "portfolioItem"] | order(_updatedAt desc) [$start...$end] {
     _id,
     brand,
     product,
@@ -103,7 +103,7 @@ export const portfolioItemsCountQuery = groq`
 `
 
 export const servicesQuery = groq`
-  *[_type == "service"] | order(order asc, publishedAt desc) {
+  *[_type == "service"] | order(_updatedAt desc) {
     _id,
     title,
     slug,
@@ -134,7 +134,7 @@ export const serviceBySlugQuery = groq`
 `
 
 export const servicesPaginatedQuery = groq`
-  *[_type == "service"] | order(publishedAt desc) [$start...$end] {
+  *[_type == "service"] | order(_updatedAt desc) [$start...$end] {
     _id,
     title,
     slug,
