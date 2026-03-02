@@ -11,8 +11,12 @@ export default async function ServicesPage({ searchParams }) {
     <section className="bg-white py-16 px-6 md:px-12 lg:px-20 min-h-screen">
       {/* Title */}
       <div className="mb-12">
-        <h2 className="text-6xl md:text-6xl lg:text-7xl leading-[50px] lg:leading-[90%]">
-          <span className="font-boldstrom text-[#1a1a1a]">{">"}Skills <br /> <span className="font-boldstrom text-[#FF2E8D]">BOLD</span></span>
+        <h2 className="text-5xl md:text-6xl lg:text-7xl leading-none uppercase">
+          <span className="font-boldstrom text-[#1a1a1a]">{">"} Skills</span>
+          <br />
+          <span className="text-5xl md:text-5xl lg:text-7xl font-boldstrom text-[#FF2E8D]">
+            Bold
+          </span>
         </h2>
       </div>
 

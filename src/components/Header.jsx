@@ -207,11 +207,11 @@ export function Header() {
           {/* Drawer Footer */}
           <div className="p-6 space-y-6">
             {/* CTA Button */}
-            <div className="mt-8 px-2">
+            <div className="px-2 flex justify-center items-center">
               <Link
                 href="/contacto"
                 onClick={() => setIsOpen(false)}
-                className="bg-[#FF2E8D] hover:bg-[#FF2E8D] text-white text-[22px] tracking-wider px-6 py-4 rounded-full transition-colors w-full font-ambit text-center mb-8 block"
+                className="bg-[#FF2E8D] hover:bg-[#FF2E8D] text-white text-[22px] tracking-wider px-6 py-4 rounded-full transition-colors w-full font-ambit text-center block max-w-[210px]"
               >
                 HABLEMOS
               </Link>

@@ -23,7 +23,7 @@ export async function Blog() {
       {/* Title */}
       <div className="mb-12">
         <h2 className="text-5xl md:text-6xl lg:text-7xl leading-none">
-          <span className="font-boldstrom text-[#1a1a1a]">#BLOG —</span>
+          <span className="font-boldstrom text-[#1a1a1a]">{">"} BLOG —</span>
           <br />
           <span className="text-5xl md:text-5xl lg:text-7xl font-boldstrom text-[#FF2E8D]">
             BOLD
