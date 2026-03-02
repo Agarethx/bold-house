@@ -22,7 +22,7 @@ export default async function PortfolioPage({ searchParams }) {
       </div>
 
       {/* Portfolio Items */}
-      <div className="space-y-12 mb-12 lg:rid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:space-y-0">
+      <div className="space-y-12 mb-12 lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:space-y-0">
         {items.map((item) => {
           const imageUrl = item.image ? urlFor(item.image).width(1200).height(900).url() : null
           const slug = item.slug?.current || ''
