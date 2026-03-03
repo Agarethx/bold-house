@@ -88,7 +88,7 @@ export default async function PortfolioDetailPage({ params }) {
             />
           </svg> Volver al portafolio
         </Link>
-        <h1 className="text-5xl md:text-6xl lg:text-7xl leading-none mb-4">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl leading-[85%] mb-4">
           <span className="font-boldstrom text-[#1a1a1a]">{item.brand}</span>
           {' '}
           <span className="font-boldstrom text-[#FF2E8D]">{item.product}</span>

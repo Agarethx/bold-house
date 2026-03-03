@@ -10,11 +10,11 @@ export async function Clients() {
       <div className="container mx-auto">
         {/* Header */}
         <div className="mb-12">
-          <h2 className="text-5xl md:text-5xl lg:text-7xl font-boldstrom  text-[#1a1a1a]">
+          <h2 className="text-5xl md:text-5xl lg:text-7xl font-boldstrom  text-[#1a1a1a] leading-[85%]">
             {'>'}CLIENTES<span className="not-italic">—</span>
           </h2>
-          <p className="text-5xl md:text-5xl lg:text-7xl font-boldstrom text-[#FF2E8D]">
-            BOLDNESS
+          <p className="text-5xl md:text-5xl lg:text-7xl font-boldstrom text-[#FF2E8D] leading-[85%]">
+            BOLDNESS.
           </p>
         </div>
 
