@@ -209,7 +209,7 @@ export function Header() {
             {/* CTA Button */}
             <div className="px-2 flex justify-center items-center">
               <Link
-                href="/contacto"
+                href="tel:+56979690794"
                 onClick={() => setIsOpen(false)}
                 className="bg-[#FF2E8D] hover:bg-[#FF2E8D] text-white text-[22px] tracking-wider px-6 py-4 rounded-full transition-colors w-full font-ambit text-center block max-w-[210px]"
               >

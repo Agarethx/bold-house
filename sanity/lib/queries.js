@@ -50,6 +50,7 @@ export const portfolioItemsQuery = groq`
     product,
     slug,
     image,
+    imageSecondary,
     order,
     publishedAt
   }
@@ -93,6 +94,7 @@ export const portfolioItemsPaginatedQuery = groq`
     product,
     slug,
     image,
+    imageSecondary,
     order,
     publishedAt
   }

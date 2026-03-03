@@ -11,7 +11,7 @@ export async function Clients() {
         {/* Header */}
         <div className="mb-12">
           <h2 className="text-5xl md:text-5xl lg:text-7xl font-boldstrom  text-[#1a1a1a]">
-            #CLIENTES<span className="not-italic">—</span>
+            {'>'}CLIENTES<span className="not-italic">—</span>
           </h2>
           <p className="text-5xl md:text-5xl lg:text-7xl font-boldstrom text-[#FF2E8D]">
             BOLDNESS

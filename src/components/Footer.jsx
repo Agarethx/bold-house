@@ -91,7 +91,7 @@ export function Footer() {
 
         {/* CTA Button */}
         <a
-          href="mailto:contacto@boldhouse.cl"
+          href="tel:+56979690794"
           className="bg-[#FF2E8D] hover:bg-[#FF2E8D] text-white text-[22px] tracking-wider px-6 py-4 rounded-full transition-colors w-full font-ambit text-center mb-8 max-w-[210px]"
         >
           HABLEMOS

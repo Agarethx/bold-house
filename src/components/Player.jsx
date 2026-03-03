@@ -178,7 +178,7 @@ export function Player({ video, isOpen, onClose, imageSecondary }) {
                     />
                   )}
                   {/* Overlay LEGADO AIR MAX sobre el video */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 pointer-events-none">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 pointer-events-none hidden">
                     <span className="text-white/80 text-sm tracking-widest uppercase mb-1">Legado</span>
                     <span className="text-white text-2xl md:text-3xl font-bold tracking-wide">AIR MAX</span>
                     <span className="text-white/60 text-xs tracking-wider mt-1">CONTRATO DE HERENCIA</span>
@@ -192,8 +192,8 @@ export function Player({ video, isOpen, onClose, imageSecondary }) {
               className={`mt-8 flex items-center justify-between w-full max-w-3xl mx-auto transition-opacity duration-500 px-4 ${showChrome ? "opacity-100" : "opacity-0"}`}
             >
               <div>
-                <h3 className="text-white font-bold text-lg">{video?.title || 'NIKE'}</h3>
-                <p className="text-white/70 font-light">{video?.subtitle || 'LEGADO AIR MAX'}</p>
+                <h3 className="text-white font-bold text-lg hidden">{video?.title || 'NIKE'}</h3>
+                <p className="text-white/70 font-light hidden">{video?.subtitle || 'LEGADO AIR MAX'}</p>
               </div>
               <div className="flex items-center gap-4">
                 <button type="button" className="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center hover:bg-white/10 transition-colors" aria-label="Anterior">
