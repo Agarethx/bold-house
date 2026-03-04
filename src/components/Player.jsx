@@ -1,8 +1,8 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { SkipBack, Maximize2, Activity, X } from "lucide-react"
+import { SkipBack, Maximize2, Activity } from "lucide-react"
 import { urlFor } from "../../sanity/lib/image"
 
 // Helper function to extract YouTube video ID
@@ -19,204 +19,245 @@ function getVimeoId(url) {
   return match ? match[1] : null
 }
 
-const EXIT_DURATION = 700
+const VIDEO_EXPAND_DURATION = 500
+const BG_FADE_DURATION = 300
+const VIDEO_RETURN_DURATION = 500
 
-export function Player({ video, isOpen, onClose, imageSecondary }) {
-  const [animationPhase, setAnimationPhase] = useState("entering")
+function getFallbackOriginRect() {
+  if (typeof window === "undefined") return { top: 0, left: 0, width: 400, height: 225 }
+  const w = window.innerWidth
+  const h = window.innerHeight
+  const size = Math.min(w * 0.8, h * 0.6, 800)
+  return {
+    top: (h - size * 9 / 16) / 2,
+    left: (w - size) / 2,
+    width: size,
+    height: size * 9 / 16,
+  }
+}
 
-  // Reset and run entrance animation when modal opens
+function getExpandedRect() {
+  if (typeof window === "undefined") return { top: 0, left: 0, width: 400, height: 225 }
+  const w = window.innerWidth
+  const h = window.innerHeight
+  const width = Math.min(w, h * 16 / 9)
+  const height = Math.min(h, w * 9 / 16)
+  return {
+    top: (h - height) / 2,
+    left: (w - width) / 2,
+    width,
+    height,
+  }
+}
+
+export function Player({ video, isOpen, onClose, imageSecondary, originRect, initialTime }) {
+  const rect = originRect || getFallbackOriginRect()
+  const videoRef = useRef(null)
+  const [videoExpanded, setVideoExpanded] = useState(false)
+  const [bgVisible, setBgVisible] = useState(false)
+  const [phase, setPhase] = useState("expanding") // expanding | ready | backgroundExiting | videoReturning
+
+  // Opening: video expands, then background fades in
   useEffect(() => {
-    if (isOpen) {
-      setAnimationPhase("entering")
-      const timer = setTimeout(() => setAnimationPhase("complete"), EXIT_DURATION)
-      return () => clearTimeout(timer)
+    if (!isOpen || !originRect) return
+
+    setVideoExpanded(false)
+    setBgVisible(false)
+    setPhase("expanding")
+
+    // Trigger expand after initial paint
+    const expandTimer = requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setVideoExpanded(true)
+      })
+    })
+
+    // After video expands, show background
+    const bgTimer = setTimeout(() => {
+      setBgVisible(true)
+      setPhase("ready")
+    }, VIDEO_EXPAND_DURATION)
+
+    return () => {
+      cancelAnimationFrame(expandTimer)
+      clearTimeout(bgTimer)
     }
-  }, [isOpen])
+  }, [isOpen, originRect])
 
   const handleClose = () => {
-    if (animationPhase === "exiting") return
-    setAnimationPhase("exiting")
-    setTimeout(() => onClose(), EXIT_DURATION)
+    if (phase === "backgroundExiting" || phase === "videoReturning") return
+    setPhase("backgroundExiting")
+    setBgVisible(false)
+
+    // After bg fades, return video to origin
+    setTimeout(() => {
+      setPhase("videoReturning")
+      setVideoExpanded(false)
+      // Pause video and capture current frame for thumbnail
+      const videoEl = videoRef.current
+      if (videoEl) {
+        videoEl.pause()
+      }
+
+      setTimeout(() => {
+        const currentTime = videoEl?.currentTime ?? 0
+        onClose(currentTime)
+      }, VIDEO_RETURN_DURATION)
+    }, BG_FADE_DURATION)
   }
 
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden'
+      document.body.style.overflow = "hidden"
     } else {
-      document.body.style.overflow = 'unset'
+      document.body.style.overflow = "unset"
     }
     return () => {
-      document.body.style.overflow = 'unset'
+      document.body.style.overflow = "unset"
     }
   }, [isOpen])
 
-  // Get video URL based on type
-  const getVideoUrl = () => {
+  // Get video URL based on type (embed URLs can include start time)
+  const getVideoUrl = (startTime) => {
     if (!video) return null
-
     switch (video.videoType) {
-      case 'file':
+      case "file":
         return video.videoFile?.asset?.url || null
-      case 'youtube': {
+      case "youtube": {
         const videoId = getYouTubeId(video.videoUrl)
-        return videoId ? `https://www.youtube.com/embed/${videoId}` : null
+        if (!videoId) return null
+        const url = `https://www.youtube.com/embed/${videoId}?autoplay=1`
+        return startTime > 0 ? `${url}&start=${Math.floor(startTime)}` : url
       }
-      case 'vimeo': {
+      case "vimeo": {
         const videoId = getVimeoId(video.videoUrl)
-        return videoId ? `https://player.vimeo.com/video/${videoId}` : null
+        if (!videoId) return null
+        const base = `https://player.vimeo.com/video/${videoId}?autoplay=1`
+        return startTime > 0 ? `${base}#t=${Math.floor(startTime)}s` : base
       }
-      case 'url':
+      case "url":
         return video.videoUrl || null
       default:
         return null
     }
   }
 
-  const videoUrl = getVideoUrl()
-  const isEmbedVideo = video?.videoType === 'youtube' || video?.videoType === 'vimeo'
-  const thumbnailUrl = video?.thumbnail
-    ? urlFor(video.thumbnail).width(1200).height(800).url()
-    : "/player-thumbnail.jpg"
+  const isEmbedVideo = video?.videoType === "youtube" || video?.videoType === "vimeo"
+  const embedStartTime = typeof initialTime === "number" ? initialTime : 0
+  const videoUrl = getVideoUrl(isEmbedVideo ? embedStartTime : 0)
 
   // If used as popup (isOpen prop provided), render as fullscreen modal
   if (isOpen) {
-    const isEntering = animationPhase === "entering"
-    const isExiting = animationPhase === "exiting"
-    const showChrome = animationPhase === "complete" // marquee y controles visibles
+    const expandedRect = getExpandedRect()
+    const videoStyle = videoExpanded
+      ? {
+          top: expandedRect.top,
+          left: expandedRect.left,
+          width: expandedRect.width,
+          height: expandedRect.height,
+          transition: `top ${VIDEO_EXPAND_DURATION}ms cubic-bezier(0.16, 1, 0.3, 1), left ${VIDEO_EXPAND_DURATION}ms cubic-bezier(0.16, 1, 0.3, 1), width ${VIDEO_EXPAND_DURATION}ms cubic-bezier(0.16, 1, 0.3, 1), height ${VIDEO_EXPAND_DURATION}ms cubic-bezier(0.16, 1, 0.3, 1)`,
+        }
+      : {
+          top: rect.top,
+          left: rect.left,
+          width: rect.width,
+          height: rect.height,
+          transition: `top ${VIDEO_RETURN_DURATION}ms cubic-bezier(0.16, 1, 0.3, 1), left ${VIDEO_RETURN_DURATION}ms cubic-bezier(0.16, 1, 0.3, 1), width ${VIDEO_RETURN_DURATION}ms cubic-bezier(0.16, 1, 0.3, 1), height ${VIDEO_RETURN_DURATION}ms cubic-bezier(0.16, 1, 0.3, 1)`,
+        }
+
     return (
-      <div
-        className={`fixed inset-0 z-50 flex flex-col bg-[#242129] transition-opacity duration-700 ${
-          isExiting ? "opacity-0 pointer-events-none" : "opacity-100"
-        } ${isExiting ? "overflow-visible" : "overflow-hidden"}`}
-        onClick={handleClose}
-      >
-        {/* Close Button - siempre visible */}
-        <button
-          onClick={handleClose}
-          className="fixed top-1 right-1 md:top-12 md:right-12 z-40 cursor-pointer hover:opacity-80 transition-opacity"
-          aria-label="Cerrar video"
-        >
-          <div className="relative w-24 h-24 md:w-28 md:h-28">
-            <svg className="w-full h-full animate-spin-slow" viewBox="0 0 100 100">
-              <defs>
-                <path id="circlePath-modal" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" />
-              </defs>
-              <text className="text-[9px] uppercase tracking-[0.3em] fill-white font-bold">
-                <textPath href="#circlePath-modal">BEBOLD • BELEADERS • BEBRAVE •</textPath>
-              </text>
-            </svg>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-white text-3xl md:text-4xl font-bold">X</span>
-            </div>
-          </div>
-        </button>
-
-        {/* Layout único: video anima en su posición final, sin saltos */}
+      <>
+        {/* Video layer - fixed, animates from origin to fullscreen and back */}
         <div
-          className={`flex flex-1 flex-col min-h-0 ${isExiting ? "overflow-visible" : "overflow-y-auto"}`}
-          onClick={(e) => e.stopPropagation()}
+          className={`fixed z-60 overflow-hidden transition-[border-radius] duration-500 ${!videoExpanded ? "rounded-2xl" : "rounded-none"}`}
+          style={{
+            ...videoStyle,
+            pointerEvents: phase === "videoReturning" ? "none" : "auto",
+          }}
+          onClick={(e) => phase === "ready" && e.stopPropagation()}
         >
-          <div className="flex flex-1 flex-col items-center justify-center px-0 py-20 md:py-24">
-            <div className="relative w-full max-w-3xl">
-              <div className="relative -top-12">
-                {/* Marquee arriba - BOLD HOUSE - fade in después del video */}
-                <div
-                  className={`overflow-hidden whitespace-nowrap mb-0 transition-opacity duration-500 ${showChrome ? "opacity-100" : "opacity-0"}`}
-                >
-                  <div className="animate-marquee-right inline-block">
-                    <span className="text-white text-6xl md:text-8xl lg:text-9xl font-boldstrom">
-                      {"> BOLD HOUSE > BOLD HOUSE > BOLD HOUSE > BOLD HOUSE > BOLD HOUSE "}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Marquee abajo - BRAVE - fade in después del video */}
-                <div
-                  className={`overflow-hidden whitespace-nowrap relative -top-3 transition-opacity duration-500 ${showChrome ? "opacity-100" : "opacity-0"}`}
-                >
-                  <div className="animate-marquee-left inline-block">
-                    <span
-                      className="text-7xl md:text-8xl lg:text-9xl text-white font-boldstrom">
-                      {"BRAVE> BE BRAVE> BE BRAVE> BE BRAVE> BE BRAVE> BE BRAVE> BE "}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Video - posición fija, solo escala (sin saltos) */}
-              <div
-                className={`relative z-10 -mt-20 md:-mt-32 max-w-3xl mx-auto px-4 ${isEntering ? "animate-player-video-expand" : isExiting ? "animate-player-video-shrink" : ""}`}
-                onClick={(e) => e.stopPropagation()}
+          <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-black">
+            {videoUrl && isEmbedVideo ? (
+              <iframe
+                src={videoUrl}
+                className="w-full h-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title="Video"
+              />
+            ) : videoUrl && (video?.videoType === "file" || video?.videoType === "url") ? (
+              <video
+                ref={videoRef}
+                src={videoUrl}
+                className="w-full h-full object-contain"
+                controls
+                autoPlay
+                loop
+                muted
+                onLoadedMetadata={(e) => {
+                  if (typeof initialTime === "number" && initialTime > 0) {
+                    e.target.currentTime = initialTime
+                  }
+                }}
               >
-                <div className="relative aspect-video rounded-2xl overflow-hidden">
-                  {videoUrl && isEmbedVideo ? (
-                    <iframe
-                      src={`${videoUrl}?autoplay=1`}
-                      className="w-full h-full"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      title="Video"
-                    />
-                  ) : videoUrl && (video?.videoType === 'file' || video?.videoType === 'url') ? (
-                    <video
-                      src={videoUrl}
-                      className="w-full h-full object-cover"
-                      controls
-                      autoPlay
-                      loop
-                      muted
-                    >
-                      Your browser does not support the video tag.
-                    </video>
-                  ) : (
-                    <Image
-                      src={imageSecondary}
-                      alt={video?.title || "Video"}
-                      fill
-                      className="object-cover"
-                    />
-                  )}
-                  {/* Overlay LEGADO AIR MAX sobre el video */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 pointer-events-none hidden">
-                    <span className="text-white/80 text-sm tracking-widest uppercase mb-1">Legado</span>
-                    <span className="text-white text-2xl md:text-3xl font-bold tracking-wide">AIR MAX</span>
-                    <span className="text-white/60 text-xs tracking-wider mt-1">CONTRATO DE HERENCIA</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Controles y título - debajo del video, fade in */}
-            <div
-              className={`mt-8 flex items-center justify-between w-full max-w-3xl mx-auto transition-opacity duration-500 px-4 ${showChrome ? "opacity-100" : "opacity-0"}`}
-            >
-              <div>
-                <h3 className="text-white font-bold text-lg hidden">{video?.title || 'NIKE'}</h3>
-                <p className="text-white/70 font-light hidden">{video?.subtitle || 'LEGADO AIR MAX'}</p>
-              </div>
-              <div className="flex items-center gap-4">
-                <button type="button" className="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center hover:bg-white/10 transition-colors" aria-label="Anterior">
-                  <SkipBack className="w-5 h-5 text-white" fill="white" />
-                </button>
-                <button type="button" className="text-white hover:text-white/80 transition-colors" aria-label="Audio">
-                  <Activity className="w-6 h-6" />
-                </button>
-                <button type="button" className="text-white hover:text-white/80 transition-colors" aria-label="Pantalla completa">
-                  <Maximize2 className="w-6 h-6" />
-                </button>
-              </div>
-            </div>
+                Your browser does not support the video tag.
+              </video>
+            ) : imageSecondary ? (
+              <Image
+                src={imageSecondary}
+                alt={video?.title || "Video"}
+                fill
+                className="object-contain"
+              />
+            ) : null}
           </div>
         </div>
-      </div>
+
+        {/* Background layer - fades in after video, fades out first on close */}
+        <div
+          className={`fixed inset-0 z-50 bg-[#242129] transition-opacity ${
+            bgVisible ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
+          style={{
+            transitionDuration: `${BG_FADE_DURATION}ms`,
+          }}
+          onClick={handleClose}
+        />
+
+        {/* Close Button - visible when background is visible, above video */}
+        {bgVisible && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              handleClose()
+            }}
+            className="fixed top-4 right-4 md:top-12 md:right-12 z-70 cursor-pointer hover:opacity-80 transition-opacity"
+            aria-label="Cerrar video"
+          >
+              <div className="relative w-24 h-24 md:w-28 md:h-28">
+                <svg className="w-full h-full animate-spin-slow" viewBox="0 0 100 100">
+                  <defs>
+                    <path id="circlePath-modal" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" />
+                  </defs>
+                  <text className="text-[9px] uppercase tracking-[0.3em] fill-white font-bold">
+                    <textPath href="#circlePath-modal">BEBOLD • BELEADERS • BEBRAVE •</textPath>
+                  </text>
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-white text-3xl md:text-4xl font-bold">X</span>
+                </div>
+              </div>
+            </button>
+        )}
+      </>
     )
   }
 
   // Default behavior - render as section (for banner/hero use)
   return (
     <section className="bg-[#242129] py-16 md:py-24 overflow-hidden relative">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
         {/* Circular Badge - Top Right */}
         <div className="absolute top-8 right-8 md:top-12 md:right-12 z-20">
           <div className="relative w-24 h-24 md:w-28 md:h-28">

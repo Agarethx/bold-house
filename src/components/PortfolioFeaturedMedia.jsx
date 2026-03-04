@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { urlFor } from "../../sanity/lib/image"
 import { Player } from "./Player"
@@ -19,18 +19,50 @@ function hasPlayableVideo(video) {
   }
 }
 
+function getVideoUrl(video) {
+  if (!video) return null
+  if (video.videoType === "file") return video.videoFile?.asset?.url || null
+  if (video.videoType === "url") return video.videoUrl || null
+  return null
+}
+
 export function PortfolioFeaturedMedia({ video, image, imageSecondary, brand, product }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [originRect, setOriginRect] = useState(null)
+  const [closedVideoTime, setClosedVideoTime] = useState(null)
+  const thumbnailRef = useRef(null)
+  const thumbnailVideoRef = useRef(null)
   const hasVideo = hasPlayableVideo(video)
+  const videoUrl = getVideoUrl(video)
+  const isNativeVideo = video?.videoType === "file" || video?.videoType === "url"
+
+  useEffect(() => {
+    if (closedVideoTime != null && thumbnailVideoRef.current) {
+      thumbnailVideoRef.current.currentTime = closedVideoTime
+    }
+  }, [closedVideoTime])
 
   const handleVideoClick = () => {
-    if (hasVideo) {
+    if (hasVideo && thumbnailRef.current) {
+      const rect = thumbnailRef.current.getBoundingClientRect()
+      setOriginRect({
+        top: rect.top,
+        left: rect.left,
+        width: rect.width,
+        height: rect.height,
+      })
       setIsModalOpen(true)
     }
   }
 
-  const handleCloseModal = () => {
+  const handleCloseModal = (currentTime) => {
+    if (isNativeVideo && typeof currentTime === "number") {
+      setClosedVideoTime(currentTime)
+    } else {
+      setClosedVideoTime(null)
+    }
     setIsModalOpen(false)
+    setOriginRect(null)
   }
 
   // Get thumbnail URL - video.thumbnail → imageSecondary
@@ -47,12 +79,28 @@ export function PortfolioFeaturedMedia({ video, image, imageSecondary, brand, pr
   if (hasVideo) {
     return (
       <>
-        <div className="relative w-full aspect-video mb-12 rounded-2xl overflow-hidden">
+        <div
+          ref={thumbnailRef}
+          className="relative w-full aspect-video mb-12 rounded-2xl overflow-hidden"
+        >
           <div
             className="relative w-full h-full cursor-pointer group"
             onClick={handleVideoClick}
           >
-            {imageSecondaryUrl && (
+            {isNativeVideo && videoUrl && closedVideoTime != null ? (
+              <video
+                ref={thumbnailVideoRef}
+                src={videoUrl}
+                poster={imageSecondaryUrl}
+                className="absolute inset-0 w-full h-full object-cover rounded-2xl transition-opacity group-hover:opacity-90"
+                muted
+                playsInline
+                preload="metadata"
+                onLoadedMetadata={(e) => {
+                  if (closedVideoTime != null) e.target.currentTime = closedVideoTime
+                }}
+              />
+            ) : imageSecondaryUrl ? (
               <Image
                 src={imageSecondaryUrl}
                 alt={`${brand} - ${product}`}
@@ -60,7 +108,7 @@ export function PortfolioFeaturedMedia({ video, image, imageSecondary, brand, pr
                 className="object-cover transition-opacity group-hover:opacity-90"
                 priority
               />
-            )}
+            ) : null}
             {/* Play button overlay */}
             <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
               <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/30 transition-colors">
@@ -82,6 +130,8 @@ export function PortfolioFeaturedMedia({ video, image, imageSecondary, brand, pr
             video={video}
             isOpen={true}
             imageSecondary={imageSecondaryUrl}
+            originRect={originRect}
+            initialTime={closedVideoTime}
             onClose={handleCloseModal}
           />
         )}
