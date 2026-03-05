@@ -127,13 +127,13 @@ export function Player({ video, isOpen, onClose, imageSecondary, originRect, ini
       case "youtube": {
         const videoId = getYouTubeId(video.videoUrl)
         if (!videoId) return null
-        const url = `https://www.youtube.com/embed/${videoId}?autoplay=1`
+        const url = `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1`
         return startTime > 0 ? `${url}&start=${Math.floor(startTime)}` : url
       }
       case "vimeo": {
         const videoId = getVimeoId(video.videoUrl)
         if (!videoId) return null
-        const base = `https://player.vimeo.com/video/${videoId}?autoplay=1`
+        const base = `https://player.vimeo.com/video/${videoId}?autoplay=1&playsinline=1`
         return startTime > 0 ? `${base}#t=${Math.floor(startTime)}s` : base
       }
       case "url":
@@ -195,6 +195,7 @@ export function Player({ video, isOpen, onClose, imageSecondary, originRect, ini
                 autoPlay
                 loop
                 muted
+                playsInline
                 onLoadedMetadata={(e) => {
                   if (typeof initialTime === "number" && initialTime > 0) {
                     e.target.currentTime = initialTime
