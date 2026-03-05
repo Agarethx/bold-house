@@ -4,6 +4,7 @@ import Image from "next/image"
 import { urlFor } from "../../../../sanity/lib/image"
 import { PortableText } from "@portabletext/react"
 import Link from "next/link"
+import { RelatedServicesCarousel } from "@/components/RelatedServicesCarousel"
 
 export async function generateStaticParams() {
   try {
@@ -65,7 +66,10 @@ export default async function ServiceDetailPage({ params }) {
     notFound()
   }
 
-  const item = await getServiceBySlug(slug)
+  const [item, allServices] = await Promise.all([
+    getServiceBySlug(slug),
+    getServices(),
+  ])
 
   if (!item) {
     notFound()
@@ -180,6 +184,12 @@ export default async function ServiceDetailPage({ params }) {
           </div>
         </div>
       )}
+
+      {/* Related Services Carousel */}
+      <RelatedServicesCarousel
+        services={allServices}
+        currentSlug={slug}
+      />
     </article>
   )
 }

@@ -4,6 +4,7 @@ import Image from "next/image"
 import { urlFor } from "../../../../sanity/lib/image"
 import { PortableText } from "@portabletext/react"
 import Link from "next/link"
+import { RelatedBlogCarousel } from "@/components/RelatedBlogCarousel"
 
 export async function generateStaticParams() {
   try {
@@ -67,7 +68,10 @@ export default async function BlogPostDetailPage({ params }) {
     notFound()
   }
 
-  const post = await getBlogPostBySlug(slug)
+  const [post, allPosts] = await Promise.all([
+    getBlogPostBySlug(slug),
+    getBlogPosts(),
+  ])
 
   if (!post) {
     notFound()
@@ -122,6 +126,12 @@ export default async function BlogPostDetailPage({ params }) {
           <PortableText value={post.body} components={portableTextComponents} />
         </div>
       )}
+
+      {/* Related Blog Carousel - Notas próximas */}
+      <RelatedBlogCarousel
+        blogPosts={allPosts}
+        currentSlug={slug}
+      />
     </article>
   )
 }
