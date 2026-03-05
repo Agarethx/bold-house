@@ -152,7 +152,12 @@ export function BigBanner() {
                 </text>
               </svg>
             </div>
+          </div>
 
+          <div>
+            <p className="text-[#242129] font-medium text-sm md:text-base mt-6 text-center">
+              © 06 | 26
+            </p>
           </div>
         </div>
       </div>
