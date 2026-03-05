@@ -29,6 +29,41 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## Revalidación de contenido (Sanity → Next.js)
+
+El sitio usa **ISR** (revalidación cada 60 segundos) para que el contenido de Sanity se actualice sin recompilar. Para actualizaciones **inmediatas** al publicar en Sanity, configura un webhook:
+
+1. **Genera un secreto** (una sola vez):
+   ```bash
+   openssl rand -hex 32
+   ```
+
+2. **Añade a `.env.local`**:
+   ```
+   REVALIDATION_SECRET=<el-secreto-generado>
+   ```
+
+3. **Crea el webhook en Sanity**:
+   - Ve a [sanity.io/manage](https://sanity.io/manage) → tu proyecto → **API** → **Webhooks**
+   - **Create webhook**
+   - **Name**: `Revalidar sitio`
+   - **URL**: `https://tu-dominio.com/api/revalidate` (en local: usa [ngrok](https://ngrok.com) o similar)
+   - **Dataset**: `production`
+   - **Trigger on**: Create, Update, Delete
+   - **HTTP Headers** → Add header:
+     - Name: `Authorization`
+     - Value: `Bearer <REVALIDATION_SECRET>`
+   - **Filter** (opcional, para solo contenido público):
+     ```
+     _type in ["blogPost", "service", "portfolioItem", "client", "siteConfig", "navigation"]
+     ```
+   - **Projection** (opcional, para revalidar páginas específicas):
+     ```
+     { _type, "slug": slug.current }
+     ```
+
+4. **Despliega** y asegúrate de que `REVALIDATION_SECRET` esté en las variables de entorno de producción (Vercel, etc.).
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.

@@ -21,6 +21,7 @@ export async function generateStaticParams() {
 }
 
 export const dynamicParams = true
+export const revalidate = 60
 
 const portableTextComponents = {
   types: {

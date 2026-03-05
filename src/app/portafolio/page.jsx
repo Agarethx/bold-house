@@ -1,4 +1,6 @@
 import { getPortfolioItemsPaginated } from "@/lib/sanity"
+
+export const revalidate = 60
 import Link from "next/link"
 import Image from "next/image"
 import { urlFor } from "../../../sanity/lib/image"

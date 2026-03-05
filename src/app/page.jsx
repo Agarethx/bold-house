@@ -9,6 +9,8 @@ import { getPortfolioItems } from "@/lib/sanity";
 import { Player } from "@/components/Player";
 import { Services } from "@/components/Services";
 
+export const revalidate = 60
+
 export default async function Home() {
   const portfolioItems = await getPortfolioItems();
 
