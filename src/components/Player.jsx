@@ -225,9 +225,23 @@ export function Player({ video, isOpen, onClose, imageSecondary, originRect, ini
           onClick={handleClose}
         />
 
-        {/* Close Button - visible when background is visible, above video */}
+        {/* Player Controls + Close - visible when background is visible */}
         {bgVisible && (
-          <button
+          <>
+            <div
+              className="fixed z-70 flex items-center justify-between px-4"
+              style={{
+                top: expandedRect.top + expandedRect.height + 16,
+                left: expandedRect.left,
+                width: expandedRect.width,
+              }}
+            >
+              <div>
+                <h3 className="text-white font-bold text-lg">{video?.title || 'NIKE'}</h3>
+                <p className="text-white/70 font-light">{video?.subtitle || 'LEGADO AIR MAX'}</p>
+              </div>
+            </div>
+            <button
             onClick={(e) => {
               e.stopPropagation()
               handleClose()
@@ -249,6 +263,7 @@ export function Player({ video, isOpen, onClose, imageSecondary, originRect, ini
                 </div>
               </div>
             </button>
+          </>
         )}
       </>
     )
@@ -320,6 +335,7 @@ export function Player({ video, isOpen, onClose, imageSecondary, originRect, ini
                 fill
                 className="object-cover"
               />
+
               {/* Video overlay text */}
               <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20">
                 <span className="text-white/80 text-sm tracking-widest uppercase mb-1">Legado</span>
