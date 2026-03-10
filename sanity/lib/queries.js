@@ -81,6 +81,21 @@ export const portfolioItemBySlugQuery = groq`
     },
     body,
     gallery,
+    videoGallery[] {
+      videoType,
+      videoFile {
+        asset-> {
+          _id,
+          url,
+          mimeType,
+          size
+        }
+      },
+      videoUrl,
+      thumbnail,
+      title,
+      subtitle
+    },
     tags,
     order,
     publishedAt

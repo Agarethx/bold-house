@@ -135,6 +135,87 @@ export default {
       ],
     },
     {
+      name: 'videoGallery',
+      title: 'Video Gallery',
+      type: 'array',
+      description: 'Galería de videos con las mismas opciones que el video principal (archivo, YouTube, Vimeo, URL)',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'videoType',
+              title: 'Video Type',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Video File', value: 'file' },
+                  { title: 'YouTube URL', value: 'youtube' },
+                  { title: 'Vimeo URL', value: 'vimeo' },
+                  { title: 'External URL', value: 'url' },
+                ],
+                layout: 'radio',
+              },
+              initialValue: 'file',
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: 'videoFile',
+              title: 'Video File',
+              type: 'file',
+              description: 'Upload a video file (MP4, WebM, etc.)',
+              options: {
+                accept: 'video/*',
+              },
+              hidden: ({ parent }) => parent?.videoType !== 'file',
+            },
+            {
+              name: 'videoUrl',
+              title: 'Video URL',
+              type: 'url',
+              description: 'YouTube, Vimeo, or direct video URL',
+              hidden: ({ parent }) => parent?.videoType === 'file',
+            },
+            {
+              name: 'thumbnail',
+              title: 'Video Thumbnail',
+              type: 'image',
+              description: 'Thumbnail image for the video (optional)',
+              options: {
+                hotspot: true,
+              },
+            },
+            {
+              name: 'title',
+              title: 'Video Title',
+              type: 'string',
+              description: 'Título principal del video',
+            },
+            {
+              name: 'subtitle',
+              title: 'Video Subtitle / Bajada',
+              type: 'string',
+              description: 'Subtítulo o bajada del video',
+            },
+          ],
+          preview: {
+            select: {
+              title: 'title',
+              subtitle: 'videoType',
+              media: 'thumbnail',
+            },
+            prepare({ title, subtitle, media }) {
+              return {
+                title: title || 'Video',
+                subtitle: subtitle ? `Type: ${subtitle}` : 'No type',
+                media,
+              }
+            },
+          },
+        },
+      ],
+    },
+    {
       name: 'tags',
       title: 'Tags',
       type: 'array',

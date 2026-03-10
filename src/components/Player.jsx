@@ -22,7 +22,7 @@ function getVimeoId(url) {
 const VIDEO_EXPAND_DURATION = 500
 const BG_FADE_DURATION = 600
 const BG_EXIT_DURATION = 1000
-const VIDEO_RETURN_DURATION = 500
+const VIDEO_RETURN_DURATION = 300
 
 function getFallbackOriginRect() {
   if (typeof window === "undefined") return { top: 0, left: 0, width: 400, height: 225 }

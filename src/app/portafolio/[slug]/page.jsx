@@ -6,6 +6,7 @@ import { PortableText } from "@portabletext/react"
 import Link from "next/link"
 import { RelatedPortfolioCarousel } from "@/components/RelatedPortfolioCarousel"
 import { PortfolioFeaturedMedia } from "@/components/PortfolioFeaturedMedia"
+import { PortfolioVideoGallery } from "@/components/PortfolioVideoGallery"
 
 export async function generateStaticParams() {
   try {
@@ -110,6 +111,16 @@ export default async function PortfolioDetailPage({ params }) {
         <div className="prose prose-lg max-w-none mb-12">
           <PortableText value={item.body} components={portableTextComponents} />
         </div>
+      )}
+
+      {/* Video Gallery - mobile: 100%, desktop: grid 2 */}
+      {item.videoGallery && item.videoGallery.length > 0 && (
+        <PortfolioVideoGallery
+          videoGallery={item.videoGallery}
+          imageSecondary={item.imageSecondary}
+          brand={item.brand}
+          product={item.product}
+        />
       )}
 
       {/* Gallery */}

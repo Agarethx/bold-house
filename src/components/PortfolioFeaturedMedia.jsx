@@ -26,7 +26,7 @@ function getVideoUrl(video) {
   return null
 }
 
-export function PortfolioFeaturedMedia({ video, image, imageSecondary, brand, product }) {
+export function PortfolioFeaturedMedia({ video, image, imageSecondary, brand, product, variant = "featured" }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [originRect, setOriginRect] = useState(null)
   const [closedVideoTime, setClosedVideoTime] = useState(null)
@@ -61,8 +61,11 @@ export function PortfolioFeaturedMedia({ video, image, imageSecondary, brand, pr
     } else {
       setClosedVideoTime(null)
     }
-    setIsModalOpen(false)
     setOriginRect(null)
+    // Delay unmount to allow fade-out animation (avoids jump when switching to thumbnail)
+    setTimeout(() => {
+      setIsModalOpen(false)
+    }, 200)
   }
 
   // Get thumbnail URL - video.thumbnail → imageSecondary
@@ -75,19 +78,21 @@ export function PortfolioFeaturedMedia({ video, image, imageSecondary, brand, pr
   // If no video: show only imageSecondary
   const imageSecondaryUrl = imageSecondary ? urlFor(imageSecondary).width(1200).height(800).url() : null
 
+  const containerClass = variant === "gallery" ? "relative w-full aspect-video rounded-2xl overflow-hidden" : "relative w-full aspect-video mb-12 rounded-2xl overflow-hidden"
+
   // If there's playable video, show video thumbnail + play button
   if (hasVideo) {
     return (
       <>
         <div
           ref={thumbnailRef}
-          className="relative w-full aspect-video mb-12 rounded-2xl overflow-hidden"
+          className={containerClass}
         >
           <div
             className="relative w-full h-full cursor-pointer group"
             onClick={handleVideoClick}
           >
-            {isNativeVideo && videoUrl && closedVideoTime != null ? (
+            {isNativeVideo && videoUrl ? (
               <video
                 ref={thumbnailVideoRef}
                 src={videoUrl}
@@ -141,7 +146,7 @@ export function PortfolioFeaturedMedia({ video, image, imageSecondary, brand, pr
 
   if (imageSecondaryUrl) {
     return (
-      <div className="relative w-full aspect-video mb-12 rounded-2xl overflow-hidden">
+      <div className={containerClass}>
         <Image
           src={imageSecondaryUrl}
           alt={`${brand} - ${product}`}
