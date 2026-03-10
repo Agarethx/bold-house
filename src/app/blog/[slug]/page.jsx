@@ -47,6 +47,40 @@ const portableTextComponents = {
     h2: ({ children }) => <h2 className="text-3xl font-bold mb-3 mt-6">{children}</h2>,
     h3: ({ children }) => <h3 className="text-2xl font-bold mb-2 mt-4">{children}</h3>,
     normal: ({ children }) => <p className="mb-4 text-lg leading-relaxed">{children}</p>,
+    blockquote: ({ children }) => (
+      <blockquote className="border-l-4 border-[#FF2E8D] pl-6 my-6 italic text-gray-700 text-lg">
+        {children}
+      </blockquote>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => (
+      <ul className="list-disc pl-6 mb-4 space-y-2 text-lg leading-relaxed">{children}</ul>
+    ),
+    number: ({ children }) => (
+      <ol className="list-decimal pl-6 mb-4 space-y-2 text-lg leading-relaxed">{children}</ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }) => <li className="ml-2">{children}</li>,
+    number: ({ children }) => <li className="ml-2">{children}</li>,
+  },
+  marks: {
+    strong: ({ children }) => <strong className="font-bold">{children}</strong>,
+    em: ({ children }) => <em className="italic">{children}</em>,
+    link: ({ children, value }) => {
+      const href = value?.href || ""
+      const isExternal = href?.startsWith("http") || href?.startsWith("//")
+      return (
+        <a
+          href={href}
+          className="text-[#FF2E8D] underline hover:no-underline"
+          {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
+        >
+          {children}
+        </a>
+      )
+    },
   },
 }
 

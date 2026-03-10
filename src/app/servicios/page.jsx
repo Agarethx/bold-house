@@ -16,7 +16,7 @@ export default async function ServicesPage({ searchParams }) {
         <h2 className="text-5xl md:text-6xl lg:text-7xl leading-[85%] uppercase">
           <span className="font-boldstrom text-[#1a1a1a]">{">"}Skills—</span>
           <br />
-          <span className="text-5xl md:text-5xl lg:text-7xl font-boldstrom text-[#FF2E8D]">
+          <span className="text-5xl md:text-5xl lg:text-7xl font-boldstrom text-[#FF2E8D] leading-[85%]">
             Bold.
           </span>
         </h2>
