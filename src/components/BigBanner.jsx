@@ -101,7 +101,7 @@ export function BigBanner() {
         <div className="w-full lg:w-[60%] max-w-3xl lg:max-w-none mt-4 md:mt-12 lg:mt-0 relative lg:hidden">
           {/* Oval container */}
           <div className="relative w-full" style={{ paddingBottom: '50%' }}>
-            <div className="absolute inset-0 rounded-[100px] overflow-hidden">
+            <div className="absolute inset-0 rounded-[90px] overflow-hidden">
               {isLoading ? (
                 <div className="w-full h-full bg-gray-200 animate-pulse" />
               ) : videoUrl && isEmbedVideo ? (
