@@ -196,21 +196,24 @@ export async function getNavigation() {
 export async function getSiteConfig() {
   try {
     const siteConfig = await client.fetch(siteConfigQuery)
-    return siteConfig || { videoBanner: [], videoReel: [] }
+    return siteConfig || { videoBanner: [], videoReel: [], videoReelDesktop: [] }
   } catch (error) {
     console.error('Error fetching site config:', error)
-    return { videoBanner: [], videoReel: [] }
+    return { videoBanner: [], videoReel: [], videoReelDesktop: [] }
   }
 }
 
-// Get the first video from videoReel array
+// Get reel videos: mobile and desktop
 export async function getReelVideo() {
   try {
     const siteConfig = await client.fetch(siteConfigQuery)
-    return siteConfig?.videoReel?.[0] || null
+    return {
+      mobile: siteConfig?.videoReel?.[0] || null,
+      desktop: siteConfig?.videoReelDesktop?.[0] || null,
+    }
   } catch (error) {
     console.error('Error fetching reel video:', error)
-    return null
+    return { mobile: null, desktop: null }
   }
 }
 

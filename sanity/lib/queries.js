@@ -231,6 +231,22 @@ export const siteConfigQuery = groq`
       thumbnail,
       title,
       subtitle
+    },
+    videoReelDesktop[] {
+      name,
+      videoType,
+      videoFile {
+        asset-> {
+          _id,
+          url,
+          mimeType,
+          size
+        }
+      },
+      videoUrl,
+      thumbnail,
+      title,
+      subtitle
     }
   }
 `

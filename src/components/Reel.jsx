@@ -20,14 +20,14 @@ function getVimeoId(url) {
 }
 
 export function Reel() {
-  const [video, setVideo] = useState(null)
+  const [videos, setVideos] = useState({ mobile: null, desktop: null })
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     async function fetchVideo() {
       try {
-        const videoData = await getReelVideo()
-        setVideo(videoData)
+        const data = await getReelVideo()
+        setVideos(data)
       } catch (error) {
         console.error('Error fetching reel video:', error)
       } finally {
@@ -56,36 +56,41 @@ export function Reel() {
   const bottomTextLine3 = "MEMORABLE."
   const ctaButtonText = "AGENDAR REUNIÓN"
 
-  // Get thumbnail URL
-  const thumbnailUrl = video?.thumbnail
-    ? urlFor(video.thumbnail).width(1200).height(800).url()
-    : "/reel-thumbnail.jpg"
-
-  // Get video URL based on type (with loop params for embeds)
-  const getVideoUrl = () => {
-    if (!video) return null
-
+  // Get video URL and metadata for a video object
+  const getVideoInfo = (video) => {
+    if (!video) return { url: null, isEmbed: false, thumbnailUrl: "/reel-thumbnail.jpg" }
+    const thumbnailUrl = video.thumbnail
+      ? urlFor(video.thumbnail).width(1200).height(800).url()
+      : "/reel-thumbnail.jpg"
+    let url = null
     switch (video.videoType) {
       case 'file':
-        return video.videoFile?.asset?.url || null
+        url = video.videoFile?.asset?.url || null
+        break
       case 'youtube': {
         const videoId = getYouTubeId(video.videoUrl)
-        // YouTube requires playlist=videoId for loop to work
-        return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}` : null
+        url = videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}` : null
+        break
       }
       case 'vimeo': {
         const videoId = getVimeoId(video.videoUrl)
-        return videoId ? `https://player.vimeo.com/video/${videoId}?autoplay=1&loop=1&muted=1` : null
+        url = videoId ? `https://player.vimeo.com/video/${videoId}?autoplay=1&loop=1&muted=1` : null
+        break
       }
       case 'url':
-        return video.videoUrl || null
+        url = video.videoUrl || null
+        break
       default:
-        return null
+        break
     }
+    const isEmbed = video.videoType === 'youtube' || video.videoType === 'vimeo'
+    return { url, isEmbed, thumbnailUrl }
   }
 
-  const videoUrl = getVideoUrl()
-  const isEmbedVideo = video?.videoType === 'youtube' || video?.videoType === 'vimeo'
+  const mobileVideo = videos.mobile
+  const desktopVideo = videos.desktop || videos.mobile
+  const mobileInfo = getVideoInfo(mobileVideo)
+  const desktopInfo = getVideoInfo(desktopVideo)
 
   if (isLoading) {
     return (
@@ -120,18 +125,19 @@ export function Reel() {
 
         {/* Video - mobile: en medio, desktop: primero, full width */}
         <div className="relative w-full aspect-[3/4] md:aspect-video max-w-md mx-auto mb-8 rounded-2xl overflow-hidden lg:max-w-full lg:mx-0 lg:order-1 order-2">
-          <div className="relative w-full h-full">
-            {videoUrl && isEmbedVideo ? (
+          {/* Video móvil - visible solo en móvil/tablet */}
+          <div className="relative w-full h-full block lg:hidden">
+            {mobileInfo.url && mobileInfo.isEmbed ? (
               <iframe
-                src={videoUrl}
+                src={mobileInfo.url}
                 className="w-full h-full object-cover"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                title="Reel"
+                title="Reel - Mobile"
               />
-            ) : videoUrl && (video?.videoType === 'file' || video?.videoType === 'url') ? (
+            ) : mobileInfo.url && (mobileVideo?.videoType === 'file' || mobileVideo?.videoType === 'url') ? (
               <video
-                src={videoUrl}
+                src={mobileInfo.url}
                 className="w-full h-full object-cover"
                 autoPlay
                 loop
@@ -142,26 +148,56 @@ export function Reel() {
               </video>
             ) : (
               <Image
-                src={thumbnailUrl}
+                src={mobileInfo.thumbnailUrl}
                 alt="Reel video thumbnail"
                 fill
                 className="object-cover"
               />
             )}
-            {/* Overlay text */}
-            {overlayText && (
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none hidden">
-                <span
-                  className="text-5xl md:text-7xl font-black italic text-white/90"
-                  style={{
-                    textShadow: "2px 2px 10px rgba(0,0,0,0.3)",
-                  }}
-                >
-                  {overlayText}
-                </span>
-              </div>
+          </div>
+          {/* Video escritorio - visible solo en desktop */}
+          <div className="relative w-full h-full hidden lg:block">
+            {desktopInfo.url && desktopInfo.isEmbed ? (
+              <iframe
+                src={desktopInfo.url}
+                className="w-full h-full object-cover"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title="Reel - Desktop"
+              />
+            ) : desktopInfo.url && (desktopVideo?.videoType === 'file' || desktopVideo?.videoType === 'url') ? (
+              <video
+                src={desktopInfo.url}
+                className="w-full h-full object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline
+              >
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <Image
+                src={desktopInfo.thumbnailUrl}
+                alt="Reel video thumbnail"
+                fill
+                className="object-cover"
+              />
             )}
           </div>
+          {/* Overlay text */}
+          {overlayText && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none hidden">
+              <span
+                className="text-5xl md:text-7xl font-black italic text-white/90"
+                style={{
+                  textShadow: "2px 2px 10px rgba(0,0,0,0.3)",
+                }}
+              >
+                {overlayText}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Bottom text */}
