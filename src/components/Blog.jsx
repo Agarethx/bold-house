@@ -19,7 +19,7 @@ export async function Blog() {
   }
 
   return (
-    <section id="blog" className="bg-white py-8 px-4 md:px-12 lg:px-20">
+    <section id="blog" className="bg-white py-8 px-4 md:px-4 lg:px-4 container mx-auto">
       {/* Title */}
       <div className="mb-12">
         <h2 className="text-5xl md:text-6xl lg:text-7xl leading-[85%]">
