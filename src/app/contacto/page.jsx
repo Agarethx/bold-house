@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function ContactoPage() {
   return (
-    <main className="min-h-screen">
+    <main>
       <Formulario />
     </main>
   )
