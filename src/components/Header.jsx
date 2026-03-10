@@ -24,8 +24,15 @@ export function Header() {
     fetchNavigation()
   }, [])
 
+  // Normalize hrefs to always use absolute paths (leading slash) to avoid /blog/blog when on /blog
+  const normalizeHref = (href) => {
+    if (!href || typeof href !== 'string') return href
+    if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) return href
+    return href.startsWith('/') ? href : `/${href}`
+  }
+
   // Fallback menu items if Sanity data is not available
-  const menuItems = navigationData.menuItems && navigationData.menuItems.length > 0
+  const rawMenuItems = navigationData.menuItems && navigationData.menuItems.length > 0
     ? navigationData.menuItems
     : [
         { label: "HOME", href: "/", isBold: true, isPink: false, subItems: [] },
@@ -35,6 +42,15 @@ export function Header() {
         { label: "BLOG", href: "/blog", isBold: false, isPink: false, subItems: [] },
         { label: "CONTACTO", href: "/contacto", isBold: true, isPink: false, subItems: [] },
       ]
+
+  const menuItems = rawMenuItems.map((item) => ({
+    ...item,
+    href: normalizeHref(item.href),
+    subItems: (item.subItems || []).map((sub) => ({
+      ...sub,
+      href: normalizeHref(sub.href),
+    })),
+  }))
 
   const socialLinks = navigationData.socialLinks && navigationData.socialLinks.length > 0
     ? navigationData.socialLinks
