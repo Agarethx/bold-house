@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: 'Bold House - Agencia Creativa y Marketing Digital',
   description: 'Agencia creativa especializada en marketing digital, producción audiovisual, branding y estrategias 360. Be Bold, Be Leaders.',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({ children }) {
