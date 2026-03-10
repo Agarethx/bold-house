@@ -20,7 +20,8 @@ function getVimeoId(url) {
 }
 
 const VIDEO_EXPAND_DURATION = 500
-const BG_FADE_DURATION = 300
+const BG_FADE_DURATION = 600
+const BG_EXIT_DURATION = 1000
 const VIDEO_RETURN_DURATION = 500
 
 function getFallbackOriginRect() {
@@ -89,11 +90,18 @@ export function Player({ video, isOpen, onClose, imageSecondary, originRect, ini
     setPhase("backgroundExiting")
     setBgVisible(false)
 
+    // Mute and remove volume immediately when closing
+    const videoEl = videoRef.current
+    if (videoEl) {
+      videoEl.muted = true
+      videoEl.volume = 0
+    }
+
     // After bg fades, return video to origin
     setTimeout(() => {
       setPhase("videoReturning")
       setVideoExpanded(false)
-      // Pause video and capture current frame for thumbnail
+      // Pause video (already muted from handleClose start)
       const videoEl = videoRef.current
       if (videoEl) {
         videoEl.pause()
@@ -103,7 +111,7 @@ export function Player({ video, isOpen, onClose, imageSecondary, originRect, ini
         const currentTime = videoEl?.currentTime ?? 0
         onClose(currentTime)
       }, VIDEO_RETURN_DURATION)
-    }, BG_FADE_DURATION)
+    }, BG_EXIT_DURATION)
   }
 
   // Prevent body scroll when modal is open
@@ -201,6 +209,11 @@ export function Player({ video, isOpen, onClose, imageSecondary, originRect, ini
                     e.target.currentTime = initialTime
                   }
                 }}
+                onPlay={(e) => {
+                  const v = e.target
+                  v.muted = false
+                  v.volume = 1
+                }}
               >
                 Your browser does not support the video tag.
               </video>
@@ -215,13 +228,14 @@ export function Player({ video, isOpen, onClose, imageSecondary, originRect, ini
           </div>
         </div>
 
-        {/* Background layer - fades in after video, fades out first on close */}
+        {/* Background layer - grows from center (up/down) when entering, shrinks when closing */}
         <div
-          className={`fixed inset-0 z-50 bg-[#242129] transition-opacity ${
-            bgVisible ? "opacity-100" : "opacity-0 pointer-events-none"
+          className={`fixed inset-0 z-50 bg-[#242129] origin-center ${
+            bgVisible ? "" : "pointer-events-none"
           }`}
           style={{
-            transitionDuration: `${BG_FADE_DURATION}ms`,
+            transform: bgVisible ? "scaleY(1)" : "scaleY(0)",
+            transition: `transform ${phase === "backgroundExiting" ? BG_EXIT_DURATION : BG_FADE_DURATION}ms cubic-bezier(0.16, 1, 0.3, 1)`,
           }}
           onClick={handleClose}
         />
