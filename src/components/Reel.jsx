@@ -37,6 +37,10 @@ export function Reel() {
     ;[mobileVideoRef.current, desktopVideoRef.current].forEach((el) => {
       if (el) {
         el.muted = newMuted
+        // En mobile, al desmutear el navegador puede pausar el video - forzar play()
+        if (!newMuted) {
+          el.play().catch(() => {})
+        }
       }
     })
 
@@ -257,12 +261,12 @@ export function Reel() {
             </div>
           )}
 
-          {/* Botón mute/unmute - solo si hay video con sonido */}
+          {/* Botón mute/unmute - izquierda para no solaparse con ScrollToTop */}
           {(mobileInfo.url || desktopInfo.url) && (
             <button
               type="button"
               onClick={toggleMute}
-              className="absolute bottom-4 right-4 p-2 rounded-full bg-black/50 hover:bg-black/70 text-white transition-colors z-10"
+              className="absolute bottom-4 left-4 p-2 rounded-full bg-black/50 hover:bg-black/70 text-white transition-colors z-10"
               aria-label={isMuted ? "Activar sonido" : "Desactivar sonido"}
             >
               {isMuted ? (
