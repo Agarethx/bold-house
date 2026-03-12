@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation'
 import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
+import { ScrollToTop } from '../components/ScrollToTop'
 
 export function ConditionalLayout({ children }) {
   const pathname = usePathname()
@@ -13,6 +14,7 @@ export function ConditionalLayout({ children }) {
       {!isStudio && <Header />}
       {children}
       {!isStudio && <Footer />}
+      {!isStudio && <ScrollToTop />}
     </>
   )
 }
