@@ -18,7 +18,18 @@ export const metadata = {
   title: 'Bold House - Agencia Creativa y Marketing Digital',
   description: 'Agencia creativa especializada en marketing digital, producción audiovisual, branding y estrategias 360. Be Bold, Be Leaders.',
   icons: {
-    icon: '/favicon.ico',
+    icon: '/favicon.png',
+  },
+  openGraph: {
+    title: 'Bold House - Agencia Creativa y Marketing Digital',
+    description: 'Agencia creativa especializada en marketing digital, producción audiovisual, branding y estrategias 360. Be Bold, Be Leaders.',
+    images: ['/compartir.png'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Bold House - Agencia Creativa y Marketing Digital',
+    description: 'Agencia creativa especializada en marketing digital, producción audiovisual, branding y estrategias 360. Be Bold, Be Leaders.',
+    images: ['/compartir.png'],
   },
 };
 
