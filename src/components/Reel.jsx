@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { getReelVideo } from "@/lib/sanity"
 import { urlFor } from "../../sanity/lib/image"
@@ -22,6 +22,8 @@ function getVimeoId(url) {
 export function Reel() {
   const [videos, setVideos] = useState({ mobile: null, desktop: null })
   const [isLoading, setIsLoading] = useState(true)
+  const mobileVideoRef = useRef(null)
+  const desktopVideoRef = useRef(null)
 
   useEffect(() => {
     async function fetchVideo() {
@@ -69,12 +71,12 @@ export function Reel() {
         break
       case 'youtube': {
         const videoId = getYouTubeId(video.videoUrl)
-        url = videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}` : null
+        url = videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&playsinline=1` : null
         break
       }
       case 'vimeo': {
         const videoId = getVimeoId(video.videoUrl)
-        url = videoId ? `https://player.vimeo.com/video/${videoId}?autoplay=1&loop=1&muted=1` : null
+        url = videoId ? `https://player.vimeo.com/video/${videoId}?autoplay=1&loop=1&muted=1&background=1` : null
         break
       }
       case 'url':
@@ -131,18 +133,21 @@ export function Reel() {
               <iframe
                 src={mobileInfo.url}
                 className="w-full h-full object-cover"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
                 allowFullScreen
                 title="Reel - Mobile"
               />
             ) : mobileInfo.url && (mobileVideo?.videoType === 'file' || mobileVideo?.videoType === 'url') ? (
               <video
+                ref={mobileVideoRef}
                 src={mobileInfo.url}
                 className="w-full h-full object-cover"
                 autoPlay
                 loop
                 muted
                 playsInline
+                preload="auto"
+                onCanPlay={(e) => e.target.play().catch(() => {})}
               >
                 Your browser does not support the video tag.
               </video>
@@ -161,18 +166,21 @@ export function Reel() {
               <iframe
                 src={desktopInfo.url}
                 className="w-full h-full object-cover"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
                 allowFullScreen
                 title="Reel - Desktop"
               />
             ) : desktopInfo.url && (desktopVideo?.videoType === 'file' || desktopVideo?.videoType === 'url') ? (
               <video
+                ref={desktopVideoRef}
                 src={desktopInfo.url}
                 className="w-full h-full object-cover"
                 autoPlay
                 loop
                 muted
                 playsInline
+                preload="auto"
+                onCanPlay={(e) => e.target.play().catch(() => {})}
               >
                 Your browser does not support the video tag.
               </video>
