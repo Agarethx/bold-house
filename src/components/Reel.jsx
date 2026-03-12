@@ -1,7 +1,8 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
+import { Volume2, VolumeX } from "lucide-react"
 import { getReelVideo } from "@/lib/sanity"
 import { urlFor } from "../../sanity/lib/image"
 
@@ -22,6 +23,30 @@ function getVimeoId(url) {
 export function Reel() {
   const [videos, setVideos] = useState({ mobile: null, desktop: null })
   const [isLoading, setIsLoading] = useState(true)
+  const [isMuted, setIsMuted] = useState(true)
+  const mobileVideoRef = useRef(null)
+  const desktopVideoRef = useRef(null)
+  const mobileYtPlayerRef = useRef(null)
+  const desktopYtPlayerRef = useRef(null)
+
+  const toggleMute = () => {
+    const newMuted = !isMuted
+    setIsMuted(newMuted)
+
+    // Native video (file/url)
+    ;[mobileVideoRef.current, desktopVideoRef.current].forEach((el) => {
+      if (el) {
+        el.muted = newMuted
+      }
+    })
+
+    // YouTube embeds
+    ;[mobileYtPlayerRef.current, desktopYtPlayerRef.current].forEach((player) => {
+      if (player?.mute) {
+        newMuted ? player.mute() : player.unMute()
+      }
+    })
+  }
 
   useEffect(() => {
     async function fetchVideo() {
@@ -69,7 +94,7 @@ export function Reel() {
         break
       case 'youtube': {
         const videoId = getYouTubeId(video.videoUrl)
-        url = videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}` : null
+        url = videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&enablejsapi=1` : null
         break
       }
       case 'vimeo': {
@@ -91,6 +116,35 @@ export function Reel() {
   const desktopVideo = videos.desktop || videos.mobile
   const mobileInfo = getVideoInfo(mobileVideo)
   const desktopInfo = getVideoInfo(desktopVideo)
+
+  // Load YouTube API and create players for embeds
+  useEffect(() => {
+    if (isLoading || (!mobileInfo.isEmbed && !desktopInfo.isEmbed)) return
+
+    const loadYtApi = () => {
+      if (typeof window !== "undefined" && window.YT?.Player) return Promise.resolve()
+      return new Promise((resolve) => {
+        if (window.YT?.Player) {
+          resolve()
+          return
+        }
+        const tag = document.createElement("script")
+        tag.src = "https://www.youtube.com/iframe_api"
+        const firstScript = document.getElementsByTagName("script")[0]
+        firstScript?.parentNode?.insertBefore(tag, firstScript)
+        window.onYouTubeIframeAPIReady = () => resolve()
+      })
+    }
+
+    loadYtApi().then(() => {
+      if (mobileInfo.isEmbed && mobileVideo?.videoType === "youtube" && document.getElementById("reel-mobile-yt")) {
+        mobileYtPlayerRef.current = new window.YT.Player("reel-mobile-yt", { events: {} })
+      }
+      if (desktopInfo.isEmbed && desktopVideo?.videoType === "youtube" && document.getElementById("reel-desktop-yt")) {
+        desktopYtPlayerRef.current = new window.YT.Player("reel-desktop-yt", { events: {} })
+      }
+    })
+  }, [isLoading, mobileInfo.isEmbed, desktopInfo.isEmbed, mobileVideo?.videoType, desktopVideo?.videoType])
 
   if (isLoading) {
     return (
@@ -129,6 +183,7 @@ export function Reel() {
           <div className="relative w-full h-full block lg:hidden">
             {mobileInfo.url && mobileInfo.isEmbed ? (
               <iframe
+                id={mobileVideo?.videoType === "youtube" ? "reel-mobile-yt" : undefined}
                 src={mobileInfo.url}
                 className="w-full h-full object-cover"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -137,6 +192,7 @@ export function Reel() {
               />
             ) : mobileInfo.url && (mobileVideo?.videoType === 'file' || mobileVideo?.videoType === 'url') ? (
               <video
+                ref={mobileVideoRef}
                 src={mobileInfo.url}
                 className="w-full h-full object-cover"
                 autoPlay
@@ -159,6 +215,7 @@ export function Reel() {
           <div className="relative w-full h-full hidden lg:block">
             {desktopInfo.url && desktopInfo.isEmbed ? (
               <iframe
+                id={desktopVideo?.videoType === "youtube" ? "reel-desktop-yt" : undefined}
                 src={desktopInfo.url}
                 className="w-full h-full object-cover"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -167,6 +224,7 @@ export function Reel() {
               />
             ) : desktopInfo.url && (desktopVideo?.videoType === 'file' || desktopVideo?.videoType === 'url') ? (
               <video
+                ref={desktopVideoRef}
                 src={desktopInfo.url}
                 className="w-full h-full object-cover"
                 autoPlay
@@ -197,6 +255,22 @@ export function Reel() {
                 {overlayText}
               </span>
             </div>
+          )}
+
+          {/* Botón mute/unmute - solo si hay video con sonido */}
+          {(mobileInfo.url || desktopInfo.url) && (
+            <button
+              type="button"
+              onClick={toggleMute}
+              className="absolute bottom-4 right-4 p-2 rounded-full bg-black/50 hover:bg-black/70 text-white transition-colors z-10"
+              aria-label={isMuted ? "Activar sonido" : "Desactivar sonido"}
+            >
+              {isMuted ? (
+                <VolumeX className="w-6 h-6" />
+              ) : (
+                <Volume2 className="w-6 h-6" />
+              )}
+            </button>
           )}
         </div>
 

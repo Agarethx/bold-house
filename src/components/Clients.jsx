@@ -18,14 +18,15 @@ export async function Clients() {
           </p>
         </div>
 
-        {/* Logo Grid */}
+        {/* Logo Grid - 9 en mobile (3x3), 10 en desktop (2x5) */}
         <div className="grid grid-cols-3 md:grid-cols-3 gap-8 md:gap-6 lg:grid-cols-5">
-          {clients.map((client) => {
+          {clients.map((client, index) => {
             const logoUrl = client.logo ? urlFor(client.logo).width(280).height(160).url() : null
+            const isTenth = index === 9
             return (
               <div
                 key={client._id}
-                className="bg-white rounded-[30px] shadow-md hover:shadow-lg transition-shadow p-3 md:p-8 flex items-center justify-center aspect-square border border-black"
+                className={`bg-white rounded-[30px] shadow-md hover:shadow-lg transition-shadow p-3 md:p-8 flex items-center justify-center aspect-square border border-black ${isTenth ? 'hidden md:flex' : ''}`}
               >
                 {logoUrl && (
                   <Image
