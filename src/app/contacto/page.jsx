@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function ContactoPage() {
   return (
-    <main>
+    <main className="container mx-auto">
       <Formulario />
     </main>
   )

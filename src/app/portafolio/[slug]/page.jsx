@@ -71,7 +71,7 @@ export default async function PortfolioDetailPage({ params }) {
   }
 
   return (
-    <article className="bg-white py-9 px-6 md:px-12 lg:px-20 min-h-screen">
+    <article className="bg-white py-9 px-6 md:px-12 lg:px-20 min-h-screen container mx-auto">
       {/* Header */}
       <div className="mb-12">
         <Link

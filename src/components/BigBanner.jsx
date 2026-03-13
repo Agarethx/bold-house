@@ -145,8 +145,8 @@ export function BigBanner() {
                     fill="none"
                   />
                 </defs>
-                <text className="text-[10px] md:text-[10px] uppercase tracking-widest fill-black font-bold">
-                  <textPath href="#bannerCirclePath">
+                <text className="text-[10px] md:text-[10px] uppercase tracking-widest fill-black font-bold mix-blend-difference">
+                  <textPath href="#bannerCirclePath" className="mix-blend-difference">
                     • BE BRAVE • BE BOLD • BE LEADERS
                   </textPath>
                 </text>

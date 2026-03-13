@@ -115,7 +115,7 @@ export default async function BlogPostDetailPage({ params }) {
   const featuredImageUrl = post.image ? urlFor(post.image).width(1200).height(800).url() : null
 
   return (
-    <article className="bg-white py-9 px-6 md:px-12 lg:px-20 min-h-screen">
+    <article className="bg-white py-9 px-6 md:px-12 lg:px-20 min-h-screen container mx-auto">
       {/* Header */}
       <div className="mb-12">
         <Link
@@ -134,8 +134,9 @@ export default async function BlogPostDetailPage({ params }) {
             />
           </svg> Volver al blog
         </Link>
-        <h1 className="text-5xl md:text-6xl lg:text-7xl leading-none mb-4">
-          <span className="font-boldstrom-outline text-[#1a1a1a]">{post.title}</span>
+
+        <h1 className="text-5xl md:text-6xl lg:text-7xl mb-4 font-boldstrom leading-[85%]">
+          <span className="font-boldstrom-outline text-[#1a1a1a] leading-[85%]">{post.title}</span>
         </h1>
         <p className="text-sm text-gray-500 uppercase tracking-wide">
           {formatDate(post.date)} – {post.readTime}

@@ -10,7 +10,7 @@ export default async function ServicesPage({ searchParams }) {
   const { items, totalPages, page: currentPage } = await getServicesPaginated(page, 10)
 
   return (
-    <section className="bg-white py-16 px-6 md:px-12 lg:px-20 min-h-screen">
+    <section className="bg-white py-16 px-6 md:px-12 lg:px-20 min-h-screen container mx-auto">
       {/* Title */}
       <div className="mb-12">
         <h2 className="text-5xl md:text-6xl lg:text-7xl leading-[85%] uppercase">
