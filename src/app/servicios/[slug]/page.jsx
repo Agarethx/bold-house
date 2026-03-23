@@ -1,4 +1,6 @@
 import { getServiceBySlug, getServices } from "@/lib/sanity"
+import { portableTextToPlain } from "@/lib/portableTextPlain"
+import { ServiceHeroTitle } from "@/components/ServiceTitlePortable"
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import { urlFor } from "../../../../sanity/lib/image"
@@ -77,6 +79,7 @@ export default async function ServiceDetailPage({ params }) {
   }
 
   const featuredImageUrl = item.image ? urlFor(item.image).width(1200).height(800).url() : null
+  const titlePlain = portableTextToPlain(item.title)
 
   return (
     <article className="bg-white py-9 px-6 md:px-12 lg:px-20 min-h-screen container mx-auto">
@@ -102,9 +105,7 @@ export default async function ServiceDetailPage({ params }) {
         <h1 className="text-5xl md:text-6xl lg:text-7xl leading-none mb-4">
           <span className="font-boldstrom text-[#FF2E8D]">&gt;</span>
           {' '}
-          <span className="font-boldstrom text-[#1a1a1a]">AGENCIA</span>
-          {' '}
-          <span className="font-boldstrom-outline text-[#1a1a1a]">{item.title}</span>
+          <ServiceHeroTitle value={item.title} />
         </h1>
       </div>
 
@@ -113,7 +114,7 @@ export default async function ServiceDetailPage({ params }) {
         <div className="relative w-full aspect-video mb-12 rounded-2xl overflow-hidden">
           <Image
             src={featuredImageUrl}
-            alt={`AGENCIA ${item.title}`}
+            alt={titlePlain || 'Servicio'}
             fill
             className="object-cover"
             priority
@@ -156,7 +157,7 @@ export default async function ServiceDetailPage({ params }) {
                 <div key={index} className="relative aspect-[4/3] rounded-2xl overflow-hidden">
                   <Image
                     src={imageUrl}
-                    alt={`AGENCIA ${item.title} - Imagen ${index + 1}`}
+                    alt={`${titlePlain || 'Servicio'} - Imagen ${index + 1}`}
                     fill
                     className="object-cover"
                   />

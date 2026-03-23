@@ -10,6 +10,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { urlFor } from "../../sanity/lib/image"
+import { portableTextToPlain } from "@/lib/portableTextPlain"
+import { ServiceListTitle } from "@/components/ServiceTitlePortable"
 
 export function RelatedServicesCarousel({ services = [], currentSlug }) {
   const filteredServices = currentSlug
@@ -39,6 +41,7 @@ export function RelatedServicesCarousel({ services = [], currentSlug }) {
           <CarouselContent className="-ml-4 md:-ml-6">
             {filteredServices.map((service) => {
               const imageUrl = service.image ? urlFor(service.image).width(800).height(1000).url() : null
+              const titlePlain = portableTextToPlain(service.title)
               return (
                 <CarouselItem
                   key={service._id}
@@ -51,7 +54,7 @@ export function RelatedServicesCarousel({ services = [], currentSlug }) {
                           <div className="relative aspect-[4/5] rounded-xl overflow-hidden">
                             <Image
                               src={imageUrl}
-                              alt={`AGENCIA ${service.title}`}
+                              alt={titlePlain || 'Servicio'}
                               fill
                               className="object-cover transition-transform duration-500 group-hover:scale-105"
                             />
@@ -60,12 +63,10 @@ export function RelatedServicesCarousel({ services = [], currentSlug }) {
                       )}
 
                       <div className="text-black">
-                        <h3 className="text-xl md:text-2xl font-bold tracking-tight">
-                          &gt; AGENCIA
+                        <h3 className="text-xl md:text-2xl tracking-tight">
+                          <span className="font-bold">{">"}</span>{' '}
+                          <ServiceListTitle value={service.title} />
                         </h3>
-                        <p className="text-lg md:text-xl font-light tracking-wide">
-                          {service.title}
-                        </p>
                       </div>
                     </div>
                   </Link>

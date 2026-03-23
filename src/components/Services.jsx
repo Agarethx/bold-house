@@ -12,6 +12,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { getServices } from "@/lib/sanity"
+import { portableTextToPlain } from "@/lib/portableTextPlain"
+import { ServiceCarouselTitle } from "@/components/ServiceTitlePortable"
 import { urlFor } from "../../sanity/lib/image"
 
 export function Services() {
@@ -100,6 +102,7 @@ export function Services() {
                   ? `${baseImageUrl}&updated=${service._updatedAt}`
                   : baseImageUrl
                 const imageAssetId = service.image?.asset?._id || service.image?.asset?._ref || service._id
+                const titlePlain = portableTextToPlain(service.title)
 
                 return (
                   <CarouselItem key={service._id || index} className="!pl-0 basis-full md:basis-1/2 lg:basis-1/3 mr-4 lg:mr-[100px]">
@@ -112,7 +115,7 @@ export function Services() {
                         <Image
                           key={imageAssetId}
                           src={imageUrl}
-                          alt={service.title || "Service"}
+                          alt={titlePlain || "Service"}
                           fill
                           sizes="(max-width: 768px) 100vw, 50vw"
                           className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -121,7 +124,12 @@ export function Services() {
 
                       {/* Service Title */}
                       <h3 className="text-5xl md:text-3xl  text-white mb-4 font-boldstrom text-left w-full">
-                        <span className="text-white">{">"}</span> {service.title || "SERVICE"}
+                        <span className="text-white">{">"}</span>{' '}
+                        {service.title ? (
+                          <ServiceCarouselTitle value={service.title} />
+                        ) : (
+                          'SERVICE'
+                        )}
                       </h3>
 
                       {/* Service Excerpt */}

@@ -1,9 +1,11 @@
 import { getServicesPaginated } from "@/lib/sanity"
-
-export const revalidate = 60
+import { portableTextToPlain } from "@/lib/portableTextPlain"
+import { ServiceListTitle } from "@/components/ServiceTitlePortable"
 import Link from "next/link"
 import Image from "next/image"
 import { urlFor } from "../../../sanity/lib/image"
+
+export const revalidate = 60
 
 export default async function ServicesPage({ searchParams }) {
   const page = parseInt(searchParams?.page || '1', 10)
@@ -27,6 +29,7 @@ export default async function ServicesPage({ searchParams }) {
         {items.map((item) => {
           const imageUrl = item.image ? urlFor(item.image).width(1200).height(900).url() : null
           const slug = item.slug?.current || ''
+          const titlePlain = portableTextToPlain(item.title)
           return (
             <Link key={item._id} href={`/servicios/${slug}`}>
               <article className="cursor-pointer group mb-12">
@@ -34,7 +37,7 @@ export default async function ServicesPage({ searchParams }) {
                   <div className="relative aspect-video w-full overflow-hidden rounded-2xl mb-3">
                     <Image
                       src={imageUrl}
-                      alt={`AGENCIA ${item.title}`}
+                      alt={titlePlain || 'Servicio'}
                       fill
                       className="object-cover transition-transform duration-300 group-hover:scale-105"
                     />
@@ -43,12 +46,10 @@ export default async function ServicesPage({ searchParams }) {
 
                   {/* Text Content */}
                   <div className="text-black">
-                    <h3 className="text-xl md:text-2xl font-bold tracking-tight">
-                      {">"} AGENCIA
+                    <h3 className="text-xl md:text-2xl tracking-tight">
+                      <span className="font-bold">{">"}</span>{' '}
+                      <ServiceListTitle value={item.title} />
                     </h3>
-                    <p className="text-lg md:text-xl font-light tracking-wide">
-                      {item.title}
-                    </p>
                   </div>
               </article>
             </Link>

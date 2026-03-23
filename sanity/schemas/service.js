@@ -1,3 +1,16 @@
+function titleToPlain(title) {
+  if (title == null) return ''
+  if (typeof title === 'string') return title
+  if (!Array.isArray(title)) return ''
+  return title
+    .filter((block) => block._type === 'block')
+    .map((block) =>
+      (block.children || []).map((child) => child.text || '').join('')
+    )
+    .join(' ')
+    .trim()
+}
+
 export default {
   name: 'service',
   title: 'Service',
@@ -6,8 +19,23 @@ export default {
     {
       name: 'title',
       title: 'Title',
-      type: 'string',
-      description: 'e.g., "CREATIVA" (will be displayed as "AGENCIA CREATIVA")',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+          styles: [{ title: 'Normal', value: 'normal' }],
+          lists: [],
+          marks: {
+            decorators: [
+              { title: 'Bold', value: 'strong' },
+              { title: 'Italic', value: 'em' },
+            ],
+            annotations: [],
+          },
+        },
+      ],
+      description:
+        'Título mostrado en web con ">" fijo delante. Usá negrita para partes como "AGENCIA".',
       validation: (Rule) => Rule.required(),
     },
     {
@@ -15,7 +43,7 @@ export default {
       title: 'Slug',
       type: 'slug',
       options: {
-        source: 'title',
+        source: (doc) => titleToPlain(doc?.title),
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),
@@ -101,8 +129,9 @@ export default {
       media: 'image',
     },
     prepare({ title, media }) {
+      const plain = titleToPlain(title)
       return {
-        title: `AGENCIA ${title}`,
+        title: plain || 'Sin título',
         media,
       }
     },
