@@ -8,7 +8,7 @@ const listCardComponents = {
   },
   marks: {
     strong: ({ children }) => (
-      <strong className="font-bold tracking-tight not-italic">{children}</strong>
+      <strong className="font-boldstrom text-[#1a1a1a]">{children}</strong>
     ),
     em: ({ children }) => <em className="italic">{children}</em>,
   },
@@ -53,7 +53,7 @@ function renderTitle(value, components, { stringClassName = '' } = {}) {
 /** Tarjetas de listado / relacionados: solo `item.title` del CMS; el `>` va en el padre. */
 export function ServiceListTitle({ value }) {
   return renderTitle(value, listCardComponents, {
-    stringClassName: 'text-lg md:text-xl font-light tracking-wide',
+    stringClassName: 'text-lg md:text-xl font-boldstrom',
   })
 }
 
