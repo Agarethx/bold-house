@@ -78,7 +78,7 @@ export default async function ServiceDetailPage({ params }) {
     notFound()
   }
 
-  const featuredImageUrl = item.image ? urlFor(item.image).width(1200).height(800).url() : null
+  const featuredImageUrl = item.image ? urlFor(item.image).width(1200).height(675).fit("max").url() : null
   const titlePlain = portableTextToPlain(item.title)
 
   return (
@@ -116,7 +116,8 @@ export default async function ServiceDetailPage({ params }) {
             src={featuredImageUrl}
             alt={titlePlain || 'Servicio'}
             fill
-            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover transition-transform duration-300"
             priority
           />
         </div>

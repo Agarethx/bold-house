@@ -27,7 +27,7 @@ export default async function ServicesPage({ searchParams }) {
       {/* Services Items */}
       <div className="space-y-12 mb-12 lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:space-y-0">
         {items.map((item) => {
-          const imageUrl = item.image ? urlFor(item.image).width(1200).height(900).url() : null
+          const imageUrl = item.image ? urlFor(item.image).width(1200).height(675).fit("max").url() : null
           const slug = item.slug?.current || ''
           const titlePlain = portableTextToPlain(item.title)
           return (

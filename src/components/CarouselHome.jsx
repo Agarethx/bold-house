@@ -19,7 +19,7 @@ export function CarouselHome({ portfolioItems = [] }) {
           <h2 className="text-5xl md:text-5xl lg:text-7xl font-boldstrom leading-[85%] text-[#1a1a1a]">
             La valentía nos define,
             <br />
-            la estrategia nos guia —
+            la estrategia nos guía —
           </h2>
           <p className="text-5xl md:text-5xl lg:text-7xl font-boldstrom leading-[85%] mt-2 text-[#FF2E8D]">
             y la audacia
